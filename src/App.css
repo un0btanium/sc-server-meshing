@@ -1,0 +1,237 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+body {
+  font-family: 'Work Sans', monospace;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Cabin', monospace;
+}
+
+h3 {
+  margin-top: 45px;
+}
+
+img {
+  padding: 5px;
+  max-width: 100%;
+}
+
+.pointer {
+  cursor: pointer;
+}
+.pointer:hover {
+  opacity: 0.8;
+}
+
+
+
+
+
+.link-overlay-container {
+  position: sticky;
+  bottom: -70px;
+}
+
+.floatingchat-container-wrap {
+	bottom: 48px !important;
+	left: 0px !important;
+	max-height: 46px !important;
+	max-width: 156px !important;
+}
+
+.floatingchat-container-wrap .floatingchat-container {
+	opacity: 0.9;
+	transform: scale(0.9);
+}
+
+.floatingchat-container:hover {
+	opacity: 1;
+}
+
+
+.floatingchat-container-wrap-mobi {
+	bottom: 48px !important;
+	left: -24px !important;
+}
+
+.floatingchat-container-wrap-mobi .floatingchat-container-mobi {
+	transform: scale(0.7);
+}
+
+
+.floating-chat-kofi-popup-iframe {
+	bottom: 100px !important;
+}
+
+.floating-chat-kofi-popup-iframe-mobi {
+	bottom: 92px !important;
+}
+
+
+.spectrum-logo-container {
+	z-index: 9999;
+	position: absolute;
+	bottom: 0px;
+	opacity: 0.8;
+}
+@media only screen and (max-device-width: 1000px) {
+	.spectrum-logo-container {
+		bottom: 92px;
+		left: 4px;
+		width: 32px;
+		height: 32px;
+	}
+}
+@media only screen and (min-device-width: 1000px) {
+	.spectrum-logo-container {
+		bottom: 100px;
+		left: 12px;
+		width: 46px;
+		height: 46px;
+	}
+}
+
+.spectrum-logo {
+	position: relative;
+	border-radius: 100%;
+	cursor: pointer;
+}
+@media only screen and (max-device-width: 1000px) {
+	.spectrum-logo {
+		width: 32px;
+		height: 32px;
+	}
+}
+@media only screen and (min-device-width: 1000px) {
+	.spectrum-logo {
+		width: 46px;
+		height: 46px;
+	}
+}
+
+.spectrum-logo-container:hover {
+	opacity: 1.0;
+}
+
+
+
+.shinytracker-logo-container {
+	z-index: 9999;
+	position: absolute;
+	bottom: 0px;
+	opacity: 0.6;
+}
+@media only screen and (max-device-width: 1000px) {
+	.shinytracker-logo-container {
+		bottom: 92px;
+		left: 48px;
+		width: 32px;
+		height: 32px;
+	}
+}
+@media only screen and (min-device-width: 1000px) {
+	.shinytracker-logo-container {
+		bottom: 100px;
+		left: 72px;
+		width: 46px;
+		height: 46px;
+	}
+}
+
+.shinytracker-logo {
+	position: relative;
+	border-radius: 100%;
+	cursor: pointer;
+}
+@media only screen and (max-device-width: 1000px) {
+	.shinytracker-logo {
+		width: 32px;
+		height: 32px;
+	}
+}
+@media only screen and (min-device-width: 1000px) {
+	.shinytracker-logo {
+		width: 46px;
+		height: 46px;
+	}
+}
+
+.shinytracker-logo-container:hover {
+	opacity: 1.0;
+}
+
+
+
+
+.follow-me-container {
+	z-index: 9999;
+	position: absolute;
+	bottom: 0px;
+	opacity: 0.8;
+}
+@media only screen and (max-device-width: 1000px) {
+	.follow-me-container {
+		bottom: 132px;
+		left: 4px;
+		height: 32px;
+	}
+}
+@media only screen and (min-device-width: 1000px) {
+	.follow-me-container {
+		bottom: 158px;
+		left: 12px;
+		height: 42px;
+	}
+}
+
+.follow-me {
+	position: relative;
+	cursor: pointer;
+}
+@media only screen and (max-device-width: 1000px) {
+	.follow-me {
+		height: 32px;
+	}
+}
+
+.follow-me-container:hover {
+	opacity: 1.0;
+}
