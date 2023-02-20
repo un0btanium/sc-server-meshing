@@ -11,10 +11,42 @@ export default class Tech extends Component {
 		let markdown = "";
 
 		markdown = markdown + "# " + tech.name + "\n";
+		markdown = markdown + this.getMarkdownWithSlideInfo(tech, this.props.slide);
+		if (!this.props.slide && markdown === ("# " + tech.name + "\n")) {
+			markdown = markdown + "Slide '" + this.props.slide.subtitle + "' not available!\n";
+			this.getMarkdownWithSlideInfo(markdown, tech, undefined);
+		}
+
+		markdown = markdown + "### Sources\n";
+		if (!tech.sources) {
+			markdown = markdown + "No sources available!";
+		} else {
+			tech.sources.forEach((sourceIdentifier => {
+				let source = this.props.sources[sourceIdentifier];
+				if (!source) {
+					console.error("Unknown source: " + sourceIdentifier);
+					return;
+				}
+	
+				markdown = markdown + /*sourceIdentifier + " - [" */ "[" + source.description + "](" + source.url + ")  \n";
+			}));
+		}
+
+		return(
+			<>
+				<div>
+					<ReactMarkdown children={markdown}/>
+				</div>
+			</>
+		);
+	}
+
+	getMarkdownWithSlideInfo(tech, specificSlide) {
+		let markdown = "";
 
 		tech.slides.forEach(slide => {
 
-			if (this.props.slide && this.props.slide.subtitle !== slide.subtitle) {
+			if (specificSlide && specificSlide.subtitle !== slide.subtitle) {
 				return;
 			}
 
@@ -37,22 +69,6 @@ export default class Tech extends Component {
 			}));
 		});
 
-		markdown = markdown + "### Sources\n";
-		tech.sources.forEach((sourceIdentifier => {
-			let source = this.props.sources[sourceIdentifier];
-			if (!source) {
-				console.error("Unknown source: " + source);
-				return;
-			}
-
-			markdown = markdown + /*sourceIdentifier + " - [" */ "[" + source.description + "](" + source.url + ")  \n";
-		}));
-
-
-		return(
-			<>
-				<ReactMarkdown children={markdown} style={{fontFamily: "WorkSans"}}/>
-			</>
-		);
+		return markdown;
 	}
 }

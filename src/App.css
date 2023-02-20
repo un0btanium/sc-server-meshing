@@ -45,6 +45,10 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Cabin', monospace;
 }
 
+h1 {
+  margin-top: 30px;
+}
+
 h3 {
   margin-top: 45px;
 }
@@ -74,6 +78,23 @@ img {
   opacity: 0.8;
 }
 
+
+
+.nav-button {
+	background-color: #1d334a;
+	padding: 5px;
+	cursor: pointer;
+}
+.nav-button:hover {
+	background-color: #263f5a;
+}
+.nav-button.right {
+	text-align: right;
+}
+.nav-button span {
+	overflow-x: hidden;
+	white-space: nowrap;
+}
 
 
 
@@ -248,3 +269,5 @@ img {
 .follow-me-container:hover {
 	opacity: 1.0;
 }
+
+

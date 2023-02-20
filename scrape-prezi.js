@@ -219,6 +219,11 @@ function extractSources(texts) {
 				sources.splice(multipleSourcesIndex, 1);
 				sources.push("s201", "s202", "s203", "s204", "s205", "s206", "s207", "s208", "s209");
 			}
+			multipleSourcesIndex = sources.indexOf("w7-w9");
+			if (multipleSourcesIndex !== -1) {
+				sources.splice(multipleSourcesIndex, 1);
+				sources.push("w27", "w8", "w9");
+			}
 		}
 	});
 
