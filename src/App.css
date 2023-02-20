@@ -54,6 +54,19 @@ img {
   max-width: 100%;
 }
 
+@media only screen and (max-device-width: 1000px) {
+	p, li {
+		font-size: small;
+	}
+}
+@media only screen and (min-device-width: 1000px) {
+	p, li {
+		font-size: medium;
+	}
+}
+
+
+
 .pointer {
   cursor: pointer;
 }
