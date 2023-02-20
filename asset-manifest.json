@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/sc-server-meshing/static/css/main.f951eb81.css",
-    "main.js": "/sc-server-meshing/static/js/main.d99859b2.js",
+    "main.css": "/sc-server-meshing/static/css/main.f919e19f.css",
+    "main.js": "/sc-server-meshing/static/js/main.7ceeb11a.js",
     "static/js/787.0c896519.chunk.js": "/sc-server-meshing/static/js/787.0c896519.chunk.js",
     "index.html": "/sc-server-meshing/index.html",
-    "main.f951eb81.css.map": "/sc-server-meshing/static/css/main.f951eb81.css.map",
-    "main.d99859b2.js.map": "/sc-server-meshing/static/js/main.d99859b2.js.map",
+    "main.f919e19f.css.map": "/sc-server-meshing/static/css/main.f919e19f.css.map",
+    "main.7ceeb11a.js.map": "/sc-server-meshing/static/js/main.7ceeb11a.js.map",
     "787.0c896519.chunk.js.map": "/sc-server-meshing/static/js/787.0c896519.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f951eb81.css",
-    "static/js/main.d99859b2.js"
+    "static/css/main.f919e19f.css",
+    "static/js/main.7ceeb11a.js"
   ]
 }
