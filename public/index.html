@@ -50,7 +50,7 @@
 		<script>
 			(function() {
 				var arrFavicon = ['favicon-blue', 'favicon-orange', 'favicon-purple'];
-				var randomFavicon = './favicon/' + arrFavicon[Math.floor(Math.random()*arrFavicon.length)]
+				var randomFavicon = '%PUBLIC_URL%/favicon/' + arrFavicon[Math.floor(Math.random()*arrFavicon.length)]
 
 				var faviconNormal = document.createElement('link');
 				faviconNormal.type = 'image/x-icon';

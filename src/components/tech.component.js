@@ -1,13 +1,33 @@
 import React, {Component} from 'react';
-
+import { Row, Col } from 'react-bootstrap';
 import ReactMarkdown from 'react-markdown'
+
+import Overview from './overview.component';
 
 let regexSubSubtitle = new RegExp(/^\w+:/);
 
 export default class Tech extends Component {
 
 	render () {
+		let nav = (
+			<Row style={{ margin: '0px 20px 20px 20px'}}>
+				<Col className="nav-button left" onClick={() => this.props.openTech(this.props.previousTech)}>&lt;= {this.props.previousTech}</Col>
+				<Col className="nav-button right" onClick={() => this.props.openTech(this.props.nextTech)}>{this.props.nextTech} =&gt;</Col>
+			</Row>
+		);
+
 		let tech = this.props.tech;
+		if (!tech) {
+			return <h1>Tech is not available!</h1>
+		}
+		if (tech.name === "Overview") {
+			return <>
+				{nav}
+				<Overview techNames={this.props.techNames} openTech={this.props.openTech}></Overview>
+				{nav}
+			</>
+		}
+
 		let markdown = "";
 
 		markdown = markdown + "# " + tech.name + "\n";
@@ -35,7 +55,11 @@ export default class Tech extends Component {
 		return(
 			<>
 				<div>
+					{nav}
+					<hr/>
 					<ReactMarkdown children={markdown}/>
+					<hr/>
+					{nav}
 				</div>
 			</>
 		);
