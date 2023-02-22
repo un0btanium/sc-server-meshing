@@ -39,6 +39,7 @@
 
 body {
   font-family: 'Work Sans', monospace;
+  color: #cecece;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -56,6 +57,10 @@ h3 {
 img {
   padding: 5px;
   max-width: 100%;
+}
+
+.topic-number {
+	font-family: monospace;
 }
 
 @media only screen and (max-device-width: 1000px) {
@@ -87,6 +92,10 @@ img {
 }
 .nav-button:hover {
 	background-color: #263f5a;
+}
+.nav-button.middle {
+	max-width:5%;
+	min-width: 70px;
 }
 .nav-button.right {
 	text-align: right;

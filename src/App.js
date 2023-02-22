@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'; // TODO rework nagivation
 
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -22,6 +22,7 @@ class App extends Component {
 		const searchParams = new URLSearchParams(window.location.search)
 		let techName = searchParams.get('tech')  ? searchParams.get('tech') : undefined;
 		let slideName = searchParams.get('slide') ? searchParams.get('slide') : undefined;
+		// console.log(techName, slideName);
 
 		let techOrder= [];
 		let techOrderLowerCase= [];

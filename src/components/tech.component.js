@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import { Row, Col } from 'react-bootstrap';
+
 import ReactMarkdown from 'react-markdown'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHouse, faCopy } from '@fortawesome/free-solid-svg-icons'
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import Overview from './overview.component';
 
@@ -12,6 +16,7 @@ export default class Tech extends Component {
 		let nav = (
 			<Row style={{ margin: '0px 20px 20px 20px'}}>
 				<Col className="nav-button left" onClick={() => this.props.openTech(this.props.previousTech)}>&lt;= {this.props.previousTech}</Col>
+				<Col className="nav-button middle d-flex align-items-center justify-content-center" onClick={() => this.props.openTech("Overview")}><FontAwesomeIcon icon={faHouse} /></Col>
 				<Col className="nav-button right" onClick={() => this.props.openTech(this.props.nextTech)}>{this.props.nextTech} =&gt;</Col>
 			</Row>
 		);
@@ -23,7 +28,7 @@ export default class Tech extends Component {
 		if (tech.name === "Overview") {
 			return <>
 				{nav}
-				<Overview techNames={this.props.techNames} openTech={this.props.openTech} tech={this.props.tech}></Overview>
+				<Overview techNames={this.props.techNames} openTech={this.props.openTech} tech={this.props.tech} sources={this.props.sources}></Overview>
 				{nav}
 			</>
 		}
@@ -31,10 +36,12 @@ export default class Tech extends Component {
 		let markdown = "";
 
 		markdown = markdown + "# " + tech.name + "\n";
-		markdown = markdown + this.getMarkdownWithSlideInfo(tech, this.props.slide);
-		if (!this.props.slide && markdown === ("# " + tech.name + "\n")) {
+		let slideInfo = this.getMarkdownWithSlideInfo(tech, this.props.slide);
+		if (!this.props.slide && slideInfo === "") {
 			markdown = markdown + "Slide '" + this.props.slide.subtitle + "' not available!\n";
-			this.getMarkdownWithSlideInfo(markdown, tech, undefined);
+			markdown = markdown + this.getMarkdownWithSlideInfo(markdown, tech, undefined);
+		} else {
+			markdown += slideInfo;
 		}
 
 		markdown = markdown + "### Sources\n";
@@ -47,11 +54,12 @@ export default class Tech extends Component {
 					console.error("Unknown source: " + sourceIdentifier);
 					return;
 				}
-	
+				
+				let sourceText = "__" + source.category + "__: " + source.description;
 				if (source.url) {
-					markdown = markdown + /*sourceIdentifier + " - [" */ "[" + source.description + "](" + source.url + ")  \n";
+					markdown = markdown + /*sourceIdentifier + " - [" */ "[" + sourceText + "](" + source.url + ")  \n";
 				} else {
-					markdown = markdown + /*sourceIdentifier + " - [" */ source.description + "  \n";
+					markdown = markdown + /*sourceIdentifier + " - [" */ sourceText + "  \n";
 				}
 			}));
 		}
@@ -62,6 +70,11 @@ export default class Tech extends Component {
 					{nav}
 					<hr/>
 					<ReactMarkdown children={markdown}/>
+
+					<hr/>
+					<CopyToClipboard className="pointer" text={"http://localhost:3000/sc-server-meshing/?tech=" + encodeURIComponent(tech.name)}>
+						<span><FontAwesomeIcon icon={faCopy} /> Copy & share link to this tech!</span>
+					</CopyToClipboard>
 					<hr/>
 					{nav}
 				</div>
