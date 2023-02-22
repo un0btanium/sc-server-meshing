@@ -1,7 +1,164 @@
 [
     {
         "uuid": "e17143ca39f9723fc4640df4e014c475676fa216",
-        "index": 1
+        "index": 1,
+        "imageURLs": [
+            "https://media.preziusercontent.com/media/f/2/3/0/e/83519cc4efd9ddfa5ab72e696df.png",
+            "https://media.preziusercontent.com/media/9/1/b/6/1/8dfb4144402812aac8b0358a7ff.png",
+            "https://media.preziusercontent.com/media/8/e/7/3/b/280705b4a6c854a7e5dbd2fb5e1.png",
+            "https://media.preziusercontent.com/media/6/d/c/2/5/d4e8090457aa5ab0ab3b8d20718.png",
+            "https://media.preziusercontent.com/media/8/e/7/3/b/280705b4a6c854a7e5dbd2fb5e1.png",
+            "https://media.preziusercontent.com/media/6/d/c/2/5/d4e8090457aa5ab0ab3b8d20718.png",
+            "https://media.preziusercontent.com/media/7/5/0/8/e/4d5a0984e939905e41a3445815d.png",
+            "https://media.preziusercontent.com/media/b/4/e/e/3/06d6e124816b41be7fd4fc876dc.png",
+            "https://media.preziusercontent.com/media/5/4/c/a/7/1e9f21b409aa0bfb15c8d5bc9ec.png",
+            "https://media.preziusercontent.com/media/6/1/6/b/b/25ffe4c4d83b597841db8ea77ed.png",
+            "https://media.preziusercontent.com/media/0/5/4/5/3/5864a8545578e06ed919e929c2a.png",
+            "https://media.preziusercontent.com/media/a/9/4/7/e/5cf6444430ca87f058ac470368b.png",
+            "https://media.preziusercontent.com/media/e/1/7/d/c/93e7b3a43a982d7614b3d787a5d.png",
+            "https://media.preziusercontent.com/media/4/4/c/8/2/853c92940ed8b7a1ce68051ed41.png",
+            "https://media.preziusercontent.com/media/2/5/3/0/0/2fbc4014f7da4c48fc5ca3b5283.png",
+            "https://media.preziusercontent.com/media/9/1/d/c/5/714ca05498cb6ef76cff6c3cac5.png",
+            "https://media.preziusercontent.com/media/c/9/3/c/3/7156940414f90c66429d7819c63.png",
+            "https://media.preziusercontent.com/media/3/e/2/3/7/b799efc4ed5a7c221fdbf6f47ad.png",
+            "https://media.preziusercontent.com/media/7/6/c/6/7/8bd11c24f03a74b05113f98c8d9.png",
+            "https://media.preziusercontent.com/media/3/2/0/0/0/893c87d4b44868354e73ce6dd2c.png",
+            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png",
+            "https://media.preziusercontent.com/media/b/f/c/d/d/8b930ec4032a4ea3a6293ac6b3c.png",
+            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png",
+            "https://media.preziusercontent.com/media/d/0/d/5/a/f709d6b4bd496c1a59dffbc6d0c.png",
+            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png",
+            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png",
+            "https://media.preziusercontent.com/media/3/2/e/3/5/3c5ccd0486b958f8c74089399d5.png",
+            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png",
+            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png",
+            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png",
+            "https://media.preziusercontent.com/media/4/c/8/7/0/23784764c72a301dfc2c686cdcb.png",
+            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png",
+            "https://media.preziusercontent.com/media/f/1/a/c/3/aac81c74345a3d8d8adf5005d67.png",
+            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png",
+            "https://media.preziusercontent.com/media/6/d/7/b/8/cfdae924919a99b33fc55b6dcc8.png",
+            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png",
+            "https://media.preziusercontent.com/media/0/0/3/d/b/11f28bc4fa28f06000794a2bee2.png",
+            "https://media.preziusercontent.com/media/b/1/6/e/f/2ff05f14c488f26d77170231082.png",
+            "https://media.preziusercontent.com/media/8/f/6/7/5/730afe34539bfb1e24b234f6968.png",
+            "https://media.preziusercontent.com/media/2/c/f/f/1/126ad634679965cbe857c3d8303.png",
+            "https://media.preziusercontent.com/media/b/8/1/0/7/1277eb744e3a3876cdaad0f2ecc.png",
+            "https://media.preziusercontent.com/media/6/9/e/d/c/bca111e4ed39c0d0c666064cbe2.png",
+            "https://media.preziusercontent.com/media/6/9/e/d/c/bca111e4ed39c0d0c666064cbe2.png",
+            "https://media.preziusercontent.com/media/6/9/e/d/c/bca111e4ed39c0d0c666064cbe2.png",
+            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png",
+            "https://media.preziusercontent.com/media/2/d/e/d/b/d9dfad34c7196589220ec9d1f69.png",
+            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png",
+            "https://media.preziusercontent.com/media/9/a/e/3/1/18912304fe6a203c04099ac946e.png",
+            "https://media.preziusercontent.com/media/d/0/d/5/a/f709d6b4bd496c1a59dffbc6d0c.png",
+            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png",
+            "https://media.preziusercontent.com/media/d/0/d/5/a/f709d6b4bd496c1a59dffbc6d0c.png",
+            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png",
+            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png",
+            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png",
+            "https://media.preziusercontent.com/media/7/7/d/6/f/e433eef438a9044dfa07030d47f.png",
+            "https://media.preziusercontent.com/media/5/1/f/8/c/9d8fd3b4db6a4d5be7c870982a5.png",
+            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png",
+            "https://media.preziusercontent.com/media/b/4/e/f/3/cec18a34f1ea2f4a49e59a06a22.png",
+            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png",
+            "https://media.preziusercontent.com/media/3/b/0/4/8/699a1da4d689badeb97e338518d.png",
+            "https://media.preziusercontent.com/media/0/b/1/2/d/9d6a411462c885eb4b0b4116fc6.png",
+            "https://media.preziusercontent.com/media/d/9/9/2/f/50d61404b0e8f1f5af81bc00ba1.png",
+            "https://media.preziusercontent.com/media/d/0/d/5/a/f709d6b4bd496c1a59dffbc6d0c.png",
+            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png",
+            "https://media.preziusercontent.com/media/c/b/0/5/d/a2a42b84144b875e82266e0a7ab.png",
+            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png",
+            "https://media.preziusercontent.com/media/2/f/6/8/1/633409c4790a83c7a88fb6e85c4.png",
+            "https://media.preziusercontent.com/media/9/0/c/e/1/fd46e3b41bab86246fb856f2a2f.png",
+            "https://media.preziusercontent.com/media/4/1/1/2/d/bc3101648b0a1082b041561acf1.png",
+            "https://media.preziusercontent.com/media/a/0/2/5/c/778eebf4270b2ba4500deb86cb3.png",
+            "https://media.preziusercontent.com/media/a/f/2/8/d/58322434da2acbe5e13d81f4c39.png",
+            "https://media.preziusercontent.com/media/1/4/a/7/a/7067a4442e9be66cd5896a60842.png",
+            "https://media.preziusercontent.com/media/5/d/e/3/5/c49be014c2d9fb3c52ea7712fcc.png",
+            "https://media.preziusercontent.com/media/2/e/f/e/e/6237e514964b57029df8cdc405c.png",
+            "https://media.preziusercontent.com/media/8/5/a/6/9/0e287494b0aa5b968eb80f4e9e6.png",
+            "https://media.preziusercontent.com/media/6/d/7/3/0/8bbc7834f469f55e6d241255b0c.png",
+            "https://media.preziusercontent.com/media/5/7/a/2/5/87848154507930bfcba305f81cc.png",
+            "https://media.preziusercontent.com/media/b/5/3/5/0/8448e6c4fe0bf6b7895c1639f2a.png",
+            "https://media.preziusercontent.com/media/d/2/e/e/8/c31284540758221e6dda47f4e77.png",
+            "https://media.preziusercontent.com/media/7/4/5/e/a/9c82b854636bb60eeaf08bab44d.png",
+            "https://media.preziusercontent.com/media/6/a/e/a/e/aef21824370b0e9ceccb831fa00.png",
+            "https://media.preziusercontent.com/media/c/5/0/1/e/76929ab4861bad2951b43fa5193.png",
+            "https://media.preziusercontent.com/media/7/9/0/4/e/cea97bc4042af759f1942a50abf.png",
+            "https://media.preziusercontent.com/media/4/2/2/6/4/2deb93745ee84e93c62d007e69e.png",
+            "https://media.preziusercontent.com/media/f/3/a/4/a/7779de94bacbb22fd4d0606b82a.png",
+            "https://media.preziusercontent.com/media/8/0/2/d/0/321fecf414e955b8672a6bab324.png",
+            "https://media.preziusercontent.com/media/7/a/0/9/0/97fee604350b7d297c3a90333a2.png",
+            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png",
+            "https://media.preziusercontent.com/media/c/e/7/2/3/5568e6a4d9c85f63f911ad4d663.png",
+            "https://media.preziusercontent.com/media/1/9/2/a/3/9aa9fb947b18d666e8dc4a62e77.png",
+            "https://media.preziusercontent.com/media/3/a/f/6/e/01cc7b7480fb564af8730bc2ccf.png",
+            "https://media.preziusercontent.com/media/8/0/1/5/5/2dd6a2740558df0742e58fe3a0e.png",
+            "https://media.preziusercontent.com/media/7/6/7/f/4/407fd184bf68c95979d8760c542.png",
+            "https://media.preziusercontent.com/media/b/7/7/3/2/b8fd9554c07b88e51c68a4b856d.png",
+            "https://media.preziusercontent.com/media/3/4/2/2/5/325b61947dc944b5679c1ca686d.png",
+            "https://media.preziusercontent.com/media/2/a/e/0/b/26b944c41dab5b49a6ebaeed575.png",
+            "https://media.preziusercontent.com/media/2/c/d/d/f/b7c36694ca0812ce4fb726f0a37.png",
+            "https://media.preziusercontent.com/media/d/b/0/f/7/fe7400647b4bf145506185755ba.png",
+            "https://media.preziusercontent.com/media/2/0/a/f/f/c3758d240d780335d003528ebe4.png",
+            "https://media.preziusercontent.com/media/0/a/7/4/5/1844ae44ad3a5e5d777bd3ed35c.png",
+            "https://media.preziusercontent.com/media/3/d/2/4/4/d9316104190849bc3a121ec4858.png",
+            "https://media.preziusercontent.com/media/2/2/2/5/9/9ccd3294ba1b4d07f8870db166a.png",
+            "https://media.preziusercontent.com/media/1/d/3/b/9/dda27034bafb97c4ccc5610fbb6.png",
+            "https://media.preziusercontent.com/media/2/8/c/7/7/3d19d26415bbe3bf657881717db.png",
+            "https://media.preziusercontent.com/media/3/2/e/8/a/89a30084fdf90d6672270b8d10f.png",
+            "https://media.preziusercontent.com/media/2/d/6/8/3/73cb02b4b60825eed280137ba26.png",
+            "https://media.preziusercontent.com/media/0/d/b/b/4/20d163f4b4dbb2918ec5bb96c20.png",
+            "https://media.preziusercontent.com/media/0/4/a/a/5/76fd5904564be3a5d21ce9e362c.png",
+            "https://media.preziusercontent.com/media/e/8/d/2/8/2936d2f4e2f97469442b6da0aa9.png",
+            "https://media.preziusercontent.com/media/b/d/0/c/0/3a44d904223851bac9319a5b19b.png",
+            "https://media.preziusercontent.com/media/a/b/b/6/b/938daf04b45b4525d10240315de.png",
+            "https://media.preziusercontent.com/media/8/9/c/4/6/d5fecad489090e86bc22ba17bc0.png",
+            "https://media.preziusercontent.com/media/c/c/4/4/8/44934b84d668602bfa26b463211.png",
+            "https://media.preziusercontent.com/media/9/4/3/2/5/d8be3a248a293952211a8b2401b.png",
+            "https://media.preziusercontent.com/media/f/2/3/0/e/83519cc4efd9ddfa5ab72e696df.png",
+            "https://media.preziusercontent.com/media/f/2/3/0/e/83519cc4efd9ddfa5ab72e696df.png",
+            "https://media.preziusercontent.com/media/f/a/d/2/c/4e467574811afd71ed9d26380e1.png",
+            "https://media.preziusercontent.com/media/9/0/c/e/1/fd46e3b41bab86246fb856f2a2f.png",
+            "https://media.preziusercontent.com/media/f/9/f/2/e/6e8ecb4479094cec4a5e77e216c.png",
+            "https://media.preziusercontent.com/media/f/a/d/2/c/4e467574811afd71ed9d26380e1.png",
+            "https://media.preziusercontent.com/media/b/7/7/9/f/97c78424719b2b46eca81b90939.png"
+        ],
+        "title": "Unofficial Road to Dynamic Server Meshing",
+        "subtitle": "First Version Released",
+        "texts": [
+            "Functional Internally",
+            "In Development",
+            "Planned/Status Unknown",
+            "2014-2022 Star Citizen WIP Server Backend Technology Overview",
+            "Made By: unobtanium & SC community Last Updated: 12. November 2022 (Current Live Patch: Alpha 3.17.3)",
+            "Server Meshing (SM)",
+            "Object Container Streaming (OCS)",
+            "2019",
+            "Alpha 3.8.0 (Dec 2019)",
+            "Developed",
+            "Released to Live",
+            "~ 2014-2017 ~",
+            "Alpha 3.0 (Dec 2017)",
+            "TBD",
+            "TBD",
+            "2019-TBD",
+            "TBD",
+            "TBD",
+            "TBD",
+            "2016-2018",
+            "Alpha 3.3.5 (Nov 2018)",
+            "2020-TBD ~",
+            "TBD",
+            "Major Tech",
+            "Minor Tech",
+            "Other Tech",
+            "Long Term Persistence",
+            "https://sc-server-meshing.info",
+            "The information presented in this presentation is not officially endorsed by Cloud Imperium and doesn’t reflect the views or opinions of Cloud Imperium or anyone officially involved in producing or managing Star Citizen and Squadron 42"
+        ],
+        "originalSlideImageURL": "https://media-temporary.preziusercontent.com/frames-public/1/9/9/8/5/629863447b2b87e7edb790cdcc71200.png"
     },
     {
         "uuid": "0bf2ca4937e639b25bee86072d4aa7d72cef9f3b",
@@ -17,7 +174,7 @@
             "current": "1",
             "total": "5"
         },
-        "title": "Road to Dynamic Server Meshing Welcome",
+        "title": "Road to Dynamic Server Meshing",
         "subtitle": "",
         "texts": [
             "Welcome to the Unofficial Road to Dynamic Server Meshing! This presentation is trying to offer a centralized place about almost everything related to Dynamic Server Meshing."
@@ -34,7 +191,7 @@
             "current": "2",
             "total": "5"
         },
-        "title": "Road to Dynamic Server Meshing Welcome",
+        "title": "Road to Dynamic Server Meshing",
         "subtitle": "",
         "texts": [
             "We will go over the the major and minor technologies that create the functionality of Dynamic Server Meshing. For each tech feature, an overview slide summarizes the technical challenges and CIG's approach to enable the required functionality. For all of the major tech features, there have been additional slides provided which dive into more detail.",
@@ -50,7 +207,7 @@
             "current": "3",
             "total": "5"
         },
-        "title": "Road to Dynamic Server Meshing Welcome",
+        "title": "Road to Dynamic Server Meshing",
         "subtitle": "How to navigate this presentation",
         "texts": [
             "You can see the page number of the current topic in the bottom right corner of your screen (e.g. for this slide it says 5 total slides and we are currently on the 3rd slide). To go back and forth between the slides, you can use the left and right arrow keys on your keyboard or the buttons at the bottom of the page. Pressing backspace always brings you up one level.",
@@ -69,14 +226,14 @@
             "current": "4",
             "total": "5"
         },
-        "title": "Road to Dynamic Server Meshing Welcome",
+        "title": "Road to Dynamic Server Meshing",
         "subtitle": "Visual Examples",
         "texts": [
             "Throughout this presentation, I tried to incorporate images to help visualize how these technologies work and what their purposes are.",
             "So lets get started! The usual game level is three dimensional and therefore has three axis (x, y and z). We will leave out the z dimension and represent the level as a flat 2D area. We do this for simplicity reasons, but remember that all the presented technologies are actually operating in 3D. A first example of a level can be seen in the image below. It features two players (blue and red) inside the level.",
             "On the following slides you find further explanations and visual representations of technical topics that will lay the foundation for all the subsequent technologies."
         ],
-        "originalSlideImageURL": "https://media-temporary.preziusercontent.com/frames-public/4/7/e/e/4/f09069a4f45a1890295e5dd33971200.png"
+        "originalSlideImageURL": ""
     },
     {
         "uuid": "0b07510d1656606d85cd16ea0edc6ce69250ecde",
@@ -88,7 +245,7 @@
             "current": "5",
             "total": "5"
         },
-        "title": "Road to Dynamic Server Meshing Welcome",
+        "title": "Road to Dynamic Server Meshing",
         "subtitle": "",
         "texts": [
             "Even though there was a great effort made to use official information and sources, be aware that some aspects of how these technologies work are deduced and therefore speculated. Whenever that was the case, I tried to make sure that it was noted as such, either in the slide title or in the text itself, so have a lookout for them. Therefore, the information presented here are my own understanding at this moment in time and are therefore subject to change. In the light of additional insights, the information in this presentation will be updated accordingly. Feel free to contribute with information that I may have missed.",
@@ -124,7 +281,7 @@
             "A transistor acts like a switch. But instead of manually switching it by hand - like we would a normal button switch - a transistor can be automatically controlled, by another electron flow. This allows state/data to change automatically.",
             "When putting multiple transistors together in specific configurations, they create logic gates. And putting multiple logic gates together, one can perform binary math, comparisons, etc."
         ],
-        "originalSlideImageURL": "https://media-temporary.preziusercontent.com/frames-public/d/3/4/8/f/52fb5e048c9ad388fca1a47fc701200.png"
+        "originalSlideImageURL": ""
     },
     {
         "uuid": "c620f297f475d58c71584816a85738b4bd53821a",
@@ -160,7 +317,7 @@
         "sources": [
             "w12"
         ],
-        "originalSlideImageURL": ""
+        "originalSlideImageURL": "https://media-temporary.preziusercontent.com/frames-public/b/8/0/5/e/c5b38904b84a3838d6b8c65bf6a1200.png"
     },
     {
         "uuid": "b35a07e91fd34d61ed56389f90e7a3aa7a22431f",
@@ -220,7 +377,7 @@
             "* Graphics Processing Unit (GPU)",
             "* Mainboard"
         ],
-        "originalSlideImageURL": "https://media-temporary.preziusercontent.com/frames-public/1/0/4/0/8/44ba73c45c78b79cb9162257b7a1200.png"
+        "originalSlideImageURL": ""
     },
     {
         "uuid": "773e921a71f86f2790c6ef8d5179bce3efe8ff7a",
@@ -784,7 +941,7 @@
             "* streaming entities in and out reduces the amount of entities that have to be computed by the client CPU",
             "* for far away entities, the server stops/skips network updates based on the entity's distance to the player to save client CPU usage"
         ],
-        "originalSlideImageURL": ""
+        "originalSlideImageURL": "https://media-temporary.preziusercontent.com/frames-public/9/1/2/9/c/7f049664e7593a45c8d05ad84f31200.png"
     },
     {
         "uuid": "dc60ed46848d7473f45ea118c7748e81a2b4b1a0",
@@ -1200,7 +1357,7 @@
             "This works perfectly with how Object Containers, Entity Hierarchies and the ZoneSystem work, as well as how this information has to be read and written. Adding, updating and removing nodes and edges are cheap database operations, which make up the majority of performed actions while simulating the game.",
             "When new entities are spawned, a new document containing the state of the entity is easily added into the graph. The same happens when items are unstowed from inventories. Likewise, while entities are moving around in the game world or interacting with one another, edges between nodes can easily be added and removed as well. This also happens when entities move from one zone into another."
         ],
-        "originalSlideImageURL": ""
+        "originalSlideImageURL": "https://media-temporary.preziusercontent.com/frames-public/0/c/8/1/3/e3d6cf948f29d5e35527134650d1200.png"
     },
     {
         "uuid": "ba9bb67483abd05a686524ca730a308228793f08",
@@ -1314,7 +1471,7 @@
             "Initially, when it first comes online, there will only be a single game server connected to the Replication Layer. Only once it has been tested and considered to work, the number of game servers are slowly increased over the next subsequent patches, at which point Server Meshing starts to comes online.",
             "This shows that Persistent Entity Streaming and Server Meshing are two tightly coupled features and were developed alongside each other. We will go into more detail about the Hybrid service and the Server Meshing architecture as a whole in the next major topic."
         ],
-        "originalSlideImageURL": ""
+        "originalSlideImageURL": "https://media-temporary.preziusercontent.com/frames-public/9/e/7/2/a/0a733454659a0ce08c8c088df971200.png"
     },
     {
         "uuid": "1370340c2697f73a1409030389ecfb4bca77ec81",
@@ -1378,15 +1535,7 @@
             "lc1",
             "cad1",
             "scr",
-            "s201",
-            "s202",
-            "s203",
-            "s204",
-            "s205",
-            "s206",
-            "s207",
-            "s208",
-            "s209",
+            "s201-209",
             "w11"
         ],
         "originalSlideImageURL": ""
@@ -1427,7 +1576,7 @@
             "The left half of the picture shows the server at the top and the connected players with their game clients at the bottom. Together they are forming a single Game World. There exist dozens of these Game Worlds independently from each at the same time. As before, the clients and servers are connected via a network (which in this case would be the internet) to allow information to be exchanged as data packets to have the server and clients stay synchronized.",
             "The right half the picture shows our new simplified version. We now represent the game servers as rectangles and player clients as circles. Since each server and client is unique, we will sometimes identify them with numbers (and colors in the case of the player clients)."
         ],
-        "originalSlideImageURL": "https://media-temporary.preziusercontent.com/frames-public/6/c/5/d/6/d2baed5455dbeb1c956888d21d61200.png"
+        "originalSlideImageURL": ""
     },
     {
         "uuid": "0f891085e629a79d8437b92182e70fa1cfe2c41d",
@@ -1612,7 +1761,7 @@
             "This implies multiple game servers may have the same game objects loaded into their memory. Which is one of the requirements to ensure a smooth handoff.",
             "Speculated: How this is going to work exactly is still unclear. Even tho we show that game server 2 would gradually load the game world while the player approaches its section, it might be that a server only starts loading an area once the player entered its section."
         ],
-        "originalSlideImageURL": "https://media-temporary.preziusercontent.com/frames-public/7/2/4/8/a/a8f47d143438dcc0995566cef921200.png"
+        "originalSlideImageURL": ""
     },
     {
         "uuid": "e82814bdb9350dc3d8fb1a8360d1c6c87e7e6e71",
@@ -2646,7 +2795,7 @@
             "jp1",
             "c2"
         ],
-        "originalSlideImageURL": ""
+        "originalSlideImageURL": "https://media-temporary.preziusercontent.com/frames-public/1/2/2/8/e/4adb0b1454bb11a72b1df45f9d71200.png"
     },
     {
         "uuid": "09a2ea34847311e2ba355b437a48f6326d2742fc",
@@ -2679,7 +2828,7 @@
         "sources": [
             "jp1"
         ],
-        "originalSlideImageURL": "https://media-temporary.preziusercontent.com/frames-public/3/3/e/5/9/d84c99f476694ffda2406a23fae1200.png"
+        "originalSlideImageURL": ""
     },
     {
         "uuid": "cd1f88551d6dd4150ad73e6767b4728c8a314cf7",
@@ -2748,7 +2897,7 @@
             "rtv1",
             "cc2"
         ],
-        "originalSlideImageURL": "https://media-temporary.preziusercontent.com/frames-public/0/6/0/4/5/9b8fa4d4a96bf755b76d052a11c1200.png"
+        "originalSlideImageURL": ""
     },
     {
         "uuid": "4f862faf5803098138e0c4964563ad268aefbe62",
@@ -2784,7 +2933,7 @@
             "w4",
             "w5"
         ],
-        "originalSlideImageURL": "https://media-temporary.preziusercontent.com/frames-public/b/e/e/1/5/54feac947da9fd9414cb31db4bf1200.png"
+        "originalSlideImageURL": ""
     },
     {
         "uuid": "a0e9b441499397ddcf2aa07ad8e71a8ef9e9d3f3",
@@ -3351,7 +3500,7 @@
             "s209",
             "pn317"
         ],
-        "originalSlideImageURL": "https://media-temporary.preziusercontent.com/frames-public/b/8/9/6/8/e32b789470cb911036004948bfc1200.png"
+        "originalSlideImageURL": ""
     },
     {
         "uuid": "873a547e32616479ad71eff412f10cace247aee8",
@@ -3381,7 +3530,7 @@
             "pm1",
             "s209"
         ],
-        "originalSlideImageURL": ""
+        "originalSlideImageURL": "https://media-temporary.preziusercontent.com/frames-public/4/f/a/8/4/a3d0d3644dbb760e5309cf67b6a1200.png"
     },
     {
         "uuid": "2291a2d75b1f4d6a9ef7d6944846592fed075caf",
@@ -3446,7 +3595,7 @@
             "s209",
             "src"
         ],
-        "originalSlideImageURL": ""
+        "originalSlideImageURL": "https://media-temporary.preziusercontent.com/frames-public/9/d/c/7/9/c335e85467c8cecca344a9a52051200.png"
     },
     {
         "uuid": "a236f9741d3c7ac28d566376d8142116b26fe5b8",
@@ -3847,7 +3996,7 @@
             "s304",
             "scr"
         ],
-        "originalSlideImageURL": "https://media-temporary.preziusercontent.com/frames-public/f/8/1/7/7/96cddd844c99f4581df500e408a1200.png"
+        "originalSlideImageURL": ""
     },
     {
         "uuid": "62c206277f4daeed9bdcc88b958cfdd586848c47",
@@ -3884,7 +4033,7 @@
             "10c1",
             "w10"
         ],
-        "originalSlideImageURL": "https://media-temporary.preziusercontent.com/frames-public/f/6/4/6/b/6fe1c744b8cbca9175ad6a20f0f1200.png"
+        "originalSlideImageURL": ""
     },
     {
         "uuid": "01fc378175714b1246dd100bb9bceb2f8f3595b9",

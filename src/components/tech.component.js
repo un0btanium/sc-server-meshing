@@ -23,7 +23,7 @@ export default class Tech extends Component {
 		if (tech.name === "Overview") {
 			return <>
 				{nav}
-				<Overview techNames={this.props.techNames} openTech={this.props.openTech}></Overview>
+				<Overview techNames={this.props.techNames} openTech={this.props.openTech} tech={this.props.tech}></Overview>
 				{nav}
 			</>
 		}
@@ -48,7 +48,11 @@ export default class Tech extends Component {
 					return;
 				}
 	
-				markdown = markdown + /*sourceIdentifier + " - [" */ "[" + source.description + "](" + source.url + ")  \n";
+				if (source.url) {
+					markdown = markdown + /*sourceIdentifier + " - [" */ "[" + source.description + "](" + source.url + ")  \n";
+				} else {
+					markdown = markdown + /*sourceIdentifier + " - [" */ source.description + "  \n";
+				}
 			}));
 		}
 

@@ -23,6 +23,7 @@ export default class Overview extends Component {
 					<h5>Last Updated: 12. November 2022 (Current Live Patch: Alpha 3.17.3)</h5>
 					<hr></hr>
 					<h3>Overview</h3>
+					<img src={this.props.tech.originalSlideImageURL} alt="Overview" />
 					{links}
 					<hr></hr>
 					<p>The information presented in this presentation is not officially endorsed by Cloud Imperium and doesn't reflect the views and opinions of Cloud Imperium or anyone officially involved in producing or managing Star Citizen and Squadron 42.</p>

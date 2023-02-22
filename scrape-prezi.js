@@ -75,7 +75,7 @@ async function getVisual() {
 						let originalSlideImageURL = await extractOriginalSlideImage(page);
 
 						let texts = await extractTexts(page);
-						if (excludeSlide(texts, slide)) {
+						if (excludeSlide(texts, slide) && slide.index !== 1) {
 							continue;
 						}
 						

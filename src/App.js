@@ -30,16 +30,19 @@ class App extends Component {
 		let tech = {
 			name: "Overview",
 			slides: [],
-			sources: []
+			sources: [],
+			originalSlideImageURL: slides[0].originalSlideImageURL
 		};
 		techOrder.push(tech.name);
 		techOrderLowerCase.push(tech.name.toLowerCase());
 		techsByName[tech.name.toLowerCase()] = tech;
 
+
+
 		slides = this.optimizeSlides(slides);
 		for (let slide of slides) {
 
-			if (!slide.title) {
+			if (!slide.title || slide.title === "Unofficial Road to Dynamic Server Meshing") {
 				continue;
 			}
 
@@ -104,8 +107,7 @@ class App extends Component {
 		let currentTech = techOrder[techIndex];
 		let nextTech = techOrder[techIndex === techOrder.length-1 ? 0 : techIndex+1];
 
-		console.log(techIndex, previousTech, currentTech, nextTech);
-
+		// console.log(techIndex, previousTech, currentTech, nextTech);
 
 		this.setState({
 			techIndex,
