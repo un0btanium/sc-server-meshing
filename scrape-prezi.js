@@ -5,6 +5,7 @@ const URL = 'https://prezi.com/p/xk5ilzstjrhy/star-citizen-unofficial-road-to-dy
 
 const regexPageIndicator = new RegExp("^([0-9]*)\/([0-9]*)$");
 const regexSources = new RegExp(/^\[(([a-zA-Z0-9\-]+[,]?[\n]?)+)\]$/);
+const regexStats = new RegExp(/^Made By: (?<authors>[\w& ]+) Last Updated: (?<lastUpdated>[\w. ]+) \(Current Live Patch: (?<livePatch>[\w. ]+)\)$/);
 
 const SLIDE_INDEX = '.Frame__IndexBadge-sc-1m37unb-3';
 const SLIDE_FRAME = '.Frame__FrameWrapper-sc-1m37unb-4';
@@ -15,7 +16,8 @@ const IMAGE_CLASS = '.AssetView__ThumbnailImage-sc-1ptrnll-2';
 
 const UUID_ATTRIBUTE = 'data-tracking-id';
 
-const SLIDE_AMOUNT = 232;
+const SLIDE_AMOUNT = 241;
+const CHUNK_AMOUNT = 8;
 const CHUNK_SIZE = 20;
 
 process.setMaxListeners(50);
@@ -27,56 +29,35 @@ async function getVisual() {
 	const mainBrowser = await puppeteer.launch();
 	const mainPage = await mainBrowser.newPage();
 	try {
-		await mainPage.goto(URL, {
-			waitUntil: 'load',
-			timeout: 0
-		});
+		await mainPage.goto(URL, { waitUntil: 'load', timeout: 0 });
 		
-		console.log("Scrolling to load all slide frames...");
 		await autoScroll(mainPage, (str) => console.log(str));
-
-		console.log("Extract slide info...");
-		let slides = await mainPage.evaluate((SLIDE_FRAME, SLIDE_INDEX, UUID_ATTRIBUTE) => {
-			let slideFrames = Array.from(document.body.querySelectorAll(SLIDE_FRAME));
-			return slideFrames.map((slideFrame) => {
-				let uuid = slideFrame.getAttribute(UUID_ATTRIBUTE);
-				let indexElement = slideFrame.querySelector(SLIDE_INDEX);
-				let index = indexElement.innerText;
-				return {
-					uuid: uuid,
-					index: parseInt(index)
-				};
-			});
-		}, SLIDE_FRAME, SLIDE_INDEX, UUID_ATTRIBUTE);
-
-		console.log("Creating slide chunks...");
-		let chunkedSlides = [];
-		for (let i = 0; i < slides.length; i += CHUNK_SIZE) {
-			const chunk = slides.slice(i, Math.min(i + CHUNK_SIZE, slides.length));
-			chunkedSlides.push(chunk);
-		}
+		let slides = await extractSlideInfos(mainPage);
+		let chunkedSlides = createChunkedSlides(slides);
 
 		await Promise.all(chunkedSlides.map(async (slideChunk) => {
 			try {
 				const browser = await puppeteer.launch();
 
-				console.log("Running chunk with size: ", slideChunk.length);
 				for (let slide of slideChunk) {
-					console.log("Opening page for slide:", slide.index);
+					console.log("Extract content of slide id:", slide.index);
+
 					const page = await browser.newPage();
 					page.setViewport({ width: 1920, height: 1080 });
 
 					try {
-						await page.goto(URL + '?frame=' + slide.uuid, {
-							waitUntil: 'load',
-							timeout: 0
-						});
+						await page.goto(URL + '?frame=' + slide.uuid, { waitUntil: 'load', timeout: 0 });
+
 
 						let originalSlideImageURL = await extractOriginalSlideImage(page);
 
 						let texts = await extractTexts(page);
 						if (excludeSlide(texts, slide) && slide.index !== 1) {
 							continue;
+						}
+						
+						if(slide.index === 1) {
+							extractingStats(texts);
 						}
 						
 						let pageIndicators = extractPageIndicators(texts);
@@ -126,6 +107,70 @@ async function getVisual() {
 		}
 	}
 }
+
+async function autoScroll(page) {
+	console.log("Scrolling to load all", SLIDE_AMOUNT, "slide frames...");
+	
+	let isLoaded = false;
+	while (!isLoaded) {
+		let viewport = await page.viewport()
+		viewport.height = await page.evaluate(async () => document.body.scrollHeight);
+		await page.setViewport(viewport);
+		await page.evaluate(async () => window.scrollBy(0, 1500));
+		let loadedSlidesAmount = await page.evaluate(async (SLIDE_FRAME) => document.body.querySelectorAll(SLIDE_FRAME).length, SLIDE_FRAME);
+		isLoaded = loadedSlidesAmount === SLIDE_AMOUNT;
+	}
+}
+
+async function extractSlideInfos(mainPage) {
+	console.log("Extract meta slide info...");
+
+	return await mainPage.evaluate((SLIDE_FRAME, SLIDE_INDEX, UUID_ATTRIBUTE) => {
+		let slideFrames = Array.from(document.body.querySelectorAll(SLIDE_FRAME));
+		return slideFrames.map((slideFrame) => {
+			let uuid = slideFrame.getAttribute(UUID_ATTRIBUTE);
+			let indexElement = slideFrame.querySelector(SLIDE_INDEX);
+			let index = indexElement.innerText;
+			return {
+				uuid: uuid,
+				index: parseInt(index)
+			};
+		});
+	}, SLIDE_FRAME, SLIDE_INDEX, UUID_ATTRIBUTE);
+}
+
+function createChunkedSlides(slides) {
+	console.log("Creating slide chunks...");
+
+	let chunkedSlides = [];
+	for (let i = 0; i < slides.length; i += CHUNK_SIZE) {
+		const chunk = slides.slice(i, Math.min(i + CHUNK_SIZE, slides.length));
+		chunkedSlides.push(chunk);
+	}
+
+	return chunkedSlides;
+}
+
+function extractingStats(texts) {
+	console.log("Extracting stats...");
+
+	let stats = {};
+	texts.forEach((text) => {
+		let result = regexStats.exec(text);
+		if (result !== null) {
+			stats = {
+				authors: result.groups.authors,
+				lastUpdated: result.groups.lastUpdated,
+				livePatch: result.groups.livePatch
+			};
+		}
+	});
+
+	stats.subtitle = texts[5];
+	
+	saveStats(stats);
+}
+
 
 function extractTitleAndSubtitle(texts) {
 	let title = texts[0].length <= 85 ? texts[0] : "";
@@ -222,7 +267,7 @@ function extractSources(texts) {
 			multipleSourcesIndex = sources.indexOf("w7-w9");
 			if (multipleSourcesIndex !== -1) {
 				sources.splice(multipleSourcesIndex, 1);
-				sources.push("w27", "w8", "w9");
+				sources.push("w7", "w8", "w9");
 			}
 		}
 	});
@@ -238,18 +283,6 @@ function sleep(milliseconds) {
 	return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
 
-async function autoScroll(page) {
-	let isLoaded = false;
-	while (!isLoaded) {
-		let viewport = await page.viewport()
-		viewport.height = await page.evaluate(async () => document.body.scrollHeight);
-		await page.setViewport(viewport);
-		await page.evaluate(async () => window.scrollBy(0, 1500));
-		let loadedSlidesAmount = await page.evaluate(async (SLIDE_FRAME) => document.body.querySelectorAll(SLIDE_FRAME).length, SLIDE_FRAME);
-		isLoaded = loadedSlidesAmount === SLIDE_AMOUNT;
-	}
-}
-
 function saveSlides(slides) {
 	fs.writeFile("./src/data/slides.json", JSON.stringify(slides, null, 4), 'utf8', function (err) {
 		if (err) {
@@ -257,6 +290,17 @@ function saveSlides(slides) {
 			return console.log(err);
 		}
 		console.log("Slides have been saved.");
+	});
+}
+
+
+function saveStats(stats) {
+	fs.writeFile("./src/data/stats.json", JSON.stringify(stats, null, 4), 'utf8', function (err) {
+		if (err) {
+			console.log("An error occured while writing JSON Object to File.");
+			return console.log(err);
+		}
+		console.log("Stats have been saved.");
 	});
 }
 

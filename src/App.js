@@ -11,6 +11,9 @@ import Tech from './components/tech.component';
 
 import slides from './data/slides.json';
 import sources from './data/sources.json';
+import stats from './data/stats.json';
+
+const URL = "https://un0btanium.github.io/sc-server-meshing/";
 
 class App extends Component {
 
@@ -43,7 +46,7 @@ class App extends Component {
 		slides = this.optimizeSlides(slides);
 		for (let slide of slides) {
 
-			if (!slide.title || slide.title === "Unofficial Road to Dynamic Server Meshing") {
+			if (this.skipSlide(slide)) {
 				continue;
 			}
 
@@ -101,6 +104,12 @@ class App extends Component {
 		return { ...defaultSettings, ...loadedSettings};
 	}
 
+	skipSlide(slide) {
+		return !slide.title
+		|| slide.title === "Unofficial Road to Dynamic Server Meshing"
+		|| slide.subtitle === "How to navigate this presentation"
+	}
+
 	openTech(techName) {
 		let techIndex = this.state.techOrderLowerCase.indexOf(techName.toLowerCase());
 		let techOrder = this.state.techOrder;
@@ -136,6 +145,8 @@ class App extends Component {
 									openTech={this.openTech}
 									slide={this.state.currentSlide}
 									sources={sources}
+									stats={stats}
+									websiteUrl={URL}
 								/>
 							}
 						/>

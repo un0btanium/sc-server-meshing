@@ -8,7 +8,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import Overview from './overview.component';
 
-let regexSubSubtitle = new RegExp(/^\w+:/);
+let regexSubSubtitle = new RegExp(/^[\w()/ ]{1,31}:/);
 
 export default class Tech extends Component {
 
@@ -28,7 +28,14 @@ export default class Tech extends Component {
 		if (tech.name === "Overview") {
 			return <>
 				{nav}
-				<Overview techNames={this.props.techNames} openTech={this.props.openTech} tech={this.props.tech} sources={this.props.sources}></Overview>
+				<Overview
+					techNames={this.props.techNames}
+					openTech={this.props.openTech}
+					tech={this.props.tech}
+					sources={this.props.sources}
+					stats={this.props.stats}
+					websiteUrl={this.props.websiteUrl}
+				></Overview>
 				{nav}
 			</>
 		}
@@ -72,7 +79,7 @@ export default class Tech extends Component {
 					<ReactMarkdown children={markdown}/>
 
 					<hr/>
-					<CopyToClipboard className="pointer" text={"http://localhost:3000/sc-server-meshing/?tech=" + encodeURIComponent(tech.name)}>
+					<CopyToClipboard className="pointer" text={this.props.websiteUrl + "?tech=" + encodeURIComponent(tech.name)}>
 						<span><FontAwesomeIcon icon={faCopy} /> Copy & share link to this tech!</span>
 					</CopyToClipboard>
 					<hr/>
