@@ -18,7 +18,7 @@ const UUID_ATTRIBUTE = 'data-tracking-id';
 
 const SLIDE_AMOUNT = 241;
 const CHUNK_AMOUNT = 8;
-const CHUNK_SIZE = 20;
+const CHUNK_SIZE = Math.ceil(SLIDE_AMOUNT / CHUNK_AMOUNT);
 
 process.setMaxListeners(50);
 
