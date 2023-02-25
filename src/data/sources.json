@@ -96,5 +96,6 @@
 	"w10": {"url":"https://en.wikipedia.org/wiki/Subsumption_architecture", "description": "Subsumption Architecture", "category": "Wikipedia"},
 	"w11": {"url":"https://en.wikipedia.org/wiki/Mediator_pattern", "description": "Mediator Pattern", "category": "Wikipedia"},
 	"w12": {"url":"https://en.wikipedia.org/wiki/Superscalar_processor", "description": "Superscalar Processor", "category": "Wikipedia"},
+	"w13": {"url":"https://en.wikipedia.org/wiki/Directed_acyclic_graph", "description": "Directed Acyclic Graph", "category": "Wikipedia"},
 	"n1": {"url":"https://www.gabrielgambetta.com/client-side-prediction-live-demo.html", "description": "gabrielgambetta - Netcode Explanation with Demo", "category": "Article"}
 }
