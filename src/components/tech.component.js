@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 
 import ReactMarkdown from 'react-markdown'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -26,7 +26,7 @@ export default class Tech extends Component {
 			return <h1>Tech is not available!</h1>
 		}
 		if (tech.name === "Overview") {
-			return <>
+			return <Container style={{ marginTop: '25px', marginBottom: '50px' }}>
 				{nav}
 				<Overview
 					techNames={this.props.techNames}
@@ -37,7 +37,7 @@ export default class Tech extends Component {
 					websiteUrl={this.props.websiteUrl}
 				></Overview>
 				{nav}
-			</>
+			</Container>
 		}
 
 		let markdown = "";
@@ -72,12 +72,11 @@ export default class Tech extends Component {
 		}
 
 		return(
-			<>
+			<Container style={{ marginTop: '25px', marginBottom: '50px' }}>
 				<div>
 					{nav}
 					<hr/>
 					<ReactMarkdown children={markdown}/>
-
 					<hr/>
 					<CopyToClipboard className="pointer" text={this.props.websiteUrl + "?tech=" + encodeURIComponent(tech.name)}>
 						<span><FontAwesomeIcon icon={faCopy} /> Copy & share link to this tech!</span>
@@ -85,7 +84,7 @@ export default class Tech extends Component {
 					<hr/>
 					{nav}
 				</div>
-			</>
+			</Container>
 		);
 	}
 

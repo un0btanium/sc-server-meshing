@@ -40,6 +40,7 @@
 body {
   font-family: 'Work Sans', monospace;
   color: #cecece;
+  background-color: #152536;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -111,7 +112,7 @@ img {
 
 .link-overlay-container {
   position: sticky;
-  bottom: -70px;
+  bottom: 0px;
 }
 
 .floatingchat-container-wrap {
@@ -245,6 +246,44 @@ img {
 
 
 
+.mode-switch-container {
+	z-index: 9999;
+	position: absolute;
+	bottom: 0px;
+	opacity: 0.8;
+}
+@media only screen and (max-device-width: 1000px) {
+	.mode-switch-container {
+		bottom: 180px;
+		left: 4px;
+		height: 32px;
+	}
+}
+@media only screen and (min-device-width: 1000px) {
+	.mode-switch-container {
+		bottom: 218px;
+		left: 12px;
+		height: 42px;
+	}
+}
+
+
+.mode-switch {
+	position: relative;
+	cursor: pointer;
+}
+@media only screen and (max-device-width: 1000px) {
+	.mode-switch {
+		height: 32px;
+	}
+}
+
+.mode-switch-container:hover {
+	opacity: 1.0;
+}
+
+
+
 .follow-me-container {
 	z-index: 9999;
 	position: absolute;
@@ -265,6 +304,7 @@ img {
 		height: 42px;
 	}
 }
+
 
 .follow-me {
 	position: relative;

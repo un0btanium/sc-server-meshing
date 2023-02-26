@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Container } from 'react-bootstrap';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'; // TODO rework nagivation
 
 
@@ -8,12 +7,13 @@ import "./theme/bootstrap.css";
 import './App.css';
 
 import Tech from './components/tech.component';
+import Presentation from './components/presentation.component';
 
 import slides from './data/slides.json';
 import sources from './data/sources.json';
 import stats from './data/stats.json';
 
-const URL = "https://un0btanium.github.io/sc-server-meshing/";
+const URL = "https://sc-server-meshing.info/wiki/";
 
 class App extends Component {
 
@@ -129,30 +129,31 @@ class App extends Component {
 	}
 
 	render() {
-
 		return (
-			<Container style={{ marginTop: '25px', marginBottom: '50px' }}>
-				<BrowserRouter>
-					<Routes>
-						<Route
-							path="/sc-server-meshing/"
-							element={
-								<Tech
-									techNames={this.state.techOrder}
-									tech={this.state.techsByName[this.state.currentTech.toLowerCase()]}
-									previousTech={this.state.previousTech}
-									nextTech={this.state.nextTech}
-									openTech={this.openTech}
-									slide={this.state.currentSlide}
-									sources={sources}
-									stats={stats}
-									websiteUrl={URL}
-								/>
-							}
-						/>
-					</Routes>
-				</BrowserRouter>
-			</Container>
+			<BrowserRouter>
+				<Routes>
+					<Route
+						path="/wiki/"
+						element={<Tech
+							isPresentationMode={this.state.isPresentationMode}
+							techNames={this.state.techOrder}
+							tech={this.state.techsByName[this.state.currentTech.toLowerCase()]}
+							previousTech={this.state.previousTech}
+							nextTech={this.state.nextTech}
+							openTech={this.openTech}
+							slide={this.state.currentSlide}
+							sources={sources}
+							stats={stats}
+							websiteUrl={URL}
+						/>}
+					/>
+					<Route
+						path="/"
+						element={<Presentation/>}
+						exact
+					/>
+				</Routes>
+			</BrowserRouter>
 		);
 	}
 

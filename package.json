@@ -2,7 +2,7 @@
   "name": "sc-server-meshing",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://un0btanium.github.io/sc-server-meshing/",
+  "homepage": "https://sc-server-meshing.info/",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
