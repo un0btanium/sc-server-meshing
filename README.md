@@ -1,40 +1,36 @@
-# SC Server Meshing
+# SC Server Meshing - Unofficial Road to Dynamic Server Meshing
 
-This React web application for the game Hell is Others provides you with an overview of the level of the game, highlighting different points of interests.
+## Links
 
-`node scrape-prezi.js`
+Traditonal Presentation Mode: https://sc-server-meshing.info
+
+New Wiki/Mobile Mode: https://sc-server-meshing.info/wiki
+
+## Install
+
+After cloning the repo, use the following command to install the packages:
 
 `npm install`
 
+## Run the scraper
 
-# Contribute
+To extract information from the presentation, execute:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+`node scrape-prezi.js`
 
-## Available Scripts
+Note: This may be very performance intensive task and take a few minutes.
 
-In the project directory, you can run:
+## Run the application locally
 
-### `npm start`
+`npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm run build`
+## Create a production version and deploy to github pages
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`npm run-scripts deploy`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
