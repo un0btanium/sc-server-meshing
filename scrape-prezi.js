@@ -16,8 +16,8 @@ const IMAGE_CLASS = '.AssetView__ThumbnailImage-sc-1ptrnll-2';
 
 const UUID_ATTRIBUTE = 'data-tracking-id';
 
-const SLIDE_AMOUNT = 241;
-const CHUNK_AMOUNT = 8;
+const SLIDE_AMOUNT = 251; // TODO dont forget to update the amount of slides after adding or removing slides in the presentation
+const CHUNK_AMOUNT = 2;
 const CHUNK_SIZE = Math.ceil(SLIDE_AMOUNT / CHUNK_AMOUNT);
 
 process.setMaxListeners(50);
@@ -40,7 +40,7 @@ async function getVisual() {
 				const browser = await puppeteer.launch();
 
 				for (let slide of slideChunk) {
-					console.log("Extract content of slide id:", slide.index);
+					console.log("Opening slide with id:", slide.index);
 
 					const page = await browser.newPage();
 					page.setViewport({ width: 1920, height: 1080 });
@@ -51,9 +51,11 @@ async function getVisual() {
 
 						let originalSlideImageURL = await extractOriginalSlideImage(page);
 
-						let texts = await extractTexts(page);
+						let texts = await extractTexts(page, slide);
 						if (excludeSlide(texts, slide) && slide.index !== 1) {
 							continue;
+						} else {
+							console.log("Extracting slide with id:", slide.index);
 						}
 						
 						if(slide.index === 1) {
@@ -62,6 +64,7 @@ async function getVisual() {
 						
 						let pageIndicators = extractPageIndicators(texts);
 						let sources = extractSources(texts);
+
 						let [title,subtitle] = extractTitleAndSubtitle(texts); // do these after sources and slide indicators, sources might be at the top
 						await extractImages(page, slide);
 						
@@ -111,6 +114,8 @@ async function getVisual() {
 async function autoScroll(page) {
 	console.log("Scrolling to load all", SLIDE_AMOUNT, "slide frames...");
 	
+	await page.screenshot({path: 'screenshot.png'});
+
 	let isLoaded = false;
 	while (!isLoaded) {
 		let viewport = await page.viewport()
@@ -119,6 +124,8 @@ async function autoScroll(page) {
 		await page.evaluate(async () => window.scrollBy(0, 1500));
 		let loadedSlidesAmount = await page.evaluate(async (SLIDE_FRAME) => document.body.querySelectorAll(SLIDE_FRAME).length, SLIDE_FRAME);
 		isLoaded = loadedSlidesAmount === SLIDE_AMOUNT;
+		console.log("Loaded", loadedSlidesAmount, "slides already...");
+		await page.screenshot({path: 'screenshot.png'});
 	}
 }
 
@@ -147,6 +154,8 @@ function createChunkedSlides(slides) {
 		const chunk = slides.slice(i, Math.min(i + CHUNK_SIZE, slides.length));
 		chunkedSlides.push(chunk);
 	}
+
+	console.log("Chunk Sizes: [", chunkedSlides.map(chunk => chunk.length).join(', '), "]");
 
 	return chunkedSlides;
 }
@@ -193,12 +202,16 @@ async function extractOriginalSlideImage(page) {
 	return await page.evaluate((ORIGINAL_SLIDE_CLASS) => document.body.querySelector(ORIGINAL_SLIDE_CLASS).getAttribute("src"), ORIGINAL_SLIDE_CLASS);
 }
 
-async function extractTexts(page) {
+async function extractTexts(page, slide) {
 	try {
-		await page.waitForSelector(TEXT_CLASS, { timeout: 60000 });
-	} catch (e) {}
+		await page.waitForSelector(TEXT_CLASS, { timeout: 10000 });
+	} catch (e) {
+		console.log("TIMEOUT", e, slide.index, slide.uuid);
+		await page.screenshot({path: 'screenshot-timeout.png'});
+	}
 
 	const textElements = await page.$$(TEXT_CLASS);
+	console.log(textElements.length, slide.index, slide.uuid);
 	let texts = [];
 	for (let textElement of textElements) {
 		let text = await page.evaluate(textElement => {
@@ -307,15 +320,15 @@ function saveStats(stats) {
 
 function excludeSlide(texts, slide) {
 	if (texts[0] === "Unofficial Road to Dynamic Server Meshing") {
-		console.log("Ignore slide because its overview: " + slide.index);
+		console.log("Ignore slide because its overview: ", slide.index);
 		return true;
 	}
 	if (texts[0] === "Welcome to the") {
-		console.log("Ignore slide because its introduction welcome: " + slide.index);
+		console.log("Ignore slide because its introduction welcome: ", slide.index);
 		return true;
 	}
 	if (texts[0] === "Sources") {
-		console.log("Ignore slide because its introduction welcome: " + slide.index);
+		console.log("Ignore slide because its sources: ", slide.index);
 		return true;
 	}
 	

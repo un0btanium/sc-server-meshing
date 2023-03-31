@@ -55,20 +55,30 @@ export default class Tech extends Component {
 		if (!tech.sources) {
 			markdown = markdown + "No sources available!";
 		} else {
-			tech.sources.forEach((sourceIdentifier => {
+			tech.sources
+			.map((sourceIdentifier) => {
 				let source = this.props.sources[sourceIdentifier];
 				if (!source) {
 					console.error("Unknown source: " + sourceIdentifier);
-					return;
+					return undefined;
 				}
-				
+
 				let sourceText = "__" + source.category + "__: " + source.description;
+				return {
+					sourceIdentifier: sourceIdentifier,
+					sourceText: sourceText,
+					url: source.url
+				};
+			})
+			.filter(source => source)
+			.sort((a,b) => a.sourceText.localeCompare(b.sourceText))
+			.forEach((source) => {
 				if (source.url) {
-					markdown = markdown + /*sourceIdentifier + " - [" */ "[" + sourceText + "](" + source.url + ")  \n";
+					markdown = markdown + "[" + source.sourceText + "](" + source.url + ")  \n";
 				} else {
-					markdown = markdown + /*sourceIdentifier + " - [" */ sourceText + "  \n";
+					markdown = markdown + source.sourceText + "  \n";
 				}
-			}));
+			});
 		}
 
 		return(
