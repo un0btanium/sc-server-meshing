@@ -85,7 +85,10 @@ img {
   opacity: 0.8;
 }
 
-
+.disable-link-style, .disable-link-style:hover, .disable-link-style:visited {
+    color: inherit;
+    text-decoration: inherit;
+}
 
 .nav-button {
 	background-color: #1d334a;
