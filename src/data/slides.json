@@ -168,7 +168,7 @@
             "https://sc-server-meshing.info",
             "The information presented in this presentation is not officially endorsed by Cloud Imperium and doesn’t reflect the views or opinions of Cloud Imperium or anyone officially involved in producing or managing Star Citizen and Squadron 42"
         ],
-        "originalSlideImageURL": "https://i.imgur.com/GeNF0Px.png"
+        "originalSlideImageURL": "https://i.imgur.com/31a4jTe.png"
     },
     {
         "uuid": "2dca2f2568126b9ce85398eabb83dece8ab7e73f",
@@ -1540,7 +1540,7 @@
         "uuid": "bf412c56625bf86c0104e2455e63298ee559780d",
         "index": 77,
         "pageIndicators": {
-            "current": "11",
+            "current": "10",
             "total": "11"
         },
         "title": "Persistent Entity Streaming",
@@ -1556,22 +1556,24 @@
         "uuid": "04c7b62710cdb6028f8fbeb8d78b2876dcb27c62",
         "index": 78,
         "pageIndicators": {
-            "current": "10",
+            "current": "11",
             "total": "11"
         },
         "title": "Persistent Entity Streaming",
-        "subtitle": "OCS, PES and SM Rollout Overview",
+        "subtitle": "Recap of major tech features releasing",
         "texts": [
-            "* Alpha 3.0 Object Containers, Entity Components, 64bit coordinates, ect. (Full Engine Rewrite)",
-            "* Alpha 3.3.5 Client Object Container Streaming",
-            "* Alpha 3.8 Server Object Container Streaming",
-            "* Alpha 3.7.2 Long Term Persistence (later turned into the Global Database)",
+            "* Timeline of major tech in patches:",
+            "* Alpha 2.6 Object Containers (preview/feature parity)",
+            "* Alpha 3.0 Object Containers, Entity Components, 64bit coordidnates, Zone System, planet tech, new render pipeline, and many more (Full Engine Rework)",
+            "* Alpha 3.3 Client OCS",
+            "* Alpha 3.8 Server OCS",
+            "* Alpha 3.8.2 Long Term Persistence DB (later reworked into the Global DB), less wipes between patches",
             "* Alpha 3.13/3.14 Preparations for the Replication Layer in the game server code",
-            "* Alpha 3.15 Release of the Global Database, Global Persistence and Physicalized Items and Inventory",
-            "* Alpha 3.17 Entity State Networking goes through the Replication Layer",
-            "* Alpha 3.18 Persistent Entity Streaming with EntityGraph Database + OCS Loading via Replication Layer",
-            "* Alpha 3.XX Replication Layer moved out of the game server into its own server (Hybrid Service)",
-            "* Alpha 4.0 Static Server Meshing \"V0\" with JumpPoint Transfers (Speculated)",
+            "* Alpha 3.15 Release of the Global Database, Global Persistence and Physicalized Items and Inventory (uses RL to make backend DB calls)",
+            "* Alpha 3.17 Entity State Networking through the Replication Layer (networking part of OCS moved into RL)",
+            "* Alpha 3.18 Gen12 + EntityGraph Database + OC Loading via Replication Layer (+cache for Global DB queries in EntityGraph services, all of OCS in RL)",
+            "* Alpha 3.XX Replication Layer moved from game server into its own server (Hybrid Service)",
+            "* Alpha ?.? Static Server Meshing \"V0\" and Pyro with Authority Transfers in Jumppoints (Speculated)",
             "* Alpha 4.X Static Server Meshing \"V1\" with Authority Transfers in deep space (Speculated)",
             "* Alpha 4.X Dynamic Server Meshing V1 (Speculated)"
         ],
@@ -3799,6 +3801,7 @@
             "scr",
             "s209",
             "pn317",
+            "pn318",
             "isc2",
             "s121",
             "jp2"

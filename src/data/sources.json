@@ -84,7 +84,7 @@
 	"pn38": {"url":"https://robertsspaceindustries.com/comm-link//17413-Star-Citizen-Alpha-380","description": "Alpha 3.8 - Server OCS Release", "category": "Patchnote"},
 	"pn315": {"url":"https://robertsspaceindustries.com/comm-link//18400-Star-Citizen-Alpha-3150","description": "Alpha 3.15 - iCache & Inventory", "category": "Patchnote"},
 	"pn317": {"url":"https://robertsspaceindustries.com/comm-link/transmission/18636-Star-Citizen-Alpha-3170","description": "Alpha 3.17 - Client Bind Culling in the Replication Layer", "category": "Patchnote"},
-	"pn318": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/190048/thread/star-citizen-alpha-3-18-0-live-8389318-patch-notes","description": "Alpha 3.18 - Persistent Entity Streaming Release", "category": "Patchnote"},
+	"pn318": {"url":"https://robertsspaceindustries.com/comm-link/transmission/19126-Star-Citizen-Alpha-3180","description": "Alpha 3.18 - Persistent Entity Streaming Release", "category": "Patchnote"},
 	"tw1": {"url":"https://twitter.com/DrChadMcKinney/status/1447665963738951684","description": "on Server Meshing & Regional Shards", "category": "Twitter"},
 	"mdb1": {"url":"https://severalnines.com/database-blog/overview-mongodb-and-load-balancing", "description": "MongoDB Sharding", "category": "Documentation"},
 	"mdb2": {"url":"https://docs.mongodb.com/manual/geospatial-queries/", "description": "MongoDB Spatial Queries", "category": "Documentation"},
