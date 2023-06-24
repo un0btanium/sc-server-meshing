@@ -138,6 +138,9 @@ export default function Tech(props) {
 		});
 	}
 
+	
+	window.scrollTo(0, 0);	
+
 	return(
 		<Container style={{ marginTop: '25px', marginBottom: '50px' }}>
 			<div>
