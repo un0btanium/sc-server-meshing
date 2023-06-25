@@ -1,7 +1,13 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 
-const URL = 'https://prezi.com/p/xk5ilzstjrhy/star-citizen-unofficial-road-to-dynamic-server-meshing/';
+// TODO dont forget to update the amount of slides after adding or removing slides in the presentation
+const PRESENTATIONS = [
+	{
+		url: 'https://prezi.com/p/dxnzpqo4jouz/test/',
+		slideAmount: 87
+	}
+];
 
 const regexPageIndicator = new RegExp("^([0-9]*)\/([0-9]*)$");
 const regexSources = new RegExp(/^\[(([a-zA-Z0-9\-]+[,]?[\n]?)+)\]$/);
@@ -16,103 +22,116 @@ const IMAGE_CLASS = '.AssetView__ThumbnailImage-sc-1ptrnll-2';
 
 const UUID_ATTRIBUTE = 'data-tracking-id';
 
-const SLIDE_AMOUNT = 251; // TODO dont forget to update the amount of slides after adding or removing slides in the presentation
 const CHUNK_AMOUNT = 2;
-const CHUNK_SIZE = Math.ceil(SLIDE_AMOUNT / CHUNK_AMOUNT);
+
 
 process.setMaxListeners(50);
 
 async function getVisual() {
 	console.time();
 
-	console.log("Opening main page...");
-	const mainBrowser = await puppeteer.launch();
-	const mainPage = await mainBrowser.newPage();
-	try {
-		await mainPage.goto(URL, { waitUntil: 'load', timeout: 0 });
-		
-		await autoScroll(mainPage, (str) => console.log(str));
-		let slides = await extractSlideInfos(mainPage);
-		let chunkedSlides = createChunkedSlides(slides);
+	let allSlides = [];
+	let index = 1;
+	for (let presentation of PRESENTATIONS) {
+		let chunkSize = Math.ceil(presentation.slideAmount / CHUNK_AMOUNT);
 
-		await Promise.all(chunkedSlides.map(async (slideChunk) => {
-			try {
-				const browser = await puppeteer.launch();
+		console.log("Opening page " + presentation.url);
 
-				for (let slide of slideChunk) {
-					console.log("Opening slide with id:", slide.index);
-
-					const page = await browser.newPage();
-					page.setViewport({ width: 1920, height: 1080 });
-
-					try {
-						await page.goto(URL + '?frame=' + slide.uuid, { waitUntil: 'load', timeout: 0 });
+		const mainBrowser = await puppeteer.launch();
+		const mainPage = await mainBrowser.newPage();
+		try {
+			await mainPage.goto(presentation.url, { waitUntil: 'load', timeout: 0 });
+			
+			await autoScroll(mainPage, presentation.slideAmount, (str) => console.log(str));
+			let slides = await extractSlideInfos(mainPage);
+			let chunkedSlides = createChunkedSlides(slides, chunkSize);
 
 
-						let originalSlideImageURL = await extractOriginalSlideImage(page);
+			await Promise.all(chunkedSlides.map(async (slideChunk) => {
+				try {
+					const browser = await puppeteer.launch();
 
-						let texts = await extractTexts(page, slide);
-						if (excludeSlide(texts, slide) && slide.index !== 1) {
-							continue;
-						} else {
+					for (let slide of slideChunk) {
+						console.log("Opening slide with id:", slide.index);
+
+						const page = await browser.newPage();
+						page.setViewport({ width: 1920, height: 1080 });
+
+						try {
+							await page.goto(presentation.url + '?frame=' + slide.uuid, { waitUntil: 'load', timeout: 0 });
+
+							let originalSlideImageURL = await extractOriginalSlideImage(page);
+
+							let texts = await extractTexts(page, slide);
+							if (excludeSlide(texts, slide) && slide.index !== 1) {
+								continue;
+							}
+							
 							console.log("Extracting slide with id:", slide.index);
+							
+							if(slide.index === 1) {
+								extractingStats(texts);
+							}
+							
+							let pageIndicators = extractPageIndicators(texts);
+							let sources = extractSources(texts);
+							let [title,subtitle] = extractTitleAndSubtitle(texts); // do these after sources and slide indicators, sources might be at the top
+							let imageURLs = await extractImages(page, slide);
+	
+							slide.pageIndicators = pageIndicators;
+							slide.title = title;
+							slide.subtitle = subtitle;
+							slide.texts = texts;
+							slide.sources = sources;
+							slide.imageURLs = imageURLs;
+							slide.originalSlideImageURL = originalSlideImageURL;
+					
+						} catch(e) {
+							console.error(e);
+						} finally {
+							await page.close();
 						}
-						
-						if(slide.index === 1) {
-							extractingStats(texts);
-						}
-						
-						let pageIndicators = extractPageIndicators(texts);
-						let sources = extractSources(texts);
-
-						let [title,subtitle] = extractTitleAndSubtitle(texts); // do these after sources and slide indicators, sources might be at the top
-						await extractImages(page, slide);
-						
-						slide.pageIndicators = pageIndicators;
-						slide.title = title;
-						slide.subtitle = subtitle;
-						slide.texts = texts;
-						slide.sources = sources;
-						slide.originalSlideImageURL = originalSlideImageURL;
-				
-					} catch(e) {
-						console.error(e);
-					} finally {
-						await page.close();
 					}
+
+				} catch(e) {
+					console.error(e);
+				} finally {
+					await mainBrowser.close();
 				}
+			}));
 
-			} catch(e) {
-				console.error(e);
-			} finally {
-				await mainBrowser.close();
+
+			slides.sort((a, b) => a.index <= b.index ? -1 : 1);
+			for (let slide of slides) {
+				slide.index = index++;
 			}
-		}));
 
-		printStatistics(slides);
+			allSlides.push(...slides);
 
-		slides.sort((a, b) => a.index <= b.index ? -1 : 1);
-		saveSlides(slides);
+		} catch(e) {
+			console.error(e)
+		} finally {
+			printStatistics(allSlides);
+			saveSlides(allSlides);
 
-	} catch(e) {
-		console.error(e)
-	} finally {
-		console.timeEnd();
-		try {
-			await mainPage.close();
-		} catch(e1) {
-			console.error(e1);
-		}
-		try {
-			await mainBrowser.close();
-		} catch(e2) {
-			console.error(e2);
+			console.timeEnd();
+			try {
+				await mainPage.close();
+			} catch(e1) {
+				console.error(e1);
+			}
+			try {
+				await mainBrowser.close();
+			} catch(e2) {
+				console.error(e2);
+			}
+			
 		}
 	}
 }
 
-async function autoScroll(page) {
-	console.log("Scrolling to load all", SLIDE_AMOUNT, "slide frames...");
+async function autoScroll(page, slideAmount) {
+	console.log("Scrolling to load all", slideAmount, "slide frames...");
 	
 	await page.screenshot({path: 'screenshot.png'});
 
@@ -123,7 +142,7 @@ async function autoScroll(page) {
 		await page.setViewport(viewport);
 		await page.evaluate(async () => window.scrollBy(0, 1500));
 		let loadedSlidesAmount = await page.evaluate(async (SLIDE_FRAME) => document.body.querySelectorAll(SLIDE_FRAME).length, SLIDE_FRAME);
-		isLoaded = loadedSlidesAmount === SLIDE_AMOUNT;
+		isLoaded = loadedSlidesAmount === slideAmount;
 		console.log("Loaded", loadedSlidesAmount, "slides already...");
 		await page.screenshot({path: 'screenshot.png'});
 	}
@@ -146,12 +165,12 @@ async function extractSlideInfos(mainPage) {
 	}, SLIDE_FRAME, SLIDE_INDEX, UUID_ATTRIBUTE);
 }
 
-function createChunkedSlides(slides) {
+function createChunkedSlides(slides, chunkSize) {
 	console.log("Creating slide chunks...");
 
 	let chunkedSlides = [];
-	for (let i = 0; i < slides.length; i += CHUNK_SIZE) {
-		const chunk = slides.slice(i, Math.min(i + CHUNK_SIZE, slides.length));
+	for (let i = 0; i < slides.length; i += chunkSize) {
+		const chunk = slides.slice(i, Math.min(i + chunkSize, slides.length));
 		chunkedSlides.push(chunk);
 	}
 
@@ -175,9 +194,10 @@ function extractingStats(texts) {
 		}
 	});
 
-	stats.subtitle = texts[5];
-	
-	saveStats(stats);
+	if (stats !== {}) {
+		stats.subtitle = texts[5];
+		saveStats(stats);
+	}
 }
 
 
@@ -226,7 +246,7 @@ async function extractTexts(page, slide) {
 	return texts.filter(text => text); // remove empty strings
 }
 
-async function extractImages(page, slide) {
+async function extractImages(page) {
 	let imageURLs = undefined;
 	try {
 		await page.waitForSelector(IMAGE_CLASS /*'.ExpandedFrameView__FrameExtraInfoTitle-sw0ek0-6'*/, { timeout: 2000 });
@@ -237,7 +257,7 @@ async function extractImages(page, slide) {
 			imageURLs.push(url);
 		}
 	} catch (e) {}
-	slide.imageURLs = imageURLs;
+	return imageURLs;
 }
 
 function extractPageIndicators(texts) {
@@ -297,7 +317,7 @@ function sleep(milliseconds) {
 }
 
 function saveSlides(slides) {
-	fs.writeFile("./src/data/slides.json", JSON.stringify(slides, null, 4), 'utf8', function (err) {
+	fs.writeFile("./src/data/slides2.json", JSON.stringify(slides, null, 4), 'utf8', function (err) {
 		if (err) {
 			console.log("An error occured while writing JSON Object to File.");
 			return console.log(err);
