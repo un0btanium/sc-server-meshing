@@ -79,6 +79,7 @@
 	"mr3": {"url":"https://robertsspaceindustries.com/comm-link/transmission/18515-Star-Citizen-Monthly-Report-November-December-2021","description": " November & December 2021 - Entity-centric EUCS", "category": "Monthly Report"},
 	"mr4": {"url":"https://robertsspaceindustries.com/comm-link/transmission/18811-Star-Citizen-Monthly-Report-July-2022","description": "July 2022 - Chrono Service & Background jobs", "category": "Monthly Report"},
 	"mr5": {"url":"https://robertsspaceindustries.com/comm-link/transmission/19140-Star-Citizen-Monthly-Report-February-2023","description": "Feburary 2023 - PES, query caching, shard isolation", "category": "Monthly Report"},
+	"mr6": {"url":"https://robertsspaceindustries.com/comm-link/transmission/19364-Star-Citizen-Monthly-Report-June-2023","description": "June 2023 - Cooperative Threading Model", "category": "Monthly Report"},
 	"pn33": {"url":"https://robertsspaceindustries.com/comm-link//16840-Star-Citizen-Alpha-330","description": "Alpha 3.3 - Client OCS Release", "category": "Patchnote"},
 	"pn335": {"url":"https://robertsspaceindustries.com/comm-link//16870-Star-Citizen-Alpha-335","description": "Alpha 3.3.5 - Client OCS Release", "category": "Patchnote"},
 	"pn38": {"url":"https://robertsspaceindustries.com/comm-link//17413-Star-Citizen-Alpha-380","description": "Alpha 3.8 - Server OCS Release", "category": "Patchnote"},
