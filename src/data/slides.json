@@ -6,7 +6,7 @@
         "title": "Unofficial Road to Dynamic Server Meshing",
         "subtitle": "",
         "texts": [],
-        "originalSlideImageURL": "https://i.imgur.com/FIy29FL.png"
+        "originalSlideImageURL": "https://i.imgur.com/xQTR9fC.png"
     },
     {
         "uuid": "2dca2f2568126b9ce85398eabb83dece8ab7e73f",
@@ -3771,6 +3771,7 @@
         ],
         "sources": [
             "lc2",
+            "s204",
             "scr"
         ],
         "originalSlideImageURL": ""
@@ -4147,6 +4148,7 @@
         "sources": [
             "jp1",
             "pn317",
+            "s205",
             "s303",
             "s304",
             "mr6"
