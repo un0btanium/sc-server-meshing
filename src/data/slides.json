@@ -1410,8 +1410,8 @@
             "* Alpha 3.15 Release of the Global Database, Global Persistence and Physicalized Items and Inventory (uses RL to make backend DB calls)",
             "* Alpha 3.17 Entity State Networking through the Replication Layer (networking part of OCS moved into RL)",
             "* Alpha 3.18 Gen12 + EntityGraph Database + OC Loading via Replication Layer (+cache for Global DB queries in EntityGraph services, all of OCS in RL)",
-            "* Alpha 3.XX Replication Layer moved from game server into its own server (Hybrid Service)",
-            "* Alpha ?.? Static Server Meshing \"V0\" and Pyro with Authority Transfers in Jumppoints (Speculated)",
+            "* Alpha 3.23 Replication Layer moved from game server into its own server (Hybrid Service)",
+            "* Alpha 4.0 Static Server Meshing \"V0\" and Pyro with Authority Transfers in Jumppoints (Speculated)",
             "* Alpha 4.X Static Server Meshing \"V1\" with Authority Transfers in deep space (Speculated)",
             "* Alpha 4.X Dynamic Server Meshing V1 (Speculated)"
         ],
