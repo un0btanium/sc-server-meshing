@@ -86,6 +86,7 @@
 	"pn315": {"url":"https://robertsspaceindustries.com/comm-link//18400-Star-Citizen-Alpha-3150","description": "Alpha 3.15 - iCache & Inventory", "category": "Patchnote"},
 	"pn317": {"url":"https://robertsspaceindustries.com/comm-link/transmission/18636-Star-Citizen-Alpha-3170","description": "Alpha 3.17 - Client Bind Culling in the Replication Layer", "category": "Patchnote"},
 	"pn318": {"url":"https://robertsspaceindustries.com/comm-link/transmission/19126-Star-Citizen-Alpha-3180","description": "Alpha 3.18 - Persistent Entity Streaming Release", "category": "Patchnote"},
+	"pn323": {"url":"https://robertsspaceindustries.com/comm-link/transmission/19736-Alpha-323-Adventure-Beckons","description": "Alpha 3.23 - Replication Layer Split", "category": "Patchnote"},
 	"tw1": {"url":"https://twitter.com/DrChadMcKinney/status/1447665963738951684","description": "on Server Meshing & Regional Shards", "category": "Twitter"},
 	"mdb1": {"url":"https://severalnines.com/database-blog/overview-mongodb-and-load-balancing", "description": "MongoDB Sharding", "category": "Documentation"},
 	"mdb2": {"url":"https://docs.mongodb.com/manual/geospatial-queries/", "description": "MongoDB Spatial Queries", "category": "Documentation"},
