@@ -324,3 +324,16 @@ img {
 }
 
 
+@keyframes blink {
+    0% { filter: brightness(1.0); }
+    50% { filter: brightness(1.4); }
+    100% { filter: brightness(1.0); }
+}
+
+.blink {
+    animation: blink 1.25s infinite ease-in-out;
+}
+
+.blink:hover {
+    animation: none;
+}

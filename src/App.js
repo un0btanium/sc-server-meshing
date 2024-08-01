@@ -7,6 +7,7 @@ import './App.css';
 
 import Tech from './components/tech.component';
 import Presentation from './components/presentation.component';
+import NeoOverview from './components/neo-overview.component';
 
 import slides from './data/slides.json';
 import sources from './data/sources.json';
@@ -31,9 +32,8 @@ class App extends Component {
 		techOrder.push(tech.name);
 		techOrderLowerCase.push(tech.name.toLowerCase());
 		techsByName[tech.name.toLowerCase()] = tech;
-
-		slides = this.optimizeSlides(slides);
-		for (let slide of slides) {
+		
+		for (let slide of this.optimizeSlides(slides)) {
 
 			if (this.skipSlide(slide)) {
 				continue;
@@ -102,9 +102,15 @@ class App extends Component {
 						/>}
 					/>
 					<Route
-						path="/"
+						path="/prezi"
 						element={<Presentation/>}
 						exact
+					/>
+					<Route
+						path="/"
+						element={<NeoOverview
+							stats={stats}
+						/>}
 					/>
 				</Routes>
 			</BrowserRouter>

@@ -47,7 +47,9 @@ export default function Tech(props) {
 				return;
 			}
 
-			markdown = markdown + "### " + slide.subtitle + "\n";
+			if (slide.subtitle) {
+				markdown = markdown + "### " + slide.subtitle + "\n";
+			}
 	
 			let isBulletpoint = false;
 			slide.texts.forEach(text => {
@@ -72,13 +74,33 @@ export default function Tech(props) {
 	let { previousTech, currentTech, nextTech } = determineTechsAndSlide();
 	let tech = props.techsByName[currentTech.toLowerCase()];
 
-	let nav = (
-		<Row style={{ margin: '0px 20px 20px 20px'}}>
-			<Col as={Link} to={"/wiki/?tech=" + encodeURIComponent(previousTech)} className="nav-button left disable-link-style">&lt;= {previousTech}</Col>
-			<Col as={Link} to={"/wiki"} className="nav-button middle d-flex align-items-center justify-content-center disable-link-style"><FontAwesomeIcon icon={faHouse} /></Col>
-			<Col as={Link} to={"/wiki/?tech=" + encodeURIComponent(nextTech)} className="nav-button right disable-link-style">{nextTech} =&gt;</Col>
-		</Row>
-	);
+	let nav;
+	if (searchParams.has('neo')) {
+		let nextLink = "/?nextTech=" + encodeURIComponent(nextTech);
+		if (currentTech === "Single Shard") {
+			nextLink = "/wiki?tech=" + encodeURIComponent("Prologue & Summary") + "&neo";
+		} else if (currentTech === "Prologue & Summary") {
+			nextLink = "/wiki?tech=" + encodeURIComponent("Special Thanks") + "&neo";
+		} else if (currentTech === "Sources") {
+			nextLink = "/";
+		}
+		nav = (
+			<Row style={{ margin: '0px 0px 20px 0px'}}>
+				<Col as={Link} to={"/?nextTech=" + encodeURIComponent(currentTech)} className="nav-button left disable-link-style">&lt;= Back</Col>
+				<Col as={Link} to={"/"} className="nav-button middle d-flex align-items-center justify-content-center disable-link-style"><FontAwesomeIcon icon={faHouse} /></Col>
+				<Col as={Link} to={nextLink} className="nav-button right disable-link-style blink">Next Tech =&gt;</Col>
+			</Row>
+		);
+	} else {
+		nav = (
+			<Row style={{ margin: '0px 0px 20px 0px'}}>
+				<Col as={Link} to={"/wiki/?tech=" + encodeURIComponent(previousTech)} className="nav-button left disable-link-style">&lt;= {previousTech}</Col>
+				<Col as={Link} to={"/wiki"} className="nav-button middle d-flex align-items-center justify-content-center disable-link-style"><FontAwesomeIcon icon={faHouse} /></Col>
+				<Col as={Link} to={"/wiki/?tech=" + encodeURIComponent(nextTech)} className="nav-button right disable-link-style">{nextTech} =&gt;</Col>
+			</Row>
+		);
+	}
+
 
 	if (!tech) {
 		return <h1>Tech is not available!</h1>
@@ -99,7 +121,9 @@ export default function Tech(props) {
 
 	let markdown = "";
 
-	markdown = markdown + "# " + tech.name + "\n___\n";
+	if (tech.name !== "Sources") {
+		markdown = markdown + "# " + tech.name + "\n";
+	}
 	let slideInfo = getMarkdownWithSlideInfo(tech, props.slide);
 	if (!props.slide && slideInfo === "") {
 		markdown = markdown + "Slide '" + props.slide.subtitle + "' not available!\n";
@@ -109,33 +133,40 @@ export default function Tech(props) {
 	}
 
 	markdown = markdown + "### Sources\n";
-	if (!tech.sources) {
+	let sources = tech.sources;
+	console.log(tech)
+	console.log(props)
+	if (tech.name === "Sources") {
+		sources = Object.keys(props.sources);
+	}
+	console.log(sources)
+	if (!sources) {
 		markdown = markdown + "No sources available!";
 	} else {
-		tech.sources
-		.map((sourceIdentifier) => {
-			let source = props.sources[sourceIdentifier];
-			if (!source) {
-				console.error("Unknown source: " + sourceIdentifier);
-				return undefined;
-			}
+		sources
+			.map((sourceIdentifier) => {
+				let source = props.sources[sourceIdentifier];
+				if (!source) {
+					console.error("Unknown source: " + sourceIdentifier);
+					return undefined;
+				}
 
-			let sourceText = "__" + source.category + "__: " + source.description;
-			return {
-				sourceIdentifier: sourceIdentifier,
-				sourceText: sourceText,
-				url: source.url
-			};
-		})
-		.filter(source => source)
-		.sort((a,b) => a.sourceText.localeCompare(b.sourceText))
-		.forEach((source) => {
-			if (source.url) {
-				markdown = markdown + "[" + source.sourceText + "](" + source.url + ")  \n";
-			} else {
-				markdown = markdown + source.sourceText + "  \n";
-			}
-		});
+				let sourceText = "__" + source.category + "__: " + source.description;
+				return {
+					sourceIdentifier: sourceIdentifier,
+					sourceText: sourceText,
+					url: source.url
+				};
+			})
+			.filter(source => source)
+			.sort((a,b) => a.sourceText.localeCompare(b.sourceText))
+			.forEach((source) => {
+				if (source.url) {
+					markdown = markdown + "[" + source.sourceText + "](" + source.url + ")  \n";
+				} else {
+					markdown = markdown + source.sourceText + "  \n";
+				}
+			});
 	}
 
 	

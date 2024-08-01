@@ -9,6 +9,14 @@ const PRESENTATIONS = [
 	}
 ];
 
+// The "Fuck Prezi" Rework
+// 1) turn each topic into a markup file, save file to disk
+// 2) add topic with its sources (individual links and description text) to an overall json file (list of topics)
+// 3) use this data to create the mobile views
+// 4) recreate the overview landing page in html and css (DONE)
+// 5) add links from this new landing page to the mobile view topics (trigger function by name, lookup in overall json file list) (DONE)
+// 6) delete Prezi (but not really) (DONE)
+
 const regexPageIndicator = new RegExp("^([0-9]*)\/([0-9]*)$");
 const regexSources = new RegExp(/^\[(([a-zA-Z0-9\-]+[,]?[\n]?)+)\]$/);
 const regexStats = new RegExp(/^Made By: (?<authors>[\w& ]+) Last Updated: (?<lastUpdated>[\w. ]+) \(Current Live Patch: (?<livePatch>[\w. ]+)\)$/);

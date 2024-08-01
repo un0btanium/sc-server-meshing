@@ -1,0 +1,498 @@
+:root {
+    --gray: #364242;
+    --gray-blue: #133657;
+    --blue-dark: #133A63;
+    --blue-light: #357DB8;
+    --blue-light-rgb: 53, 125, 184;
+    --green: #148031;
+    --green-light: #8CCB4D;
+    --orange: #C27F28;
+    --red: #AD2036;
+    --body-bg: #232B2B;
+    --box-border-radius: 10px;
+    --box-lg-width: 150px;
+    --box-lg-lansccape-width: 250px;
+    --box-lg-height: 150px;
+    --box-xsm-width: 100px;
+    --box-sm-width: 115px;
+    --column-height: 450px;
+    --column-minimum-height: 350px;
+    --transition: 0.4s ease-in-out;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: "Cabin";
+    src: url("font/Cabin-BoldItalic.ttf") format("truetype");
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: "Cabin";
+    src: url("font/Cabin-Regular.ttf") format("truetype");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "Cabin";
+    src: url("font/Cabin-Medium.ttf") format("truetype");
+    font-weight: 500;
+}
+@font-face {
+    font-family: "Cabin";
+    src: url("font/Cabin-SemiBold.ttf") format("truetype");
+    font-weight: 600;
+}
+
+body.neo {
+    margin: 0;
+    font-family: "Cabin", sans-serif;
+    font-style: normal;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.4;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    overflow-y: hidden; /* Hide vertical scrollbar */
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
+body.neo h1 {
+    margin-bottom: 0.625rem;
+    font-size: 2.5rem;
+}
+
+body.neo p {
+    margin-bottom: 0.625rem;
+}
+
+body.neo h2 {
+    text-transform: capitalize;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+/* ##### Layout/Grid ##### */
+body.neo .container {
+    width: 1919px;
+    min-width: 1919px;
+    max-width: 1919px;
+    padding: 0 1.5rem;
+    margin: 0;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+body.neo .row {
+    display: flex;
+    flex: 1;
+}
+
+body.neo .col {
+    flex: 1;
+    padding: 0;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+}
+
+/* ##### Utility Classes ##### */
+body.neo .bg-green {
+    background-color: var(--green);
+}
+
+body.neo .bg-gray {
+    background-color: var(--gray);
+}
+
+body.neo .bg-gray-blue {
+    background-color: var(--gray-blue);
+}
+
+body.neo .bg-blue-dark {
+    background-color: var(--blue-dark);
+}
+
+body.neo .bg-blue-light {
+    background-color: var(--blue-light);
+}
+
+body.neo .bg-orange {
+    background-color: var(--orange);
+}
+
+body.neo .bg-red {
+    background-color: var(--red);
+}
+
+body.neo .text-blue-light {
+    color: var(--blue-light)!important;
+}
+
+body.neo .text-green-light {
+    color: var(--green-light)!important;
+}
+
+body.neo .text-uppercase {
+    text-transform: uppercase;
+}
+
+body.neo .flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+body.neo .justify-between {
+    justify-content: space-between;
+}
+
+/* ##### HEADER ##### */
+body.neo .header {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    padding: 1rem 0;
+}
+
+body.neo .logo-heading,
+body.neo .list-boxes {
+    display: flex;
+    align-items: center;
+}
+
+body.neo .logo {
+    display: block;
+    margin-right: 1.5rem;
+}
+
+body.neo .header h1 {
+    margin-top: 0;
+    font-style: italic;
+    font-weight: 700;
+}
+
+body.neo .list-header ul {
+    margin-bottom: 0;
+}
+
+body.neo .lead,
+body.neo ul li {
+    color: #cdcdcd;
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+
+body.neo p:not(.lead) {
+    color: #aaa;
+    margin: 0;
+}
+
+body.neo .list-header li {
+    list-style: none;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+}
+
+body.neo .list-header span {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}
+
+body.neo .header-boxes {
+    display: flex;
+    margin-left: 3rem;
+}
+
+body.neo .header-boxes .box {
+    width: 110px;
+    height: 110px;
+}
+
+body.neo .header-boxes div:not(:last-child) {
+    margin-right: 1rem;
+}
+
+/* ##### Component ##### */
+
+body.neo .box {
+    position: relative;
+    text-decoration: none;
+    padding: 1rem;
+    margin: 0 auto 7px auto;
+    border-radius: var(--box-border-radius);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: transform var(--transition), width var(--transition), height var(--transition);
+    z-index: 11;
+    cursor: pointer;
+}
+
+body.neo .box:hover {
+    transform: scale(1.05);
+    filter: brightness(1.15);
+    z-index: 12;
+}
+
+body.neo .box:active {
+    transform: scale(0.95);
+}
+
+body.neo .box.clicked {
+    transition: transform 0.8s ease-in-out, opacity 0.8s ease-in;
+    transform: scale(40.0);
+    opacity: 0.2;
+    z-index: 1001 !important;
+}
+
+body.neo #other_tech {
+    flex: 1;
+    background-color: var(--gray-blue);
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+body.neo #other_tech .col-content {
+    margin-top: 0;
+}
+
+body.neo #other_tech .col-content::before,
+body.neo #other_tech .col-content::after {
+    display: none;
+}
+
+body.neo #other_tech h2 {
+    margin-top: 0;
+}
+
+body.neo #other_tech .box {
+    padding: 7px;
+}
+
+body.neo .hidden {
+    display: none;
+}
+
+/* Box for Major Tech */
+body.neo .box-lg,
+body.neo .box-lg-landscape {
+    font-size: 1.125rem;
+    font-weight: 600;
+    z-index: 2;
+}
+
+body.neo .box-lg {
+    width: var(--box-lg-width);
+    height: var(--box-lg-height);
+}
+
+body.neo .box-lg-landscape {
+    width: var(--box-lg-lansccape-width);
+    height: var(--box-lg-height);
+}
+
+ /* Faint Box */
+ body.neo .box-faint {
+    width: 30%;
+    height: 252px;
+    position: absolute;
+    top: 8px;
+    padding-top: 3px;
+    font-size: 1.125rem;
+    text-align: center;
+    border: 2px solid rgba(var(--blue-light-rgb), 0.7);
+    border-radius: 15px;
+    z-index: 1;
+}
+
+body.neo .box-faint.left {
+    left: 21%;
+}
+
+body.neo .box-faint.right {
+    right: 8.6%;
+}
+
+/* Box for Minor & Other Tech */
+body.neo .box-xsm {
+    flex: 1;
+    width: var(--box-xsm-width);
+    padding: 5px;
+    font-size: 15px;
+    border-radius: 6px;
+}
+
+body.neo .box-sm {
+    flex: 1;
+    width: var(--box-sm-width);
+    padding: 5px;
+    font-size: 15px;
+    border-radius: 6px;
+}
+
+
+body.neo .col-header {
+    position: relative;
+    min-height: 271px;
+    background-color: var(--blue-dark);
+    padding-top: 40px;
+    padding-bottom: 22px;
+}
+
+body.neo .col-header h2 {
+    margin-bottom: 0;
+}
+
+body.neo .info {
+    text-wrap: nowrap;
+    margin-bottom: 7px;
+}
+
+body.neo .content {
+    position: relative;
+}
+
+/* Horizontal line */
+body.neo .col-header:before {
+    background-color: var(--green-light);
+    content: '';
+    position: absolute;
+    top: 50%;
+    margin-top: 26px;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    z-index: 2;
+}
+
+body.neo .col:nth-child(2) .col-header::before {
+    border-radius: 3px 0 0 3px;
+}
+
+/* Horizontal Arrow */
+body.neo .col:nth-last-child(2) .col-header::after {
+    content: '';
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    margin-top: 13px;
+    width: 0;
+	height: 0;
+	border-top: 17px solid transparent;
+	border-left: 30px solid var(--green-light);
+	border-bottom: 17px solid transparent;
+    z-index: 10;
+}
+
+body.neo .col:first-child .col-header::before,
+body.neo .col:last-child .col-header::before {
+    display: none;
+}
+
+/* Content */
+body.neo .col-content {
+    position: relative;
+    flex: 1;
+    max-height: var(--column-height);
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: stretch;
+    margin-top: 30px;
+    z-index: 2;
+}
+
+body.neo .col-content .col {
+    padding: 0 5px;
+}
+
+body.neo .col-content.min-height {
+    flex: none;
+    max-height: var(--column-minimum-height);
+}
+
+/* Vertical Line */
+body.neo .col-content::before,
+body.neo .col-content .col::before {
+    content: '';
+    position: absolute;
+    width: 10px;
+    top: 0;
+    left: 50%;
+    background-color: var(--green-light);
+    transform: translateX(-5px);
+    z-index: 2;
+}
+
+body.neo .col-content::before,
+body.neo .col-content .col::before {
+    height: 100%;
+    border-radius: 0 0 3px 3px;
+}
+
+body.neo .col-content.double-col::before,
+body.neo .col-content.double-col::after {
+    display: none;
+}
+
+/* Arrow Up */
+body.neo .arrow-up {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -50px;
+    width: 0;
+	height: 0;
+    transform: translateX(-17px);
+	border-left: 17px solid transparent;
+	border-right: 17px solid transparent;
+	border-bottom: 30px solid var(--green-light);
+    z-index: 2;
+}
+
+body.neo .arrow-up::before {
+    position: absolute;
+    content: "";
+    width: 10px;
+    height: 21px;
+    top: 29px;
+    background-color: var(--green-light);
+    transform: translateX(-5px);
+}
+
+
+/* ##### LOGO BOTTOM & FOOTER ##### */
+body.neo #logo-bottom {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+body.neo #logo-bottom a {
+    color: #fff;
+    text-wrap: nowrap;
+}
+
+body.neo #bottom-text {
+    max-width: 1640px;
+    margin: 1.5rem auto .1rem auto;
+    text-align: center;
+}

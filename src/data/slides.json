@@ -1106,7 +1106,7 @@
         "subtitle": "Summary and Future Features 2/2",
         "texts": [
             "With the first version of Server OCS, whenever an area of a level is unloaded onto the drive/database, the entities in those areas wont be computed in the game loop anymore, thus no changes are occurring. Essentially, that specific section of the world is frozen in time until a player moves back into that area again. That is not ideal in a simulated, immersive and economy driven universe.",
-            "To solve this, in the future, another server/service will take those unloaded areas and quickly simulate the time that has passed. This way, the computation resources required are greatly reduced by abstracting the simulation to a minimum. The universe would still appear alive. For example, NPCs who are busy repairing a ship wont have to be simulated running around and doing their job if no player is around to witness them doing it, only the ship hull values have to be increased in the database in the background. When a player enters the area again, the ship will be in a more repaired state compared to when the player left the area. Meanwhile, the NPCs are loaded back into the area again as if they were busy the entire time, even thought they did not actually exist to work on repairing the ship. This way, the entire universe will always feel alive, even thought most of the universe won't even be actively loaded and computed on the game servers themselves. This feature heavily relies on Global Persistence to be completed, since values have to be update in the database, then accessed and loaded into memory by the game servers. Simulating the game world on a higher abstraction level is also going to be the main functionality of the \"Quantum\" Economy Simulator.",
+            "To solve this, in the future, another server/service will take those unloaded areas and quickly simulate the time that has passed. This way, the computation resources required are greatly reduced by abstracting the simulation to a minimum. The universe would still appear alive. For example, NPCs who are busy repairing a ship wont have to be simulated running around and doing their job if no player is around to witness them doing it, only the ship hull values have to be increased in the database in the background. When a player enters the area again, the ship will be in a more repaired state compared to when the player left the area. Meanwhile, the NPCs are loaded back into the area again as if they were busy the entire time, even thought they did not actually exist to work on repairing the ship. This way, the entire universe will always feel alive, even thought most of the universe won't even be actively loaded and computed on the game servers themselves. This feature heavily relies on Global Persistence to be completed, since values have to be update in the database, then accessed and loaded into memory by the game servers. Simulating the game world on a higher abstraction level is also going to be the main functionality of the StarSim Economy Simualtor.",
             "Another major future feature of Server OCS relying on Full Persistence as well will be Server Recovery. Once all states of all entities are continuously persisted into a database it becomes possible to recover a server after a crash. If a crash happens, a new server can be started in its place, the database provides the information about the entities that were present on the server at the time of the crash, load those entities back into memory via Server OCS and connect the player clients back to the server again. Therefore, in case of a server crash, players would only have to experience a couple seconds of interruption and barely any loss of progress in the game before being able to continue playing the game again where they left off."
         ],
         "originalSlideImageURL": ""
@@ -1139,7 +1139,7 @@
             "* Two databases: EntityGraph database & Global Database.",
             "* \"EntityGraph service\": Allows other services to accesses the data of those two databases or move data between the two.",
             "* Replication Layer service: Handles communication between game servers and clients with a cache to store and network the entity state.",
-            "* Quantum Economy Simulator: Simulates the economy in a high-level abstraction environment to create a realistic action-reaction system.",
+            "* StarSim Economy Simulator: Simulates the economy in a high-level abstraction environment to create a realistic action-reaction system.",
             "* The game server is just left with simulating the game, streaming in all necessary data in and out.",
             "* Uses gRPC (Remote Procedure Calls) for communication between services and game servers (speculated: does not use only RPC).",
             "* The initial persistence solution was attempted with a relational database, which, after internal testing, didnt live up to performance and latency requirements. So, a switch to a graph database and the Replication Layer service commenced end of 2020/early 2021.",
@@ -1574,7 +1574,7 @@
             "Over time and across many patches, the amount of game servers per Shard is going to to be increased. And in turn the number of entities (more locations with more items) and players per Shards can be increased as well. Fewer and fewer Shards will be required, until potentially - one day - a single Shard consists of enough DGS so that it can handle the load of all players (of a region/continent or world-wide).",
             "CIG likes to refer to their game servers - on which a game server executable/program runs - as a Dedicated Game Server (DGS). Under Server Meshing, they are also referred to as Server Nodes to highlight the meshed environment. We will use the terms game server, DGS and Server Node interchangeably as they mean the same thing. A server that simulates (a part of) the game world.",
             "However the difference - even in the intermediate Server Meshing versions - is that each game world is already being simulated by more than one game server. The game servers of the same Shard can exchange entity state data with each other. With these network connections, the DGS are \"meshed\" together, forming a \"mesh network\" of game servers. The game servers end up being meshed: (Game) Server Meshing.",
-            "Once a game world is computed by more than one game server, we refer to that game world as a \"Shard\". This helps us differentiate the game worlds being simulated by multiple meshed DGS, from the game worlds running on a single DGS ('game world instances' vs 'game world shards'). Each Shard will still be its own SC universe, with its own Stanton, Pyro, Nyx, ect. but do share the same economy from the Quantum Simulator."
+            "Once a game world is computed by more than one game server, we refer to that game world as a \"Shard\". This helps us differentiate the game worlds being simulated by multiple meshed DGS, from the game worlds running on a single DGS ('game world instances' vs 'game world shards'). Each Shard will still be its own SC universe, with its own Stanton, Pyro, Nyx, ect. but do share the same economy from the StarSim Simulator."
         ],
         "originalSlideImageURL": ""
     },
@@ -2339,7 +2339,7 @@
         "title": "Dynamic Server Meshing",
         "subtitle": "Services and Databases",
         "texts": [
-            "With this system the universe can be dynamically scaled based on the current activities in the game world. Other services and databases like the \"Quantum\" Economy Simulation, Dynamic Mission System, Item Cache, Account Database, etc. will be accessible to all game servers.",
+            "With this system the universe can be dynamically scaled based on the current activities in the game world. Other services and databases like the StarSim Economy Simulation, Dynamic Mission System, Item Cache, Account Database, etc. will be accessible to all game servers.",
             "Ideally, all of these services will be designed in a way that allows them to be horizontally scaled, meaning they can be copied and distributed onto more than one data center. Or they all receive their own cache layer. To achieve a good performance, databases have to be replicated onto multiple data centers across the globe for all game server to have quick access. This also enables redundancy, basically the data is present in multiple identical databases, which in case of a database crash, a new database can quickly be spun up in its place by replicating the data from one of the other, still running databases. This might allow for one single world-wide instance where all players from around the world are able to play together without major interruptions and lag since there will always be a database server near a game server.",
             "Theoretically, with later versions of Dynamic Server Meshing, game servers and Replicant and Gateway services could be geographically re-positioned on-the-fly to another data center where the latency of the currently connected players is the most similar to create a fair playing field for all players by reducing the chance of issues like peekers advantage from occurring. In general, as long as latency is stable and there is not a lot of jitter, network features (such as lag compensation and client side prediction) can guarantee a smooth and fair player experience even with higher latency to servers."
         ],
@@ -3007,6 +3007,74 @@
         "originalSlideImageURL": ""
     },
     {
+        "uuid": "63ed94b69d6b80e93a73cc82d751afd1a01b8387",
+        "index": 212,
+        "pageIndicators": {
+            "current": "1",
+            "total": "1"
+        },
+        "title": "Ship Interior Object Container Streaming",
+        "subtitle": "Overview",
+        "texts": [
+            "Solution: Ship Interior OCS, a sub-feature of OCS and an optimization for clients and servers",
+            "Requirement for: Server Meshing",
+            "Goals:",
+            "* \"When complete, streaming interior object containers in and out of ships based on distance will allow vehicles to have a higher performant stage of streaming used at far distances, to reduce CPU cost.\" - Release View",
+            "* reduce CPU and memory on client (and servers in server meshing)",
+            "Approach (speculated):",
+            "* split the exterior and interior of ships into separate Object Containers",
+            "* add additional OCS rules for loading and unloading rooms/zones and/or Object Containers of the ship interiors",
+            "* the player client does not have to load the interior of far away ships anymore",
+            "* speculated: in server meshing, a game servers don't have to load the interior of the ships, which are being computed by another game servers in the mesh/shard",
+            "* speculated: rooms with windows will have a different rule compared to rooms which are deeper inside the ships and/or have no windows"
+        ],
+        "sources": [
+            "scr"
+        ],
+        "originalSlideImageURL": ""
+    },
+    {
+        "uuid": "50a13e04996bf97001d29b4cf503ed11044df5c9",
+        "index": 166,
+        "pageIndicators": {
+            "current": "1",
+            "total": "1"
+        },
+        "title": "Long Term Persistence",
+        "subtitle": "Overview",
+        "texts": [
+            "So far, every three months on each major patch the player progress is completely wiped because the database was reset.",
+            "Challenges:",
+            "* players dont have a lot of incentive to work toward ships and other items (especially ever since in-game ship purchases and rentals came available) because they will be removed again every three months",
+            "Solution: Long Term Persistence (LTP, Platform Persistence, \"Baby Persistence\"), later reworked and renamed to 'Global Database'",
+            "Goals:",
+            "* Implement a first version of persistence for player account data.",
+            "* (note: this feature is not Full Persistence because Full persistence is about saving data of the game world which is what PES and the EntityGraph database is going to do)",
+            "Approach:",
+            "* The first version released in Alpha 3.8.2 with:",
+            "* aUEC balance",
+            "* Ship purchases and rents",
+            "* Ship component purchases",
+            "* FPS item purchases",
+            "* This allowed the introduction of the currency trading app (mo.TRADER) in Alpha 3.10.0 by utilizing the database that stores the information about the players aUEC balance.",
+            "* This database now saves in-game purchases of ships to allow players to work toward and keep their ships across multiple patches.",
+            "* \"As of [Alpha] 3.15, Long Term Persistence is broken up into three distinct parts: Items, Wallet (aUEC), and Reputation. Going forward, we will be able to wipe specific parts of LTP individually as needed (for example, wiping Reputation while leaving Wallet and Items intact). This level of flexibility will allow us to do necessary wipes while minimizing the impact on the community.\"",
+            "* The Item part of the database is most likely the Global Database holding inventory items of a player across shards.",
+            "* Alpha 3.15 also came with an interim implementation for Server Crash Recovery specifically for ships. This was done by checking the Replication Layer cache (containing a snapshot of the physicalized ship entity of the crashed server) for all player ships. Those ships are then stowed into the Global Database (LTP). From there, it then can be spawned again on any server at a ship terminal. The interior (including cargo) is spawned and available as well. This was a first workaround before the actual server crash recovery that will allow us to keep playing exactly where the game left us of (e.g. inside our ship while Quantum Travelling).",
+            "* Alpha 3.18 introduced multiple quality of life improvement, one of which being stacking of similar items and a \"tranfers all\" button."
+        ],
+        "sources": [
+            "s108",
+            "s115",
+            "s116",
+            "s118",
+            "s122",
+            "cad1",
+            "jp2"
+        ],
+        "originalSlideImageURL": ""
+    },
+    {
         "uuid": "4363ef5580329c60e68ed74e0a859cf1359aa20c",
         "index": 159
     },
@@ -3053,7 +3121,7 @@
             "current": "1",
             "total": "1"
         },
-        "title": "Definitive State & Location IDs",
+        "title": "Definitive State & Location Spawn IDs",
         "subtitle": "Overview",
         "texts": [
             "With the entities not being loaded and accessible in server memory anymore, some issues arose because of it that needed to be deal with before Server Object Container Streaming was able to come online.",
@@ -3086,7 +3154,7 @@
             "current": "1",
             "total": "1"
         },
-        "title": "Persistent Item DB & pCache (persistenceCache)",
+        "title": "pCache",
         "subtitle": "Overview",
         "texts": [
             "Challenges:",
@@ -3121,7 +3189,7 @@
             "current": "1",
             "total": "1"
         },
-        "title": "Global Database / Long Term Persistence (LTP)",
+        "title": "Global Database",
         "subtitle": "Overview",
         "texts": [
             "So far, every three months on each major patch the player progress is completely wiped because the database was reset.",
@@ -3241,6 +3309,7 @@
             "Approach:",
             "* Change/extend Server OCS with this new functionality.",
             "* This is the interface between the game server and the database(s) (and services and caches in front of the databases).",
+            "* Initially developed for iCache, parts of its implementation was reused and adjusted to work with EntityGraph and the new PES architecture.",
             "* Speculated: While players move through the game world, the Replication Layer asks an EntityGraph database, if there are any entities in the area around the player.",
             "* Let the Replication Layers cache and the game server load those entities into memory via Server OCS and on the game server start simulating them in the game update loop by the CPU.",
             "* When players leave an area, serialize and send the entity state to the EntityGraph database (or Global Database in terms of Inventories and ships) to have it be saved and persisted.",
@@ -3268,7 +3337,7 @@
             "current": "1",
             "total": "1"
         },
-        "title": "Local, External and Personal Inventory",
+        "title": "Local, External & Personal Inventory",
         "subtitle": "Overview",
         "texts": [
             "The first versions of inventory and item management will consist of a personal inventory (what the players can carry directly on them), external inventory (e.g. a cargo box or backpack) and local inventory (ships and landing zones). The local inventory is going to be an intermediate version toward fully Physicalized Items and Inventories. Items will initally be stored on ships in these local inventories and accessible via UI. Through iteration, more and more items will be physicalized as \"real\" objects which take up space in the game world and the local inventories will be phased out. At the same time more physicalized inventories will be introduced that will allow players and NPCs to store these physicalized items directly inside physical inventories.",
@@ -3375,14 +3444,18 @@
             "* sometimes the backend servers and services running one such game world is also referred to as the \"Shard\"",
             "Approach:",
             "* Idealy, everyone plays in the same game world, a single world-wide Shard.",
-            "* However, until Server Meshing is capable of doing that, there will still be multiple, independent shards running alongside each other, each with their own game world and state. Therefore, initially there will be a multiverse of SC universes, but economy is shared (via the Quantum Economy Simulator).",
+            "* However, until Server Meshing is capable of doing that, there will still be multiple, independent shards running alongside each other, each with their own game world and state. Therefore, initially there will be a multiverse of SC universes, but economy is shared (via the StarSim Economy Simulator).",
             "* The initial milestone/goal is to scale up Server Meshing far enough to support one Single Sshard per region.",
             "* While playing, players and entities can only ever be transferred between game servers of the same Shard, never to server nodes of a different shard.",
             "* Players can still join/switch to another Shards, but this can only happen from the main menu before they start playing, determined by matchmaking/login-flow"
         ],
         "sources": [
             "cc2",
-            "qa1"
+            "qa1",
+            "s201",
+            "s210",
+            "mr5",
+            "tw1"
         ],
         "originalSlideImageURL": ""
     },
@@ -3462,14 +3535,14 @@
             "current": "1",
             "total": "1"
         },
-        "title": "Server Crash Recovery & Client Reconnects",
+        "title": "Game Server Crash Recovery & Client Reconnects",
         "subtitle": "Overview",
         "texts": [
             "EntityGraph and the Replication Layer will allow for the recovery of crashed servers and reconnets of disconnected players.",
             "Challenges:",
             "* a server crash would cause major disruptions for the player experience",
             "* especially under Server Meshing you need to be able to restart individual servers instead of having to restart the entire meshed system, which essentially would be all servers if just one server crashes",
-            "Solution: Server Crash Recovery and Client Reconnects",
+            "Solution: Game Server Crash Recovery and Client Reconnects",
             "Requirement for: Server Meshing",
             "Goals:",
             "* utilize the data stored in the EntityGraph to recover individual, crashed game servers and allow players to continue to play with minimal interruption and barely any loss of player progression and items",
@@ -3502,7 +3575,7 @@
             "current": "1",
             "total": "1"
         },
-        "title": "Service Migration and Creation",
+        "title": "Service Migration & Creation",
         "subtitle": "Challenges:",
         "texts": [
             "* with server meshing having multiple game servers compute the same game world (which is just data), those game servers will have to share and access the same data",
@@ -3516,7 +3589,7 @@
             "* the network code's Replication Layer (collection of Client OCS minor techs) is moved out of the game server code (into the Hybrid service)",
             "* Matchmaking/Login Flow has been reworked to assign players automatically via various weighted factors onto different servers/shards.",
             "* ATC (Air Traffic Control) has to manage and keep track of free and occupied landing pads and requests from players and NPCs (potentially made by multiple servers or different servers across time).",
-            "* a NPC Character Creation Service \"will aid in the creation of AI at specific locations for specific reasons, such as the Quantum Simulation.\"",
+            "* a NPC Character Creation Service \"will aid in the creation of AI at specific locations for specific reasons, such as the StarSim Economy Simulation.\"",
             "* NPC Scheduler Service \"is meant to add and remove NPC's to the game, dynamically spawning them into and out of the 'verse based on NPC Archetype, Maximum number of NPC's in a given area, and the probabilities of those NPC Archetypes.\"",
             "* The AI Info Service \"will continuously track the position of players, NPCs, and other entities so that our live-service tools can display them properly in real-time.\"",
             "* NPC Tracker Service \"tracks and records the actions of players and NPCs. In turn, Bounty Hunting gameplay will use this service to expose the actions taken by outlaws so they can be tracked by Bounty Hunters.\"",
@@ -3524,7 +3597,7 @@
             "* Reputation and Org Service \"will introduce the first iteration of persistent reputation between all entities within the Star Citizen universe, as well as persistent NPC organizations.\"",
             "* Reward Service \"tracking stats and data per player, and awarding in-game rewards to them, as well as collecting, persisting and querying those player rewards\"",
             "* Configuration Service: \"This service is responsible for real-time distribution of configuration to services and clients.\"",
-            "* the \"Quantum\" Economy Simulator and Virtual AI Service for both Quanta, Virtual NPC and Dynamic Event computation as well as databases related for storing Quantum generated data (probability volumes and values, store commodity prices)",
+            "* the StarSim Economy Simulator and Virtual AI Service for both Quanta, Virtual NPC and Dynamic Event computation as well as databases related for storing StarSim generated data (probability volumes and values, store commodity prices)",
             "* Subsumption Service/Server Mission Logic \"The porting of core Subsumption mission code to a service and implementation of a select subset of tasks to be used on that service. Includes implementing communication between service and mission logic running on game server.\"",
             "* Services Distributed Load Testing System \"Development of a distributed load testing tool that can simulate service loads and replicate user behaviours\" for testing",
             "* Chrono Service: \"offers a programmatic API for distributed timers and alarms. For example, in the expiry of rental entitlements.\"",
@@ -3658,7 +3731,7 @@
             "current": "1",
             "total": "1"
         },
-        "title": "Time and Synchronization Improvements",
+        "title": "Time & Synchronization Improvements",
         "subtitle": "Overview",
         "texts": [
             "Challenges:",
@@ -3688,7 +3761,7 @@
             "current": "1",
             "total": "1"
         },
-        "title": "Connection Process and States",
+        "title": "Connection Process & States Rework",
         "subtitle": "Overview",
         "texts": [
             "\"In a server mesh, a client may connect to many different servers during a game session. Part of the work towards server meshing requires separating the process of connecting a client to a server into distinct stages. These stages can then be executed independently without requiring a client to completely abandon its existing game session. Significant progress has been made towards this although there is more work to be done.\" - Postmortem 3.12",
@@ -3951,7 +4024,7 @@
             "* for all of the Server Meshing functionality to come online, the newly created services have to come online.",
             "* with such complex interconnected services and infrastructure, the complexity is quite high.",
             "Requirement for: Static Server Meshing",
-            "Solution: Hybrid Service (sometimes referred to as the Replication Layer)",
+            "Solution: Hybrid Service (sometimes referred to as the Replication Layer Split or (wrongly) synonymous as Replication Layer)",
             "Goals:",
             "* create a new service that sits on its own server in-between the player clients, game servers and the EntityGraph database and is responsible for OCS loading decisions, state networking, caching, persisting, initial game world seeding and managing of entity authority and authority transfers.",
             "Approach/Goals:",
@@ -3983,33 +4056,6 @@
         "index": 211
     },
     {
-        "uuid": "63ed94b69d6b80e93a73cc82d751afd1a01b8387",
-        "index": 212,
-        "pageIndicators": {
-            "current": "1",
-            "total": "1"
-        },
-        "title": "Ship Interior Object Container Streaming",
-        "subtitle": "Overview",
-        "texts": [
-            "Solution: Ship Interior OCS, a sub-feature of OCS and an optimization for clients and servers",
-            "Requirement for: Server Meshing",
-            "Goals:",
-            "* \"When complete, streaming interior object containers in and out of ships based on distance will allow vehicles to have a higher performant stage of streaming used at far distances, to reduce CPU cost.\" - Release View",
-            "* reduce CPU and memory on client (and servers in server meshing)",
-            "Approach (speculated):",
-            "* split the exterior and interior of ships into separate Object Containers",
-            "* add additional OCS rules for loading and unloading rooms/zones and/or Object Containers of the ship interiors",
-            "* the player client does not have to load the interior of far away ships anymore",
-            "* speculated: in server meshing, a game servers don't have to load the interior of the ships, which are being computed by another game servers in the mesh/shard",
-            "* speculated: rooms with windows will have a different rule compared to rooms which are deeper inside the ships and/or have no windows"
-        ],
-        "sources": [
-            "scr"
-        ],
-        "originalSlideImageURL": ""
-    },
-    {
         "uuid": "3aab9892f34dda928e36b99f2f79cf013ff5800d",
         "index": 213
     },
@@ -4020,7 +4066,7 @@
             "current": "1",
             "total": "1"
         },
-        "title": "Load Balancer",
+        "title": "Entity Authority Load Balancer",
         "subtitle": "Overview",
         "texts": [
             "For Server Meshing to become dynamic, there needs to be some kind of logic implemented that will automatically decide how authority over entities is distributed across the game servers. Because under Dynamic Server Meshing, game servers are not supposed to be assigned fixed locations to simulate, and instead are allowed to follow their players around, loading and simulating any part of the game world the players visits. The rule that only one game server is able to have authority over an entity still applies, so server-to-server communication can also happen anywhere in the game world, not just at the predefined borders, like under Static Server Meshing.",
@@ -4032,25 +4078,6 @@
     {
         "uuid": "2e0dca692b27e69b0a3cc5821dbbd8a42941424d",
         "index": 215
-    },
-    {
-        "uuid": "a09171d7e61899126430c01d7a385252cafe1b85",
-        "index": 216,
-        "pageIndicators": {
-            "current": "1",
-            "total": "1"
-        },
-        "title": "Replication Layer Version 2 (or \"Hybrid service breakup\")",
-        "subtitle": "Overview",
-        "texts": [
-            "The components of the Hybrid services are going to be move out and into their own services. These services are going to be horizontally scaled, allowing multiple of these services to run alongside each other, allowing for more processing power and bandwidth. These services can then be spun up and shutdown dynamically based on demand. This is how Shards are going to be scaled up, allowing for more game servers and players per Shard to potentially reach one single shard per region.",
-            "For PES, there is the (Service) Fleet Manager service already in the works which is being designed with scaling game servers and services in mind."
-        ],
-        "sources": [
-            "lc1",
-            "jp2"
-        ],
-        "originalSlideImageURL": ""
     },
     {
         "uuid": "dcc16c5888d464482d4304befcc6a94c995140b4",
@@ -4109,6 +4136,25 @@
         ],
         "sources": [
             "lc2"
+        ],
+        "originalSlideImageURL": ""
+    },
+    {
+        "uuid": "a09171d7e61899126430c01d7a385252cafe1b85",
+        "index": 216,
+        "pageIndicators": {
+            "current": "1",
+            "total": "1"
+        },
+        "title": "Replication Layer Version 2 (Hybrid service breakup)",
+        "subtitle": "Overview",
+        "texts": [
+            "The components of the Hybrid services are going to be move out and into their own services. These services are going to be horizontally scaled, allowing multiple of these services to run alongside each other, allowing for more processing power and bandwidth. These services can then be spun up and shutdown dynamically based on demand. This is how Shards are going to be scaled up, allowing for more game servers and players per Shard to potentially reach one single shard per region.",
+            "For PES, there is the (Service) Fleet Manager service already in the works which is being designed with scaling game servers and services in mind."
+        ],
+        "sources": [
+            "lc1",
+            "jp2"
         ],
         "originalSlideImageURL": ""
     },
@@ -4309,11 +4355,13 @@
             "current": "1",
             "total": "1"
         },
-        "title": "Quantum Economy Simulator",
+        "title": "StarSim",
         "subtitle": "Overview",
         "texts": [
             "A simulation run on a separate server which abstractly simulates thousands of simple AI (Quanta) as well as incorporate player and NPC actions to generate economy data, probability data and missions. All of this data is saved into databases which are then accessed by the game servers to display prices and populate the universe with appropriate objects based on the current state of the economy in that region of space. Also introduces dynamic events and Virtual NPCs to make the game world feel more alive and connected.",
-            "Released in its first version in Alpha 3.17 with Quanta generating the prices of quantum fuel, hydrogen fuel and repair services. However, in prior versions it was already used to manage and spawn dynamic events."
+            "Released in its first version in Alpha 3.17 with Quanta generating the prices of quantum fuel, hydrogen fuel and repair services. However, in prior versions it was already used to manage and spawn dynamic events.",
+            "At the end of 2023 many StarSim features are hold back until the relevant gameplay systems have been implemented that properly utilize the functionality.",
+            "StarSim was initially called Quantum (Economy Simulator)."
         ],
         "sources": [
             "s302",
@@ -4324,7 +4372,9 @@
     },
     {
         "uuid": "fbba8164bc593e9a44af4bf4a507457c5b598e1b",
-        "index": 235
+        "index": 235,
+        "title": "Sources",
+        "texts": [""]
     },
     {
         "uuid": "1881e01c90c8274e6efe0897e9fa5bece08480da",
