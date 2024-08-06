@@ -47,7 +47,7 @@ export default function Overview(props) {
 				<h5>Current Live Patch:  {props.stats.livePatch}</h5>
 				<hr></hr>
 				<h3>Overview</h3>
-				<img src={props.overviewImageURL} alt="Overview" style={{ display: 'block', margin: '20px auto 20px auto'}} />
+				<iframe title="Overview" style={{ display: 'block', margin: '20px auto 20px auto', width: '100%', aspectRatio: '16/9', pointerEvents: 'none'}} src="http://sc-server-meshing.info/?nextTech=none" />
 				<hr></hr>
 				<h3>Tech Topics</h3>
 				{links}

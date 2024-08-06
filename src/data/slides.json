@@ -1,40 +1,8 @@
 [
     {
-        "uuid": "924c9f1c194fae7c526d2b98f434b99a28e73951",
-        "index": 1,
-        "imageURLs": [],
-        "title": "Unofficial Road to Dynamic Server Meshing",
-        "subtitle": "",
-        "texts": [],
-        "originalSlideImageURL": "https://i.imgur.com/4s89P9P.png"
-    },
-    {
-        "uuid": "2dca2f2568126b9ce85398eabb83dece8ab7e73f",
-        "index": 2
-    },
-    {
-        "uuid": "ee213b6118b2b854dcced873c5e0ae708bc9012c",
-        "index": 3,
-        "imageURLs": [
-            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png"
-        ],
-        "pageIndicators": {
-            "current": "1",
-            "total": "5"
-        },
-        "title": "Road to Dynamic Server Meshing - Introduction",
-        "subtitle": "Welcome to the Unofficial Road to Dynamic Server Meshing!",
-        "texts": [
-            "This presentation is trying to offer a centralized place about almost everything related to Dynamic Server Meshing."
-        ],
-        "originalSlideImageURL": ""
-    },
-    {
         "uuid": "8210b159857d8d245733d18cc2e2d4e6f490e440",
         "index": 4,
-        "imageURLs": [
-            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png"
-        ],
+        "imageURLs": [],
         "pageIndicators": {
             "current": "2",
             "total": "5"
@@ -42,23 +10,9 @@
         "title": "Road to Dynamic Server Meshing - Introduction",
         "subtitle": "What to expect from this presentation:",
         "texts": [
+            "This presentation is trying to offer a centralized place about almost everything related to Dynamic Server Meshing.",
             "We will go over the the major and minor technologies that create the functionality of Dynamic Server Meshing. For each tech feature, an overview slide summarizes the technical challenges and CIG's approach to enable the required functionality. For all of the major tech features, there have been additional slides provided which dive into more detail.",
             "There are also some introductory topics which go over some of the basic concepts in hardware, software and video games, which try to convey a basic understanding of their inner workings and limitations. Of course, you can skip them and jump right in by reading about the Object Container tech. But I will always recommend checking the introductory topics out if you do have the time and interest."
-        ],
-        "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "d713a701740c420e3eaa3335df538be215437129",
-        "index": 5,
-        "pageIndicators": {
-            "current": "3",
-            "total": "5"
-        },
-        "title": "Road to Dynamic Server Meshing - Introduction",
-        "subtitle": "How to navigate this presentation",
-        "texts": [
-            "You can see the page number of the current topic in the bottom right corner of your screen (e.g. for this slide it says 5 total slides and we are currently on the 3rd slide). To go back and forth between the slides, you can use the left and right arrow keys on your keyboard or the buttons at the bottom of the page. Pressing backspace always brings you up one level.",
-            "You can check out individual technologies freely by clicking on them with your mouse. You can also zoom in and out of topics with your mouse wheel. However I recommend reading this presentation in order, because of the nature of these technologies building upon and utilizing each other."
         ],
         "originalSlideImageURL": ""
     },
@@ -66,8 +20,7 @@
         "uuid": "cf1cd46dcd52858b1c3eac93716bb39f20c97b30",
         "index": 6,
         "imageURLs": [
-            "https://media.preziusercontent.com/media/b/f/c/d/d/8b930ec4032a4ea3a6293ac6b3c.png",
-            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png"
+            "https://media.preziusercontent.com/media/b/f/c/d/d/8b930ec4032a4ea3a6293ac6b3c.png"
         ],
         "pageIndicators": {
             "current": "4",
@@ -85,9 +38,7 @@
     {
         "uuid": "9d2ebfa99eb9a8d52a294b21d0eac6efd5d1cbc3",
         "index": 7,
-        "imageURLs": [
-            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png"
-        ],
+        "imageURLs": [],
         "pageIndicators": {
             "current": "5",
             "total": "5"
@@ -101,10 +52,6 @@
             "https://robertsspaceindustries.com/spectrum/community/SC/forum/3/thread/road-to-dynamic-server-meshing-tech-overview-with-"
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "31f2e1b11c6782ff13ba2d4e7c6793bfe79e79f6",
-        "index": 8
     },
     {
         "uuid": "627206c78d0b1a51099289d716856ff0387f045c",
@@ -197,15 +144,10 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "98f1a14b322eba778bc0fe9d721c5ffabcd27e04",
-        "index": 14
-    },
-    {
         "uuid": "0b80b9fd736f2131196e72f5778506e67788c85d",
         "index": 15,
         "imageURLs": [
-            "https://media.preziusercontent.com/media/d/0/d/5/a/f709d6b4bd496c1a59dffbc6d0c.png",
-            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png"
+            "https://media.preziusercontent.com/media/d/0/d/5/a/f709d6b4bd496c1a59dffbc6d0c.png"
         ],
         "pageIndicators": {
             "current": "1",
@@ -227,8 +169,7 @@
         "uuid": "d35c1c3204a679c171f7bb114cc56f808512396b",
         "index": 16,
         "imageURLs": [
-            "https://media.preziusercontent.com/media/d/0/d/5/a/f709d6b4bd496c1a59dffbc6d0c.png",
-            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png"
+            "https://media.preziusercontent.com/media/d/0/d/5/a/f709d6b4bd496c1a59dffbc6d0c.png"
         ],
         "pageIndicators": {
             "current": "2",
@@ -248,8 +189,7 @@
         "uuid": "0652b9350d1092e94fcf1e73c90f6580ae56aa5a",
         "index": 17,
         "imageURLs": [
-            "https://media.preziusercontent.com/media/d/0/d/5/a/f709d6b4bd496c1a59dffbc6d0c.png",
-            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png"
+            "https://media.preziusercontent.com/media/d/0/d/5/a/f709d6b4bd496c1a59dffbc6d0c.png"
         ],
         "pageIndicators": {
             "current": "3",
@@ -270,10 +210,7 @@
     {
         "uuid": "d8aed646bc1b7092f0116e25bdd60ceb1ef00360",
         "index": 18,
-        "imageURLs": [
-            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png",
-            "https://media.preziusercontent.com/media/c/b/0/5/d/a2a42b84144b875e82266e0a7ab.png"
-        ],
+        "imageURLs": [],
         "pageIndicators": {
             "current": "4",
             "total": "5"
@@ -293,9 +230,7 @@
     {
         "uuid": "2b79579ce2d7ac77199d773d071f2451ec502275",
         "index": 19,
-        "imageURLs": [
-            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png"
-        ],
+        "imageURLs": [],
         "pageIndicators": {
             "current": "5",
             "total": "5"
@@ -310,15 +245,10 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "17ca8ca260b6987cd8ea3d1498f2c920f0cd4f5e",
-        "index": 20
-    },
-    {
         "uuid": "897909cb6ce3f7f8b59bb1f931a16fa2e97d0286",
         "index": 21,
         "imageURLs": [
-            "https://media.preziusercontent.com/media/3/2/e/3/5/3c5ccd0486b958f8c74089399d5.png",
-            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png"
+            "https://media.preziusercontent.com/media/3/2/e/3/5/3c5ccd0486b958f8c74089399d5.png"
         ],
         "pageIndicators": {
             "current": "1",
@@ -337,16 +267,9 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "35c8a582802ba085b24a133b58e83fdd1f34adb0",
-        "index": 22
-    },
-    {
         "uuid": "c98af30601b8247f1a4edeea88307005a440b8af",
         "index": 23,
-        "imageURLs": [
-            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png",
-            "https://media.preziusercontent.com/media/9/a/e/3/1/18912304fe6a203c04099ac946e.png"
-        ],
+        "imageURLs": [],
         "pageIndicators": {
             "current": "1",
             "total": "9"
@@ -364,8 +287,7 @@
         "uuid": "1c2f71621558c1aca5391e66515b36ebb42808c2",
         "index": 24,
         "imageURLs": [
-            "https://media.preziusercontent.com/media/2/d/e/d/b/d9dfad34c7196589220ec9d1f69.png",
-            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png"
+            "https://media.preziusercontent.com/media/2/d/e/d/b/d9dfad34c7196589220ec9d1f69.png"
         ],
         "pageIndicators": {
             "current": "2",
@@ -384,8 +306,7 @@
         "uuid": "35c8eb4e28f787b4ef20fcec9ede5d9a5b9b334d",
         "index": 25,
         "imageURLs": [
-            "https://media.preziusercontent.com/media/f/1/a/c/3/aac81c74345a3d8d8adf5005d67.png",
-            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png"
+            "https://media.preziusercontent.com/media/f/1/a/c/3/aac81c74345a3d8d8adf5005d67.png"
         ],
         "pageIndicators": {
             "current": "3",
@@ -404,8 +325,7 @@
         "uuid": "dbbe5ccaf587c2c1060867962fd371e55646d565",
         "index": 26,
         "imageURLs": [
-            "https://media.preziusercontent.com/media/4/c/8/7/0/23784764c72a301dfc2c686cdcb.png",
-            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png"
+            "https://media.preziusercontent.com/media/4/c/8/7/0/23784764c72a301dfc2c686cdcb.png"
         ],
         "pageIndicators": {
             "current": "4",
@@ -422,8 +342,7 @@
         "uuid": "9dfe7cae0a538768d0b2cdb55b1a35b8f97eaa4c",
         "index": 27,
         "imageURLs": [
-            "https://media.preziusercontent.com/media/6/d/7/b/8/cfdae924919a99b33fc55b6dcc8.png",
-            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png"
+            "https://media.preziusercontent.com/media/6/d/7/b/8/cfdae924919a99b33fc55b6dcc8.png"
         ],
         "pageIndicators": {
             "current": "5",
@@ -442,10 +361,7 @@
     {
         "uuid": "a6e14d53477257f9383948f451b912ed41055fb9",
         "index": 28,
-        "imageURLs": [
-            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png",
-            "https://media.preziusercontent.com/media/7/7/d/6/f/e433eef438a9044dfa07030d47f.png"
-        ],
+        "imageURLs": ["/images/networking1.png"],
         "pageIndicators": {
             "current": "6",
             "total": "9"
@@ -461,8 +377,7 @@
         "uuid": "3fd962e250436cd0e8f9b69711c9ac849bb2c7a1",
         "index": 29,
         "imageURLs": [
-            "https://media.preziusercontent.com/media/b/4/e/f/3/cec18a34f1ea2f4a49e59a06a22.png",
-            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png"
+            "https://media.preziusercontent.com/media/b/4/e/f/3/cec18a34f1ea2f4a49e59a06a22.png"
         ],
         "pageIndicators": {
             "current": "7",
@@ -478,10 +393,7 @@
     {
         "uuid": "f4da8d68a1b433f2c09d291b6509c40ba0bbc1b6",
         "index": 30,
-        "imageURLs": [
-            "https://media.preziusercontent.com/media/5/1/f/8/c/9d8fd3b4db6a4d5be7c870982a5.png",
-            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png"
-        ],
+        "imageURLs": ["https://media.preziusercontent.com/media/5/1/f/8/c/9d8fd3b4db6a4d5be7c870982a5.png"],
         "pageIndicators": {
             "current": "8",
             "total": "9"
@@ -501,10 +413,7 @@
     {
         "uuid": "15f487339d0d3e94e02933b27abb1e7d24a14e6d",
         "index": 31,
-        "imageURLs": [
-            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png",
-            "https://media.preziusercontent.com/media/2/f/6/8/1/633409c4790a83c7a88fb6e85c4.png"
-        ],
+        "imageURLs": ["https://media.preziusercontent.com/media/2/f/6/8/1/633409c4790a83c7a88fb6e85c4.png"],
         "pageIndicators": {
             "current": "9",
             "total": "9"
@@ -517,15 +426,9 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "d13fecbd17fee77003c88c0da8ea6951809f4687",
-        "index": 32
-    },
-    {
         "uuid": "07a5b4c36fe97b333eb8cb69bddd784b1541663c",
         "index": 33,
-        "imageURLs": [
-            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png"
-        ],
+        "imageURLs": [],
         "pageIndicators": {
             "current": "1",
             "total": "1"
@@ -543,15 +446,9 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "c5d35e28461085e872cd80e8f9976833ff2a4058",
-        "index": 34
-    },
-    {
         "uuid": "76d957d5b3d910c8c10cb5ec0b809485ffb4cc65",
         "index": 35,
-        "imageURLs": [
-            "https://media.preziusercontent.com/media/e/b/8/e/c/32328d144f7b2a626649d75d086.png"
-        ],
+        "imageURLs": [],
         "pageIndicators": {
             "current": "1",
             "total": "1"
@@ -566,14 +463,6 @@
             "As we will see later, Star Citizen reworked its entity system to an Entity Component architecture and splits each individual behavior in the game into its own component which then can be attributed to any entity. Therefore, it matters how many components are being updated in the game update loop, not necessarily the amount of entities."
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "70f04d5f6f97cfefb55360a59cc5e7da11fcaaa3",
-        "index": 36
-    },
-    {
-        "uuid": "9a800e0fe87a75e772ac7ba7b94e9f4142b1e940",
-        "index": 37
     },
     {
         "uuid": "fb83fe681148116fcd73a827c65d659ea44eb389",
@@ -745,10 +634,6 @@
             "Optimization was done on the networking to reduce bandwidth. On each game tick the server has to send the state of entities to the player clients. With the high amount of data of entities in Star Citizen, this will result in a lot of data and thus bandwidth. Therefore, CIG implemented an system which detects any entity state changes. It then only sends those changed values across the network instead of the entire state of the entity, which would include unchanged values as well. This network optimization made it possible to reduce the bandwidth up to 80% for certain Entity Components."
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "ea4fd7ea38662861175be32556034504bfc61434",
-        "index": 46
     },
     {
         "uuid": "f98ce47a31946ce173058e71377ea4fb842aad6c",
@@ -1001,10 +886,6 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "a76c7ed4a2b41e14450096350241e2a09a68ce06",
-        "index": 59
-    },
-    {
         "uuid": "0f40b34c29e7428b2d19c0d0ea36c4a1a737f379",
         "index": 60,
         "pageIndicators": {
@@ -1110,10 +991,6 @@
             "Another major future feature of Server OCS relying on Full Persistence as well will be Server Recovery. Once all states of all entities are continuously persisted into a database it becomes possible to recover a server after a crash. If a crash happens, a new server can be started in its place, the database provides the information about the entities that were present on the server at the time of the crash, load those entities back into memory via Server OCS and connect the player clients back to the server again. Therefore, in case of a server crash, players would only have to experience a couple seconds of interruption and barely any loss of progress in the game before being able to continue playing the game again where they left off."
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "bc6f61ee3f10a8e014f3b4d56c8892430cc4cf92",
-        "index": 65
     },
     {
         "uuid": "dd7b6f9d3d10fd67cbba47a450192ec058280f1c",
@@ -1416,10 +1293,6 @@
             "* Alpha 4.X Dynamic Server Meshing V1 (Speculated)"
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "d4d0498adce2de98dac5aecbd7e9ae000a82fc67",
-        "index": 79
     },
     {
         "uuid": "26e9a5345f251a8dcf76293d85c17b0803deb124",
@@ -1944,10 +1817,6 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "f8933a2481eebf1ae112ac789818f2b1f3d4d866",
-        "index": 104
-    },
-    {
         "uuid": "5384728e18f40cf85f24df1cfb0c87d532dc892f",
         "index": 105,
         "pageIndicators": {
@@ -2346,10 +2215,6 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "13aae6b4afb64578a30b99b06fba31efbc2bbac6",
-        "index": 125
-    },
-    {
         "uuid": "083d7441b71d49ef8f33e0ba61f5e0a94c320a3e",
         "index": 126,
         "pageIndicators": {
@@ -2538,10 +2403,6 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "593effb6565fedd89ddd19463a715defbb271d25",
-        "index": 135
-    },
-    {
         "uuid": "33e008ee5fd06c82470ed05bdcfce6aac044f168",
         "index": 136,
         "pageIndicators": {
@@ -2576,10 +2437,6 @@
             "s120"
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "444f4f00ed90aca9981507ce09b23ba84695051c",
-        "index": 137
     },
     {
         "uuid": "a1ebb39609dd8004bab1a2a2028d231403487192",
@@ -2620,10 +2477,6 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "963c50f8ad16da146b9069e920c8ada5d3240962",
-        "index": 139
-    },
-    {
         "uuid": "f0398d6f6c253eda69afca742f1a338efd6f3707",
         "index": 140,
         "pageIndicators": {
@@ -2649,10 +2502,6 @@
             "atv3"
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "77269165418a8d7415891487555c8d986e583378",
-        "index": 141
     },
     {
         "uuid": "25e1a27fa3fb0247bd5aef65c773516c7e21f12d",
@@ -2690,10 +2539,6 @@
             "w9"
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "bbb4d8da9aed872f9f2541fcbd2835bc8f33b3fb",
-        "index": 143
     },
     {
         "uuid": "fb3b2f96f1cba497ec7e02d25db7f25902c18bd2",
@@ -2744,10 +2589,6 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "42e5c6ec5a79bf29818ed10dd9d97a88bd4f2f20",
-        "index": 145
-    },
-    {
         "uuid": "a028e7586f81d3388728e31cecffe6f12d963804",
         "index": 146,
         "imageURLs": [
@@ -2778,10 +2619,6 @@
             "s119"
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "40e1b6f5dd879e54bf99452bd88bdc4f9ed01a0a",
-        "index": 147
     },
     {
         "uuid": "51973a1406cbd17cb9f105eb0cc43e1bc0644ace",
@@ -2823,10 +2660,6 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "466e9dc7c0c94c6b9a6a46e865ef91c462c1df9a",
-        "index": 149
-    },
-    {
         "uuid": "c24ad90dc18648ea0e9081e74b207c30d1aab37e",
         "index": 150,
         "pageIndicators": {
@@ -2866,10 +2699,6 @@
         "originalSlideImageURL": "https://media-temporary.preziusercontent.com/frames-public/5/2/3/9/3/c8b9b934e358ab3b4b0700b225f1200.png"
     },
     {
-        "uuid": "2a6d0da95ff87524a96b18836638f84b5dbee21f",
-        "index": 151
-    },
-    {
         "uuid": "7db28ae5e3551e84a0e354bef535cf3fdbadc077",
         "index": 152,
         "pageIndicators": {
@@ -2905,10 +2734,6 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "05a5ab75e473cb4c8b19ff78c44ae782245dfedf",
-        "index": 153
-    },
-    {
         "uuid": "4833ee09a6a3989cfda770137e896b97f33c4bef",
         "index": 154,
         "pageIndicators": {
@@ -2936,10 +2761,6 @@
             "jp1"
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "d9ed9fe89f1d23455216d809f2a6628ec49e4ec7",
-        "index": 155
     },
     {
         "uuid": "b2c05dbdca71f0350ab3460dc733aff829a44e65",
@@ -2971,10 +2792,6 @@
             "s113"
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "b7b80304e98b591b94c41a4f91ecca1c1941b2d6",
-        "index": 157
     },
     {
         "uuid": "4bb816338993bae59fc2f2952cc365b1590ba97e",
@@ -3075,10 +2892,6 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "4363ef5580329c60e68ed74e0a859cf1359aa20c",
-        "index": 159
-    },
-    {
         "uuid": "dd301feea5fe5f77e83bc19df7b8e64a88cd9068",
         "index": 160,
         "pageIndicators": {
@@ -3111,10 +2924,6 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "c7c6f94ee6521d90633ca827db2fd6d414f5e72e",
-        "index": 161
-    },
-    {
         "uuid": "a46231031332d0c85aad6621beb5a9aa416f570e",
         "index": 162,
         "pageIndicators": {
@@ -3142,10 +2951,6 @@
             "jp1"
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "9f773795a5cb6f280c7c4bd664d68cdfdc22ef7c",
-        "index": 163
     },
     {
         "uuid": "1d21dbfbb21df5f69ccb49c2e2cf9d028b110152",
@@ -3177,10 +2982,6 @@
             "lc1"
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "5e2b888119070616e03d05b77f7034e3bcbfcf96",
-        "index": 165
     },
     {
         "uuid": "50a13e04996bf97001d29b4cf503ed11044df5c9",
@@ -3222,10 +3023,6 @@
             "jp2"
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "616f523f4baaae41e93ef97c37800b619799bc91",
-        "index": 167
     },
     {
         "uuid": "5bebe311ca9c4046d0d24ec84078d1e0d6c2493d",
@@ -3284,10 +3081,6 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "2787c24d315910646ace87db6db71b6a967efb44",
-        "index": 169
-    },
-    {
         "uuid": "e0c64e2665ec2f42c558c147556c78cdb3f7bea7",
         "index": 170,
         "pageIndicators": {
@@ -3327,10 +3120,6 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "ffebdf427780ccd82d6f6ad9bfc2c1dd6a8fe111",
-        "index": 171
-    },
-    {
         "uuid": "49ef29e4d5c7d21a9c124c685007b09991c0568b",
         "index": 172,
         "pageIndicators": {
@@ -3347,10 +3136,6 @@
             "cad2"
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "796c94a73254df8fe1d4a0cf01543fe36d36f79d",
-        "index": 173
     },
     {
         "uuid": "439f07a63baa18845ec8566e2f634c7cd354b792",
@@ -3385,10 +3170,6 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "8f63a12eb2c9e8931e8dc8fcf6340edebd53bc52",
-        "index": 175
-    },
-    {
         "uuid": "941f622f4dee089be669486aeadff0859a8ae89f",
         "index": 176,
         "pageIndicators": {
@@ -3419,10 +3200,6 @@
             "jp2"
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "885e38e27145f262069da1224954c810fa59cdf9",
-        "index": 177
     },
     {
         "uuid": "d36bc77dd21927b088af5954ba910fe1bc905c6e",
@@ -3460,10 +3237,6 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "24aa1aba301e3ed2319f663b7d240d3c8aa05a1a",
-        "index": 179
-    },
-    {
         "uuid": "bc2a54b717e7e392fca5385eef36e0265f7f4d3b",
         "index": 180,
         "pageIndicators": {
@@ -3493,10 +3266,6 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "b4135c38da1d7e7e55793b951de153d9e400ad6c",
-        "index": 181
-    },
-    {
         "uuid": "c95c745b05d81aa334480d0144efdb2889d5e8eb",
         "index": 182,
         "pageIndicators": {
@@ -3523,10 +3292,6 @@
             "scr"
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "bd85dd2f1975e7e9c63f35b42abbc63c3e1a8b43",
-        "index": 183
     },
     {
         "uuid": "0814952cb204c90b52969ebd2804936d047ae2e2",
@@ -3563,10 +3328,6 @@
             "pn323"
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "141e35e34eb806d0d60021df933610204de319ae",
-        "index": 185
     },
     {
         "uuid": "f10ca065e2813869d07c6481a3b8229c6fe29ba1",
@@ -3616,10 +3377,6 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "ba925edc97f076f5d139175ffb446667aa5af407",
-        "index": 187
-    },
-    {
         "uuid": "63c311d96394b7a25843a332fbd4b18d58729380",
         "index": 188,
         "pageIndicators": {
@@ -3638,10 +3395,6 @@
             "jp2"
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "f6ffdcdc6438a7691840608a477ffb4704a06a69",
-        "index": 189
     },
     {
         "uuid": "32e32e3fa9c7d33f3cbc49e22cea4fd70b786c6c",
@@ -3673,10 +3426,6 @@
             "scr"
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "2b6e81830b82d0bc94e9fa2dbf2a789c707045dd",
-        "index": 191
     },
     {
         "uuid": "3f97269519e4bf5625c5c63f9569228c62d9eb71",
@@ -3721,10 +3470,6 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "aa3bb2bfb7a036bd1bd3101cd0277c0543e91ece",
-        "index": 193
-    },
-    {
         "uuid": "fec081e1cbad179ac5d36a0483b7075b7b544063",
         "index": 194,
         "pageIndicators": {
@@ -3751,10 +3496,6 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "c71c77cff7ef8ffa33f516131df7ffb8280a9f13",
-        "index": 195
-    },
-    {
         "uuid": "ef12b88e4be8baf28f5c57648230e801e3d9ac66",
         "index": 196,
         "pageIndicators": {
@@ -3773,10 +3514,6 @@
             "cc2"
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "f84a4cc963a7490a3a7cfe18438ecb53b031d98c",
-        "index": 197
     },
     {
         "uuid": "e0fd5d501db7361132b3ce97f7522f5c05f23481",
@@ -3816,10 +3553,6 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "e0aff993e6d7ffb3ac41826680fc4ed5237925b9",
-        "index": 199
-    },
-    {
         "uuid": "8f282a0f3d43adbdad7b3011bf2f9f5e3df2bf85",
         "index": 200,
         "pageIndicators": {
@@ -3850,10 +3583,6 @@
             "scr"
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "fb1c5476032f8ba493f7f15883294dcbc93f5028",
-        "index": 201
     },
     {
         "uuid": "e75365668e8521da068fb365d00c12b6f7ecf1c7",
@@ -3887,10 +3616,6 @@
             "scr"
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "4ec896ba65307c3ac1e47f7699cde5dccdd007ea",
-        "index": 203
     },
     {
         "uuid": "0113105c1674faaa097e7aa2e6191a699e019fe6",
@@ -3938,10 +3663,6 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "f9336eec86d744f31a9eb2fe785bf54b691bee9f",
-        "index": 205
-    },
-    {
         "uuid": "3ca8ed03998fd289e142b15d69cfb9665ba2e575",
         "index": 206,
         "pageIndicators": {
@@ -3977,10 +3698,6 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "5a7ea6a2cc424aef66ebae432c1fc4ecd5fa86e4",
-        "index": 207
-    },
-    {
         "uuid": "99bb0f9e00bdd380bea76d4313eeff0afdf803ec",
         "index": 208,
         "pageIndicators": {
@@ -4005,10 +3722,6 @@
             "pn318"
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "76e57295b366d91cc0d19673845c09256b027454",
-        "index": 209
     },
     {
         "uuid": "243de19a64281a7f5048898f10fcf9a109bdde51",
@@ -4052,14 +3765,6 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "2fede8497edc56ab9f819126de37bafbd3c5766e",
-        "index": 211
-    },
-    {
-        "uuid": "3aab9892f34dda928e36b99f2f79cf013ff5800d",
-        "index": 213
-    },
-    {
         "uuid": "cd26658cba9bf1f233d5a70de3d61a75b7b7b832",
         "index": 214,
         "pageIndicators": {
@@ -4074,14 +3779,6 @@
             "Speculated: This might also be the functionality of the Atlas service which might take over the role of not only keeping track of authority but also deciding how it should the game world should be split."
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "2e0dca692b27e69b0a3cc5821dbbd8a42941424d",
-        "index": 215
-    },
-    {
-        "uuid": "dcc16c5888d464482d4304befcc6a94c995140b4",
-        "index": 217
     },
     {
         "uuid": "3658d05c28dc29aca1f98ee896394976732bbb4c",
@@ -4109,10 +3806,6 @@
             "lc2"
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "ee52cc1a880ecc406735da5127fad85fa378cbac",
-        "index": 219
     },
     {
         "uuid": "fe65a1dedb9f380246bbbdac847126982a41807f",
@@ -4159,10 +3852,6 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "daa6f1c11da3150f64b859afc82a44c53c579b81",
-        "index": 221
-    },
-    {
         "uuid": "f4a2bc52e1ceaf511ace78181d9c1b874f1bfaed",
         "index": 222,
         "pageIndicators": {
@@ -4178,10 +3867,6 @@
             "tw1"
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "4741719c328d5b9cd0b2d04ca9b00403bdc64f42",
-        "index": 223
     },
     {
         "uuid": "4b014b2e37deb8b7d270e26ebc6bad7b5d0bf0e9",
@@ -4207,10 +3892,6 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "133895a64700a3634e11d2620877fd4d8c7cda6d",
-        "index": 225
-    },
-    {
         "uuid": "073128e082911302f2084186cb688cbce5ff3331",
         "index": 226,
         "imageURLs": [
@@ -4233,10 +3914,6 @@
             "rtv1"
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "1e8aa6a8dfcbc79cbaa8020aeaee8ca91af10d80",
-        "index": 227
     },
     {
         "uuid": "5a391664ac70857ffab040391dc4a575d1fa1099",
@@ -4268,10 +3945,6 @@
             "w3"
         ],
         "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "91c78a146708f6adcfe8eac79875a4e0303c6fb0",
-        "index": 229
     },
     {
         "uuid": "da473c989a45c61f062e89471ccfa6b015bd5d52",
@@ -4308,10 +3981,6 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "41ec570518afafe24f74044c884fdf16b21565d9",
-        "index": 231
-    },
-    {
         "uuid": "8aba60eb85d6937e09e600525d6d55c23bba1ee0",
         "index": 232,
         "pageIndicators": {
@@ -4345,10 +4014,6 @@
         "originalSlideImageURL": ""
     },
     {
-        "uuid": "55a5ecd05648ff89fb2d1ef814ae2fb2e05e78ac",
-        "index": 233
-    },
-    {
         "uuid": "aba3d7f484fd3d09a8de7630f03dd5d0f61cfc1f",
         "index": 234,
         "pageIndicators": {
@@ -4375,69 +4040,5 @@
         "index": 235,
         "title": "Sources",
         "texts": [""]
-    },
-    {
-        "uuid": "1881e01c90c8274e6efe0897e9fa5bece08480da",
-        "index": 236
-    },
-    {
-        "uuid": "bf4c7fd48d41be7bfd801924078f3730854ace8e",
-        "index": 237
-    },
-    {
-        "uuid": "070bf230ec8ba430189686383e79ab284c4915ed",
-        "index": 238
-    },
-    {
-        "uuid": "f2c6f697b4a50b266bc72609c394a7bb6e7b5348",
-        "index": 239
-    },
-    {
-        "uuid": "7572aac9b33310f5f5f9cca3938777421b697e93",
-        "index": 240
-    },
-    {
-        "uuid": "014326d9621758669219bfa9783b3500357c436b",
-        "index": 241
-    },
-    {
-        "uuid": "ca2855f5439bd83bbad3ab23ae3a1eda4c138843",
-        "index": 242
-    },
-    {
-        "uuid": "d3ee131389843ec3e2400bda08ef9a97fdc0b5f1",
-        "index": 243
-    },
-    {
-        "uuid": "a288f2fcb4009b7e3a95ac96397c6ee10c2c960a",
-        "index": 244
-    },
-    {
-        "uuid": "7720bfe49bf34886e8a13c9c67fc745d5e527581",
-        "index": 245
-    },
-    {
-        "uuid": "393933bf691b7640bf5c586d64f4d7bb10022f4c",
-        "index": 246
-    },
-    {
-        "uuid": "b0559bbd4fbbe3f7c6535daac2a5c0d9cc030519",
-        "index": 247
-    },
-    {
-        "uuid": "2577691fd9a070b15f650f97ab0d832e90c90c32",
-        "index": 248
-    },
-    {
-        "uuid": "ab30e7b755a315aca789e79d06ed42b09842e8c2",
-        "index": 249
-    },
-    {
-        "uuid": "202d6e9bc907e7cb6abb6dffd1a42b707f49d2d5",
-        "index": 250
-    },
-    {
-        "uuid": "ce1df994a0bb79892fcdba6f529a9677b2a504a8",
-        "index": 251
     }
 ]

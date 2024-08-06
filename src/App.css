@@ -91,8 +91,10 @@ img {
 }
 
 .nav-button {
+	height: 50px;
 	background-color: #1d334a;
 	padding: 5px;
+	align-content: center;
 	cursor: pointer;
 }
 .nav-button:hover {
@@ -101,6 +103,13 @@ img {
 .nav-button.middle {
 	max-width:5%;
 	min-width: 70px;
+}
+.nav-button.large {
+	height: 70px;
+	max-width:50%;
+	min-width: 150px;
+	margin: 35px auto;
+	text-align: center;
 }
 .nav-button.right {
 	text-align: right;

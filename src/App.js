@@ -26,19 +26,13 @@ class App extends Component {
 		let tech = {
 			name: "Overview",
 			slides: [],
-			sources: [],
-			originalSlideImageURL: slides[0].originalSlideImageURL
+			sources: []
 		};
 		techOrder.push(tech.name);
 		techOrderLowerCase.push(tech.name.toLowerCase());
 		techsByName[tech.name.toLowerCase()] = tech;
 		
-		for (let slide of this.optimizeSlides(slides)) {
-
-			if (this.skipSlide(slide)) {
-				continue;
-			}
-
+		for (let slide of slides) {
 			if (slide.title !== tech.name) {
 				tech = {
 					name: slide.title,
@@ -65,26 +59,6 @@ class App extends Component {
 	// 	let loadedSettings = JSON.parse(localStorage.getItem('settings') || "{}");
 	// 	return { ...defaultSettings, ...loadedSettings};
 	// }
-
-	skipSlide(slide) {
-		return !slide.title
-		|| slide.title === "Unofficial Road to Dynamic Server Meshing"
-		|| slide.subtitle === "How to navigate this presentation"
-	}
-
-	optimizeSlides(optimizeSlides) {
-		let ignoredImageURLs = [];
-		return optimizeSlides
-			.map((slide, i) => {
-				if (i === 2) {
-					ignoredImageURLs.push(slide.imageURLs[0]);
-				}
-				if (slide.imageURLs) {
-					slide.imageURLs = slide.imageURLs.filter(imageURL => !ignoredImageURLs.includes(imageURL));
-				}
- 				return slide;
-			});
-	}
 
 	render() {
 		return (

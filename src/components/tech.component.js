@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link, useSearchParams } from 'react-router-dom';
 
@@ -41,7 +41,10 @@ export default function Tech(props) {
 	const getMarkdownWithSlideInfo = (tech, specificSlide) => {
 		let markdown = "";
 
-		tech.slides.forEach(slide => {
+		tech.slides.forEach((slide, index) => {
+			if (specificSlide === undefined && index > currentSlideIndex) {
+				return
+			}
 
 			if (specificSlide && specificSlide.subtitle !== slide.subtitle) {
 				return;
@@ -73,8 +76,13 @@ export default function Tech(props) {
 
 	let { previousTech, currentTech, nextTech } = determineTechsAndSlide();
 	let tech = props.techsByName[currentTech.toLowerCase()];
+	const [currentSlideIndex, setCurrentSlideIndex] = useState(searchParams.has('neo') ? 0 : 1000);
+	// console.log("tech", tech)
+	// console.log("props", props)
 
 	let nav;
+	let showMoreButton;
+	let showAllButton;
 	if (searchParams.has('neo')) {
 		let nextLink = "/?nextTech=" + encodeURIComponent(nextTech);
 		if (currentTech === "Single Shard") {
@@ -84,19 +92,31 @@ export default function Tech(props) {
 		} else if (currentTech === "Sources") {
 			nextLink = "/";
 		}
+		
+		let doBlink = tech.slides.length-1 === currentSlideIndex ? " blink": ""
+		showMoreButton = currentSlideIndex < tech.slides.length-1 ? <Row style={{ margin: '0px 0px 20px 0px'}}>
+			<Col className="nav-button disable-link-style large blink" onClick={() => setCurrentSlideIndex(currentSlideIndex + 1)}>Show more</Col>
+		</Row> : tech.name !== "Sources" ? <Row style={{ margin: '0px 0px 20px 0px'}}>
+			<Col as={Link} to={nextLink} className={"nav-button large disable-link-style blink"} >Back to Overview and next Tech =&gt;</Col>
+		</Row> : undefined
+		
+		showAllButton = currentSlideIndex < tech.slides.length-1 ? <Row style={{ margin: '0px 0px 20px 0px'}}>
+			<Col className="nav-button disable-link-style large" onClick={() => setCurrentSlideIndex(tech.slides.length-1)}>Show all</Col>
+		</Row> : undefined
+		
 		nav = (
 			<Row style={{ margin: '0px 0px 20px 0px'}}>
-				<Col as={Link} to={"/?nextTech=" + encodeURIComponent(currentTech)} className="nav-button left disable-link-style">&lt;= Back</Col>
+				<Col as={Link} to={"/?nextTech=" + encodeURIComponent(currentTech)} className="nav-button left disable-link-style"> &lt;= Back</Col>
 				<Col as={Link} to={"/"} className="nav-button middle d-flex align-items-center justify-content-center disable-link-style"><FontAwesomeIcon icon={faHouse} /></Col>
-				<Col as={Link} to={nextLink} className="nav-button right disable-link-style blink">Next Tech =&gt;</Col>
+				<Col as={Link} to={nextLink} className={"nav-button right disable-link-style" + doBlink} >Next Tech =&gt; </Col>
 			</Row>
 		);
 	} else {
 		nav = (
 			<Row style={{ margin: '0px 0px 20px 0px'}}>
-				<Col as={Link} to={"/wiki/?tech=" + encodeURIComponent(previousTech)} className="nav-button left disable-link-style">&lt;= {previousTech}</Col>
+				<Col as={Link} to={"/wiki/?tech=" + encodeURIComponent(previousTech)} className="nav-button left disable-link-style"> &lt;= {previousTech}</Col>
 				<Col as={Link} to={"/wiki"} className="nav-button middle d-flex align-items-center justify-content-center disable-link-style"><FontAwesomeIcon icon={faHouse} /></Col>
-				<Col as={Link} to={"/wiki/?tech=" + encodeURIComponent(nextTech)} className="nav-button right disable-link-style">{nextTech} =&gt;</Col>
+				<Col as={Link} to={"/wiki/?tech=" + encodeURIComponent(nextTech)} className="nav-button right disable-link-style">{nextTech} =&gt; </Col>
 			</Row>
 		);
 	}
@@ -124,24 +144,24 @@ export default function Tech(props) {
 	if (tech.name !== "Sources") {
 		markdown = markdown + "# " + tech.name + "\n";
 	}
+
 	let slideInfo = getMarkdownWithSlideInfo(tech, props.slide);
 	if (!props.slide && slideInfo === "") {
 		markdown = markdown + "Slide '" + props.slide.subtitle + "' not available!\n";
-		markdown = markdown + getMarkdownWithSlideInfo(markdown, tech, undefined);
+		markdown = markdown + getMarkdownWithSlideInfo(tech, undefined);
 	} else {
 		markdown += slideInfo;
 	}
 
-	markdown = markdown + "### Sources\n";
+	let markdownSources = "### Sources\n";
 	let sources = tech.sources;
-	console.log(tech)
-	console.log(props)
 	if (tech.name === "Sources") {
-		sources = Object.keys(props.sources);
+		sources = Object.keys(props.sources); // all sources for Sources page
 	}
-	console.log(sources)
+	// console.log("sources", sources)
+
 	if (!sources) {
-		markdown = markdown + "No sources available!";
+		markdownSources = markdownSources + "No sources available!";
 	} else {
 		sources
 			.map((sourceIdentifier) => {
@@ -162,15 +182,16 @@ export default function Tech(props) {
 			.sort((a,b) => a.sourceText.localeCompare(b.sourceText))
 			.forEach((source) => {
 				if (source.url) {
-					markdown = markdown + "[" + source.sourceText + "](" + source.url + ")  \n";
+					markdownSources += "[" + source.sourceText + "](" + source.url + ")  \n";
 				} else {
-					markdown = markdown + source.sourceText + "  \n";
+					markdownSources += source.sourceText + "  \n";
 				}
 			});
 	}
 
-	
-	window.scrollTo(0, 0);	
+	if (!searchParams.has('neo')) {
+		window.scrollTo(0, 0);
+	}	
 
 	return(
 		<Container style={{ marginTop: '25px', marginBottom: '50px' }}>
@@ -178,11 +199,14 @@ export default function Tech(props) {
 				{nav}
 				<hr/>
 				<ReactMarkdown children={markdown}/>
+				{showMoreButton}
+				<ReactMarkdown children={markdownSources}/>
 				<hr/>
 				<CopyToClipboard className="pointer" text={props.websiteUrl + "?tech=" + encodeURIComponent(tech.name)}>
 					<span><FontAwesomeIcon icon={faCopy} /> Copy & share link to this tech!</span>
 				</CopyToClipboard>
 				<hr/>
+				{showAllButton}
 				{nav}
 			</div>
 		</Container>
