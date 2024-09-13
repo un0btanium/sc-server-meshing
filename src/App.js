@@ -15,6 +15,8 @@ import stats from './data/stats.json';
 
 const URL = "https://sc-server-meshing.info/wiki/";
 
+// TODO download images to public folder from
+
 class App extends Component {
 
 	constructor(props) {

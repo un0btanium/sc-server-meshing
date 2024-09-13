@@ -246,10 +246,10 @@ export default function NeoOverview(props) {
 								{createTechBox("Gateway", "box-xsm", "bg-green", "Gateway Layer & Gateway Services")}
 								{createTechBox("Replicant", "box-xsm", "bg-green", "Replication Layer & Replicant Services")}
 								{createTechBox("Atlas", "box-xsm", "bg-orange")}
+								{createTechBox("Replication Message Queue", "box-sm", "bg-green", "Replication/Replacement Message Queue (RQM)")}
 								{createTechBox("Entity Zones", "box-sm", "bg-orange")}
 								{createTechBox("Entity Authority", "box-sm", "bg-green")}
-								{createTechBox("Connection Process & States Rework", "box-sm", "bg-green")}
-								{createTechBox("Time & Synchronization Improvements", "box-sm", "bg-green")}
+								{createTechBox("Network & Engine Reworks", "box-sm", "bg-green", "Time & Synchronization Improvements, Connection Process & States Rework")}
 								{/* TODO <div className="box box-sm bg-lila">First Solution (Failed State)</div> */}	
 							</div>
 						</div>

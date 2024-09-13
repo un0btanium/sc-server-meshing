@@ -1329,8 +1329,8 @@
             "* The game world is spatially split into multiple sections and each game server is responsible/limited to simulating one such section.",
             "* These sections limit the area a game server can have authority over.",
             "* The area of these sections stays fixed/static, as well as the amount of game servers that compute the same game world stays fixed.",
-            "* Design for Server Meshing was changed end of 2020/early 2021 to utilize the Replication Layer as a 'middle man' service (speculated: instead of using direct server-to-server communication which may have failed to provide the required performance).",
-            "* The first version might only come online with one game server per solar system and Authority Transfers happen inside the JumpPoints."
+            "* Design for Server Meshing was changed end of 2020/early 2021 to utilize the Replication Layer as a 'middle man' service (instead of using direct server-to-server communication which may have failed to provide the required performance).",
+            "* The first version might only come online with at least one game server per solar system and Authority Transfers would happen inside the JumpPoints."
         ],
         "sources": [
             "qa1",
@@ -1348,7 +1348,8 @@
             "s206",
             "s207",
             "s208",
-            "s209"
+            "s209",
+            "pnTPsm&rmq"
         ],
         "originalSlideImageURL": ""
     },
@@ -3476,39 +3477,22 @@
             "current": "1",
             "total": "1"
         },
-        "title": "Time & Synchronization Improvements",
+        "title": "Time & Synchronization Improvements, Connection Process & States Rework",
         "subtitle": "Overview",
         "texts": [
             "Challenges:",
             "* first tests of connecting two game servers together helped identify synchronization issues.",
-            "Solution: Rework Time And Synchronization logic (speculated: might have released sometime mid 2021 already)",
+            "Solution: Rework Time And Synchronization logic, Connection Process & States Rework (speculated: might have released sometime mid 2021 already)",
             "Requirement for: Server Meshing",
             "Goals:",
             "* ensure that the simulation on both client and server (and soon multiple servers) are better synchronized and networked",
             "Approach:",
-            "\"How the engine measures the passage of time underwent a complete overhaul. Accuracy was improved both in the measurement of time and in its synchronization between server and clients. How the engine uses time to update its logic and physics simulation was changed to eliminate errors that could result in simulation time passing differently on the server and clients. Many smaller bugs that had caused timing errors to grow on long-running servers were also fixed. The network synchronization of vehicles and physics objects were updated to take full advantage of the improvements. The accumulated result of all these changes was a significant reduction in latency and desynchronization issues in many areas, even under harsh test conditions for network and server performance. Besides improving the overall player experience, this work was a necessary step towards server meshing, where simulating the game across multiple game servers would have made desynchronization issues due to timing errors worse.\" - Postmortem 3.12"
-        ],
-        "sources": [
-            "cad1",
-            "pm1",
-            "s209"
-        ],
-        "originalSlideImageURL": ""
-    },
-    {
-        "uuid": "ef12b88e4be8baf28f5c57648230e801e3d9ac66",
-        "index": 196,
-        "pageIndicators": {
-            "current": "1",
-            "total": "1"
-        },
-        "title": "Connection Process & States Rework",
-        "subtitle": "Overview",
-        "texts": [
+            "\"How the engine measures the passage of time underwent a complete overhaul. Accuracy was improved both in the measurement of time and in its synchronization between server and clients. How the engine uses time to update its logic and physics simulation was changed to eliminate errors that could result in simulation time passing differently on the server and clients. Many smaller bugs that had caused timing errors to grow on long-running servers were also fixed. The network synchronization of vehicles and physics objects were updated to take full advantage of the improvements. The accumulated result of all these changes was a significant reduction in latency and desynchronization issues in many areas, even under harsh test conditions for network and server performance. Besides improving the overall player experience, this work was a necessary step towards server meshing, where simulating the game across multiple game servers would have made desynchronization issues due to timing errors worse.\" - Postmortem 3.12",
             "\"In a server mesh, a client may connect to many different servers during a game session. Part of the work towards server meshing requires separating the process of connecting a client to a server into distinct stages. These stages can then be executed independently without requiring a client to completely abandon its existing game session. Significant progress has been made towards this although there is more work to be done.\" - Postmortem 3.12",
             "Speculated: This might have released sometime mid 2021 already, maybe Alpha 3.13 or 3.14. Furthermore, this might have been developed for the initial Server Meshing version (show at CitizenCon 2021) where no Replication Layer/Hybrid Service existed yet and game servers connected themselves directly to each other and therefore clients would also have to connected and disconnect themselves from different game servers when moving between game servers. As this version never saw the light of day, this functionality might not be used as such anymore. However, once we have multiple Gateway services, the clients might still need to establish and disband connections to these Gateway services (but never to game servers directly)."
         ],
         "sources": [
+            "cad1",
             "pm1",
             "s209",
             "cc2"
@@ -3581,6 +3565,36 @@
             "lc2",
             "s204",
             "scr"
+        ],
+        "originalSlideImageURL": ""
+    },
+    {
+        "uuid": "8f282a0f3d43adbdad7b3011bf2f9f5e3df2bf86",
+        "index": 201,
+        "pageIndicators": {
+            "current": "1",
+            "total": "1"
+        },
+        "title": "Replication/Replacement Message Queue (RQM)",
+        "subtitle": "Overview",
+        "texts": [
+            "Challenges:",
+            "* Once many game servers are in a mesh, the message queue of the Replication Layer is flooded with too many messages.",
+            "* If the Replication Layer can't process the messages fast enough, then the queue will fill up more and more, which eventually leads to messages waiting a long time before they are being processed and send to their recipients.",
+            "* One of the causes for this is the fact that both game state changes and OCS loading notifications are put into the same queue. This lead to issues when many players join or left the game and lots of areas had to be loaded/unloaded.",
+            "Solution: Refactor the Message Queue",
+            "Requirement for: Server Meshing",
+            "Goals:",
+            "* Allow higher bandwidth of data by preventing the message queue to fill up and avoid the delay it causes.",
+            "Approach:",
+            "* Refactor the existing Networking Message Queue (NMQ) into the updated Replacement/Replication Message Queue (RMQ).",
+            "* Speculated: Split the queues into separate queues. One for game state changes (for real-time processing) and OCS loading notifications (not as much of an issues if a lot of notifications are in the queue).",
+            "* This was tested in Alpha 3.24 (with utilizing AB Testing at the beginning of the patch before it was rolled out to all Shards)",
+            "* This was tested again in the Server Meshing TechPreview Channel in September 2024."
+        ],
+        "sources": [
+            "scl3",
+            "pnTPsm&rmq"
         ],
         "originalSlideImageURL": ""
     },
