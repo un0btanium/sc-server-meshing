@@ -54,6 +54,7 @@
 	"s120": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/50259/thread/object-containers-entity-aggregates-prefabs-entiti", "description": "on Object Containers, Entity-Aggregates, Prefabs, Brush, Entities, Zones", "category": "Spectrum"},
 	"s121": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/50259/thread/what-is-the-current-dev-plans-to-handle-immersion-", "description": "on State, Authority, Replication Layer, Game Server", "category": "Spectrum"},
 	"s122": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/190048/thread/star-citizen-alpha-3-18-0-live-8389318-patch-notes", "description": "on Stackable Items in Global Database", "category": "Spectrum"},
+	"s123": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/50259/thread/what-is-the-point-ofd-doing-refinery-jobs-when-you/7187295", "description":"on Long Term Persistence 2.0", "category": "Spectrum"},
 	"s201": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/50259/thread/does-each-game-server-have-its-own-icache-instance", "description": "on iCache, Shards, Player Capacity", "category": "Spectrum"},
 	"s202": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/50259/thread/what-will-be-the-extent-of-the-first-pass-on-the-s/96", "description": "on Static Server Meshing functionality", "category": "Spectrum"},
 	"s203": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/50259/thread/predict-needs-for-server-meshing-splitting", "description": "on Static Server Meshing", "category": "Spectrum"},
@@ -88,7 +89,6 @@
 	"pn317": {"url":"https://robertsspaceindustries.com/comm-link/transmission/18636-Star-Citizen-Alpha-3170","description": "Alpha 3.17 - Client Bind Culling in the Replication Layer", "category": "Patchnote"},
 	"pn318": {"url":"https://robertsspaceindustries.com/comm-link/transmission/19126-Star-Citizen-Alpha-3180","description": "Alpha 3.18 - Persistent Entity Streaming Release", "category": "Patchnote"},
 	"pn323": {"url":"https://robertsspaceindustries.com/comm-link/transmission/19736-Alpha-323-Adventure-Beckons","description": "Alpha 3.23 - Replication Layer Split", "category": "Patchnote"},
-	"pnTPsm&rmq": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/190049/thread/all-backers-tech-preview-rmq-meshing-playtest-roun","description": "Tech Preview - RMQ Meshing Playtest Round #3", "category": "Patchnote"},
 	"tw1": {"url":"https://twitter.com/DrChadMcKinney/status/1447665963738951684","description": "on Server Meshing & Regional Shards", "category": "Twitter"},
 	"mdb1": {"url":"https://severalnines.com/database-blog/overview-mongodb-and-load-balancing", "description": "MongoDB Sharding", "category": "Documentation"},
 	"mdb2": {"url":"https://docs.mongodb.com/manual/geospatial-queries/", "description": "MongoDB Spatial Queries", "category": "Documentation"},
@@ -105,5 +105,16 @@
 	"w11": {"url":"https://en.wikipedia.org/wiki/Mediator_pattern", "description": "Mediator Pattern", "category": "Wikipedia"},
 	"w12": {"url":"https://en.wikipedia.org/wiki/Superscalar_processor", "description": "Superscalar Processor", "category": "Wikipedia"},
 	"w13": {"url":"https://en.wikipedia.org/wiki/Directed_acyclic_graph", "description": "Directed Acyclic Graph", "category": "Wikipedia"},
-	"n1": {"url":"https://www.gabrielgambetta.com/client-side-prediction-live-demo.html", "description": "gabrielgambetta - Netcode Explanation with Demo", "category": "Article"}
+	"n1": {"url":"https://www.gabrielgambetta.com/client-side-prediction-live-demo.html", "description": "gabrielgambetta - Netcode Explanation with Demo", "category": "Article"},
+	"pnTPrls1": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/190049/thread/tech-preview-replication-layer-test-round-1","description": "Tech Preview - Replication Layer Split Playtest #1", "category": "Patchnote"},
+	"pnTPrls2": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/190049/thread/tech-preview-replication-layer-test-round-2","description": "Tech Preview - Replication Layer Split Playtest #2", "category": "Patchnote"},
+	"pnTPrls3": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/190049/thread/tech-preview-replication-layer-test-round-3-1","description": "Tech Preview - Replication Layer Split Playtest #3", "category": "Patchnote"},
+	"pnTPrls4": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/190049/thread/tech-preview-replication-layer-test-round-4","description": "Tech Preview - Replication Layer Split Playtest #4", "category": "Patchnote"},
+	"pnTPssm1": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/190049/thread/playtest-static-server-meshing-tech-preview-playte","description": "Tech Preview - Static Server Meshing Playtest #1", "category": "Patchnote"},
+	"pnTPssm2": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/190049/thread/evocati-static-server-meshing-tech-preview-playtes","description": "Tech Preview - Static Server Meshing Playtest #2", "category": "Patchnote"},
+	"pnTPssm3": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/190049/thread/playtest-static-server-meshing-tech-preview-play-1","description": "Tech Preview - Static Server Meshing Playtest #3", "category": "Patchnote"},
+	"pnTPessm1": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/190049/thread/tech-preview-playtest-meshing-efficiency-playtest","description": "Tech Preview - Efficiency Meshing Playtest Round #1", "category": "Patchnote"},
+	"pnTPessm2": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/190049/thread/tech-preview-playtest-meshing-efficiency-playtest-","description": "Tech Preview - Efficiency Meshing Playtest Round #2", "category": "Patchnote"},
+	"pnTPessm3": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/190049/thread/all-backers-tech-preview-rmq-meshing-playtest-roun","description": "Tech Preview - Efficiency Meshing Playtest Round #3 (with RQM)", "category": "Patchnote"}
+
 }
