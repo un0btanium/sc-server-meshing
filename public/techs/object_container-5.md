@@ -1,0 +1,8 @@
+### The Implementation 3/3
+When an object is loaded into the level, either on initial level load or later while playing, the Object Container is loaded into memory. Then a new object is created from the Object Container. This is done by allocating the required space in memory to later hold the object's state (like position). The resources that are listed in the container, like textures and geometry, are loaded into memory into the MegaMap and/or into the memory of the GPU.
+
+The MegaMap consists of various memory managers which check, if a resource was already loaded by other objects. If that is the case then the already loaded resource is simply reused rather than loading it again which would waste memory space by introducing duplicates. The object is initialized with its values and positioned into the level. Most of these values are going to be loaded from a save file but later are going to be loaded out of a database. An Object Container can consist of multiple child Object Containers which will be loaded and initialized and relatively positioned to its parent object into the level (for example, the clothes a character wears, the gun that is attached to the character and the bullets that are in its magazine and bullet chamber).
+
+Once loading and initializing is done, and the object is dynamic - meaning it has behavior and can be interacted with - then this entity is ready to be computed by the CPU in the game update loop, thus state changes and stuff happens in the game world, e.g. a player or NPC can walk around, a ship can fly, a terminal can be accessed, a ship spawned, a wall can be run into, etc.
+
+![Image](/images/object_container/image-04.png)

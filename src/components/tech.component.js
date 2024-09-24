@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link, useSearchParams } from 'react-router-dom';
 
@@ -9,76 +9,57 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import Overview from './overview.component';
 
-let regexSubSubtitle = new RegExp(/^[\w()/ ]{1,31}:/);
-
 export default function Tech(props) {
 	let [searchParams] = useSearchParams();
+	let paramTech = searchParams.get('tech') ? decodeURIComponent(searchParams.get('tech')) : undefined;
+	const [currentSlideIndex, setCurrentSlideIndex] = useState(searchParams.has('neo') ? 0 : 1000);
+	const [markup, setMarkup] = useState(new Set());
 
-	const determineTechsAndSlide = () => {
-		let tech = searchParams.get('tech') ? decodeURIComponent(searchParams.get('tech')) : undefined;
-		let slide = searchParams.get('slide') ? decodeURIComponent(searchParams.get('slide')) : undefined;
-
-		let techNameLowerCase = (tech || props.techOrder[0]).toLowerCase();
-		let currentTech = props.techOrder[0];
-		let currentSlide = undefined;
-		if (props.techsByName[techNameLowerCase]) {
-			currentTech = props.techsByName[techNameLowerCase].name;
-			let specificSlides = props.techsByName[techNameLowerCase].slides.filter(s => s.subtitle === slide);
-			if (specificSlides.length > 0) {
-				currentSlide = specificSlides[0];
-			}
-		} else {
-			techNameLowerCase = props.techOrderLowerCase[0];
-		}
-
-		let techIndex = props.techOrderLowerCase.indexOf(techNameLowerCase);
-		let previousTech = props.techOrder[techIndex === 0 ? props.techOrder.length-1 : techIndex-1];
-		let nextTech = props.techOrder[techIndex === props.techOrder.length-1 ? 0 : techIndex+1];
-
-		return { previousTech, currentTech, nextTech, currentSlide } ;
+	let techNameLowerCase = (paramTech || props.techOrder[0]).toLowerCase();
+	let currentTech = props.techOrder[0];
+	if (props.techsByName[techNameLowerCase]) {
+		currentTech = props.techsByName[techNameLowerCase].title;
+	} else {
+		techNameLowerCase = props.techOrderLowerCase[0];
 	}
 
-	const getMarkdownWithSlideInfo = (tech, specificSlide) => {
-		let markdown = "";
+	let techIndex = props.techOrderLowerCase.indexOf(techNameLowerCase);
+	let previousTech = props.techOrder[techIndex === 0 ? props.techOrder.length-1 : techIndex-1];
+	let nextTech = props.techOrder[techIndex === props.techOrder.length-1 ? 0 : techIndex+1];
 
-		tech.slides.forEach((slide, index) => {
-			if (specificSlide === undefined && index > currentSlideIndex) {
-				return
-			}
-
-			if (specificSlide && specificSlide.subtitle !== slide.subtitle) {
-				return;
-			}
-
-			if (slide.subtitle) {
-				markdown = markdown + "### " + slide.subtitle + "\n";
-			}
-	
-			let isBulletpoint = false;
-			slide.texts.forEach(text => {
-				let isBulletpointTemp = text.startsWith("* ")
-				let isSubSubtitle = regexSubSubtitle.exec(text);
-				if (isSubSubtitle) {
-					text = text.replace(isSubSubtitle[0], "__" + isSubSubtitle[0] + "__");
-				}
-				markdown = markdown + (isBulletpoint && !isBulletpointTemp ? "\n" : "") + text + "\n" + (isBulletpointTemp ? "" : "\n");
-				isBulletpoint = isBulletpointTemp;
-			});
-
-			(slide.imageURLs || []).forEach((imageURL => {
-				markdown = markdown + (isBulletpoint ? "\n" : "") + "![Image](" + imageURL + ")\n";
-				isBulletpoint = false;
-			}));
-		});
-
-		return markdown;
-	};
-
-	let { previousTech, currentTech, nextTech } = determineTechsAndSlide();
 	let tech = props.techsByName[currentTech.toLowerCase()];
-	const [currentSlideIndex, setCurrentSlideIndex] = useState(searchParams.has('neo') ? 0 : 1000);
-	// console.log("tech", tech)
-	// console.log("props", props)
+	let lastSlideIndex = tech.slideAmount-1;
+
+	useEffect(() => {
+		let loadSingleSlide = false;
+		let markupFileName = tech.markupFileName;
+		
+		if (tech.slideAmount === 1) {
+			loadSingleSlide = true;
+			markupFileName += "-1";
+		} else if (currentSlideIndex < tech.slideAmount && !(currentSlideIndex === tech.slideAmount-1 && markup.size < tech.slideAmount-1)) {
+			loadSingleSlide = true;
+			markupFileName += "-" + (currentSlideIndex+1);
+		}
+		
+		fetch("/techs/" + markupFileName + ".md")
+			.then((response) => response.text())
+			.then((text) => {
+				if (loadSingleSlide) {
+					let newMarkup = new Set(markup.values().toArray());
+					newMarkup.add(text);
+					setMarkup(newMarkup);
+				} else {
+					setMarkup(new Set([text]));
+				}
+			});
+	}, [currentSlideIndex]);
+
+
+	useEffect(() => {
+		setCurrentSlideIndex(searchParams.has('neo') ? 0 : currentSlideIndex === 1000 ? 2000 : 1000);
+		setMarkup(new Set());
+	}, [paramTech]);
 
 	let nav;
 	let showMoreButton;
@@ -93,15 +74,16 @@ export default function Tech(props) {
 			nextLink = "/";
 		}
 		
-		let doBlink = tech.slides.length-1 === currentSlideIndex ? " blink": ""
-		showMoreButton = currentSlideIndex < tech.slides.length-1 ? <Row style={{ margin: '0px 0px 20px 0px'}}>
+		let doBlink = lastSlideIndex === currentSlideIndex ? " blink" : "";
+
+		showMoreButton = currentSlideIndex < lastSlideIndex ? <Row style={{ margin: '0px 0px 20px 0px'}}>
 			<Col className="nav-button disable-link-style large blink" onClick={() => setCurrentSlideIndex(currentSlideIndex + 1)}>Show more</Col>
-		</Row> : tech.name !== "Sources" ? <Row style={{ margin: '0px 0px 20px 0px'}}>
+		</Row> : tech.title !== "Sources" ? <Row style={{ margin: '0px 0px 20px 0px'}}>
 			<Col as={Link} to={nextLink} className={"nav-button large disable-link-style blink"} >Back to Overview and next Tech =&gt;</Col>
 		</Row> : undefined
 		
-		showAllButton = currentSlideIndex < tech.slides.length-1 ? <Row style={{ margin: '0px 0px 20px 0px'}}>
-			<Col className="nav-button disable-link-style large" onClick={() => setCurrentSlideIndex(tech.slides.length-1)}>Show all</Col>
+		showAllButton = currentSlideIndex < lastSlideIndex ? <Row style={{ margin: '0px 0px 20px 0px'}}>
+			<Col className="nav-button disable-link-style large" onClick={() => setCurrentSlideIndex(lastSlideIndex)}>Show all</Col>
 		</Row> : undefined
 		
 		nav = (
@@ -125,11 +107,10 @@ export default function Tech(props) {
 	if (!tech) {
 		return <h1>Tech is not available!</h1>
 	}
-	if (tech.name === "Overview") {
+	if (tech.title === "Overview") {
 		return <Container style={{ marginTop: '25px', marginBottom: '50px' }}>
 			{nav}
 			<Overview
-				overviewImageURL={tech.originalSlideImageURL}
 				techNames={props.techOrder}
 				sources={props.sources}
 				stats={props.stats}
@@ -139,26 +120,14 @@ export default function Tech(props) {
 		</Container>
 	}
 
-	let markdown = "";
-
-	if (tech.name !== "Sources") {
-		markdown = markdown + "# " + tech.name + "\n";
-	}
-
-	let slideInfo = getMarkdownWithSlideInfo(tech, props.slide);
-	if (!props.slide && slideInfo === "") {
-		markdown = markdown + "Slide '" + props.slide.subtitle + "' not available!\n";
-		markdown = markdown + getMarkdownWithSlideInfo(tech, undefined);
-	} else {
-		markdown += slideInfo;
-	}
+	
+	let markdown = markup.length === 0 ? "" : markup.values().toArray().join("\n");
 
 	let markdownSources = "### Sources\n";
 	let sources = tech.sources;
-	if (tech.name === "Sources") {
-		sources = Object.keys(props.sources); // all sources for Sources page
+	if (tech.title === "Sources") {
+		sources = Object.keys(props.sources);
 	}
-	// console.log("sources", sources)
 
 	if (!sources) {
 		markdownSources = markdownSources + "No sources available!";
@@ -202,7 +171,7 @@ export default function Tech(props) {
 				{showMoreButton}
 				<ReactMarkdown children={markdownSources}/>
 				<hr/>
-				<CopyToClipboard className="pointer" text={props.websiteUrl + "?tech=" + encodeURIComponent(tech.name)}>
+				<CopyToClipboard className="pointer" text={props.websiteUrl + "?tech=" + encodeURIComponent(tech.title)}>
 					<span><FontAwesomeIcon icon={faCopy} /> Copy & share link to this tech!</span>
 				</CopyToClipboard>
 				<hr/>

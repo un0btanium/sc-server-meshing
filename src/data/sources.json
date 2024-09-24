@@ -26,8 +26,8 @@
 	"q1": {"url":"https://youtu.be/2muGWtX8e7g", "description": "Star Citizen: Quantum, Quasar, and Virtual AI", "category": "YouTube"},
 	"eri": {"url":"https://youtu.be/qkteNWutOz8", "description": "Interview: Erin Roberts Interview", "category": "YouTube"},
 	"z1": {"url":"https://youtu.be/AGr2WyQGeUw?t=2030", "description": "Interview: Travis Day on Zones", "category": "YouTube"},
-	"z2": {"url":"https://www.gamersnexus.net/gg/1854-chris-roberts-pax-east-instancing-and-zoning", "description": "Interview: Chris Roberts on Zones #1", "category": "YouTube"},
-	"z3": {"url":"https://www.gamersnexus.net/gg/2119-chris-roberts-on-star-citizen-network-and-render-pipelines", "description": "Interview: Chris Roberts on Zones #2", "category": "YouTube"},
+	"z2": {"url":"https://www.gamersnexus.net/gg/1854-chris-roberts-pax-east-instancing-and-zoning", "description": "Gamers Nexus Interview #1: Chris Roberts on Zones, OCS and Meshing", "category": "YouTube"},
+	"z3": {"url":"https://www.youtube.com/watch?app=desktop&v=kO9dEq3YMWc", "description": "Gamers Nexus Interview #2: Chris Roberts on Zones", "category": "YouTube"},
 	"df1": {"url":"https://youtu.be/OngP6uEfQoE", "description": "Digital Foundry - Overview", "category": "YouTube"},
 	"df2": {"url":"https://youtu.be/hqXZhnrkBdo", "description": "Digital Foundry - Part 1: Scale", "category": "YouTube"},
 	"df3": {"url":"https://youtu.be/TUFcerTa6Ho", "description": "Digital Foundry - Part 2: Detail", "category": "YouTube"},
@@ -115,6 +115,6 @@
 	"pnTPssm3": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/190049/thread/playtest-static-server-meshing-tech-preview-play-1","description": "Tech Preview - Static Server Meshing Playtest #3", "category": "Patchnote"},
 	"pnTPessm1": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/190049/thread/tech-preview-playtest-meshing-efficiency-playtest","description": "Tech Preview - Efficiency Meshing Playtest Round #1", "category": "Patchnote"},
 	"pnTPessm2": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/190049/thread/tech-preview-playtest-meshing-efficiency-playtest-","description": "Tech Preview - Efficiency Meshing Playtest Round #2", "category": "Patchnote"},
-	"pnTPessm3": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/190049/thread/all-backers-tech-preview-rmq-meshing-playtest-roun","description": "Tech Preview - Efficiency Meshing Playtest Round #3 (with RQM)", "category": "Patchnote"}
-
+	"pnTPessm3": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/190049/thread/all-backers-tech-preview-rmq-meshing-playtest-roun","description": "Tech Preview - Efficiency Meshing Playtest Round #3 (with RQM)", "category": "Patchnote"},
+	"smtu": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/3/thread/server-meshing-tests","description": "Server Meshing Testing Update by Benoit Beausejour", "category": "Spectrum"}
 }

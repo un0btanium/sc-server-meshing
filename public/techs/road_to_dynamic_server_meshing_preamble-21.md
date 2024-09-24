@@ -1,0 +1,13 @@
+### Frame Rate and Game Ticks - Difference between Rendering (GPU) and the Game Loop (CPU)
+One important topic we should discuss as well is the difference between Frame Rate (Rendering on the GPU) and Game Ticks (Game Simulation and Networking on the CPU).
+
+Every game has a game loop in its code to simulate that time has passed in the game world. In each game loop cycle, called a "game tick", all/some objects in the game world are being updated as well as the inputs of the players handled to have an effects in the game world. In many games, the game loop is set to 30 ticks per second (every 33.3 milliseconds one tick), in some highly competitive games up to 64 and even 128 ticks per second to allow for the reaction time of players to matter more. The game tick rate is usually independent from the frame rate.
+
+The frame rate is usually determined by how many images/frames the render engine and the GPU can create within one second. This is usually determined by a lot of factors, like what the renderer and GPU are capable of, how many objects are on screen, in which ways the objects are being rendered, etc. At 24+ frames per second (fps), the brain is tricked into seeing motion. In recent years, especially in the competitive gaming scenes, monitor screens allow for 144fps and more. Of course, the GPU still has to be capable of providing these high frame amounts first before they can be displayed.
+
+The game loop is executed by the CPU, not the GPU. That is because the game code and game logic is executed on the CPU. If there was no game loop, then no changes would happen in the game, and the GPU would only ever render the same image/frame with no changes over and over again. Only because of the game loop, it is made possible that objects change state in the game world. The CPU periodically sends the current information of the objects of the game world to the GPU to have it create a new image. This is done by the renderer, also running on the CPU, which optimizes the scene data before it is send to the GPU. There are a few tricks like Interpolation to have smooth motion of objects at high frame rates even if the game loop only runs at 30 ticks per second.
+
+Since the game servers only need to simulated the game world, they just run the game loop without rendering the game (which actually frees up some CPU load because the CPU does not have to tell the GPU what it is supposed to render). Thus there usually is no GPU installed in the computer configuration of game servers.
+
+__Note:__ Sometimes the game tick rate on the server is referred to as frame rate as well. Frame here refers to a frame of time or execution, and not an image.
+

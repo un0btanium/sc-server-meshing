@@ -1,0 +1,724 @@
+[
+    {
+        "title": "Overview",
+        "markupFileName": "overview",
+        "slideAmount": 0,
+        "sources": []
+    },
+    {
+        "title": "Road to Dynamic Server Meshing - Introduction",
+        "markupFileName": "road_to_dynamic_server_meshing_introduction",
+        "slideAmount": 3,
+        "sources": []
+    },
+    {
+        "title": "Road to Dynamic Server Meshing - Preamble",
+        "markupFileName": "road_to_dynamic_server_meshing_preamble",
+        "slideAmount": 22,
+        "sources": [
+            "w12",
+            "s105",
+            "n1"
+        ]
+    },
+    {
+        "title": "Object Container",
+        "markupFileName": "object_container",
+        "slideAmount": 8,
+        "sources": [
+            "jp1",
+            "cc2",
+            "df2",
+            "s120",
+            "atv1",
+            "atv4"
+        ]
+    },
+    {
+        "title": "Client Object Container Streaming",
+        "markupFileName": "client_object_container_streaming",
+        "slideAmount": 12,
+        "sources": [
+            "jp1",
+            "cc2",
+            "rtv2",
+            "rtv1",
+            "s111",
+            "s113",
+            "pn33",
+            "pn335",
+            "w1",
+            "lc1"
+        ]
+    },
+    {
+        "title": "Server Object Container Streaming",
+        "markupFileName": "server_object_container_streaming",
+        "slideAmount": 5,
+        "sources": [
+            "jp1",
+            "cc2",
+            "scl1",
+            "s101",
+            "s106",
+            "pn38",
+            "lc1"
+        ]
+    },
+    {
+        "title": "Persistent Entity Streaming",
+        "markupFileName": "persistent_entity_streaming",
+        "slideAmount": 13,
+        "sources": [
+            "scl2",
+            "cc2",
+            "qa1",
+            "lc1",
+            "s117",
+            "s118",
+            "isc2",
+            "s121",
+            "s122",
+            "jp2",
+            "pn318",
+            "mr5",
+            "scr"
+        ]
+    },
+    {
+        "title": "Static Server Meshing",
+        "markupFileName": "static_server_meshing",
+        "slideAmount": 24,
+        "sources": [
+            "qa1",
+            "cc2",
+            "lc1",
+            "cad1",
+            "scr",
+            "w11",
+            "isc2",
+            "s201",
+            "s202",
+            "s203",
+            "s204",
+            "s205",
+            "s206",
+            "s207",
+            "s208",
+            "s209",
+            "pnTPssm1",
+            "pnTPssm2",
+            "pnTPssm3",
+            "pnTPessm1",
+            "pnTPessm2",
+            "pnTPessm3",
+            "smtu"
+        ]
+    },
+    {
+        "title": "Dynamic Server Meshing",
+        "markupFileName": "dynamic_server_meshing",
+        "slideAmount": 20,
+        "sources": [
+            "rtv1",
+            "lc2",
+            "s204",
+            "s208"
+        ]
+    },
+    {
+        "title": "Single Shard",
+        "markupFileName": "single_shard",
+        "slideAmount": 6,
+        "sources": [
+            "tw1"
+        ]
+    },
+    {
+        "title": "Prologue & Summary",
+        "markupFileName": "prologue_&_summary",
+        "slideAmount": 2,
+        "sources": []
+    },
+    {
+        "title": "Special Thanks",
+        "markupFileName": "special_thanks",
+        "slideAmount": 1,
+        "sources": []
+    },
+    {
+        "title": "LUA Removal & C++ Entity Components",
+        "markupFileName": "lua_removal_&_c++_entity_components",
+        "slideAmount": 1,
+        "sources": [
+            "jp1",
+            "atv6",
+            "atv7",
+            "rtv1",
+            "hh1",
+            "s120"
+        ]
+    },
+    {
+        "title": "Multi-Threaded Loading & Execution",
+        "markupFileName": "multithreaded_loading_&_execution",
+        "slideAmount": 1,
+        "sources": [
+            "jp1",
+            "s112",
+            "rtv1",
+            "s120",
+            "mr6"
+        ]
+    },
+    {
+        "title": "MegaMap",
+        "markupFileName": "megamap",
+        "slideAmount": 1,
+        "sources": [
+            "atv3"
+        ]
+    },
+    {
+        "title": "64bit floating point coordinates & 64bit integer entity id conversion",
+        "markupFileName": "64bit_floating_point_coordinates_&_64bit_integer_entity_id_conversion",
+        "slideAmount": 1,
+        "sources": [
+            "gc1",
+            "s114",
+            "df1",
+            "df2",
+            "w7",
+            "w8",
+            "w9"
+        ]
+    },
+    {
+        "title": "ZoneSystem",
+        "markupFileName": "zonesystem",
+        "slideAmount": 1,
+        "sources": [
+            "z1",
+            "z2",
+            "z3",
+            "s119",
+            "s120",
+            "gc1",
+            "mr1",
+            "mr2",
+            "bs1",
+            "w6"
+        ]
+    },
+    {
+        "title": "64bit to 32bit converter",
+        "markupFileName": "64bit_to_32bit_converter",
+        "slideAmount": 1,
+        "sources": [
+            "atv4",
+            "s114",
+            "s119"
+        ]
+    },
+    {
+        "title": "Serialized Variables",
+        "markupFileName": "serialized_variables",
+        "slideAmount": 1,
+        "sources": [
+            "atv1",
+            "jp1",
+            "scl2",
+            "s117"
+        ]
+    },
+    {
+        "title": "Entity Component Update Scheduler",
+        "markupFileName": "entity_component_update_scheduler",
+        "slideAmount": 1,
+        "sources": [
+            "jp1",
+            "s104",
+            "s112",
+            "s113",
+            "mr3",
+            "pn317",
+            "s303"
+        ]
+    },
+    {
+        "title": "Entity Ownership Hierarchy / Entity Aggregates",
+        "markupFileName": "entity_ownership_hierarchy___entity_aggregates",
+        "slideAmount": 1,
+        "sources": [
+            "jp1",
+            "cc2",
+            "s120"
+        ]
+    },
+    {
+        "title": "Entity Spawn Batches & Entity Snapshots",
+        "markupFileName": "entity_spawn_batches_&_entity_snapshots",
+        "slideAmount": 1,
+        "sources": [
+            "jp1"
+        ]
+    },
+    {
+        "title": "Serialized Variable Culling",
+        "markupFileName": "serialized_variable_culling",
+        "slideAmount": 1,
+        "sources": [
+            "jp1",
+            "rtv1",
+            "s113"
+        ]
+    },
+    {
+        "title": "Network/Entity Bind Culling",
+        "markupFileName": "network_entity_bind_culling",
+        "slideAmount": 1,
+        "sources": [
+            "jp1",
+            "rtv1",
+            "cc2"
+        ]
+    },
+    {
+        "title": "Ship Interior Object Container Streaming",
+        "markupFileName": "ship_interior_object_container_streaming",
+        "slideAmount": 1,
+        "sources": [
+            "scr"
+        ]
+    },
+    {
+        "title": "Long Term Persistence",
+        "markupFileName": "long_term_persistence",
+        "slideAmount": 1,
+        "sources": [
+            "s108",
+            "s115",
+            "s116",
+            "s118",
+            "s122",
+            "s123",
+            "cad1",
+            "jp2"
+        ]
+    },
+    {
+        "title": "Entity Streaming Manager & StarHash",
+        "markupFileName": "entity_streaming_manager_&_starhash",
+        "slideAmount": 1,
+        "sources": [
+            "jp1",
+            "w4",
+            "w5"
+        ]
+    },
+    {
+        "title": "Definitive State & Location Spawn IDs",
+        "markupFileName": "definitive_state_&_location_spawn_ids",
+        "slideAmount": 1,
+        "sources": [
+            "jp1"
+        ]
+    },
+    {
+        "title": "pCache",
+        "markupFileName": "pcache",
+        "slideAmount": 1,
+        "sources": [
+            "s101",
+            "s102",
+            "lc1"
+        ]
+    },
+    {
+        "title": "Global Database",
+        "markupFileName": "global_database",
+        "slideAmount": 1,
+        "sources": [
+            "s108",
+            "s115",
+            "s116",
+            "s118",
+            "s122",
+            "cad1",
+            "jp2"
+        ]
+    },
+    {
+        "title": "EntityGraph",
+        "markupFileName": "entitygraph",
+        "slideAmount": 1,
+        "sources": [
+            "jp2",
+            "s118",
+            "cc2",
+            "scl2",
+            "cad1",
+            "s102",
+            "s103",
+            "s107",
+            "s109",
+            "s110",
+            "s201",
+            "sc1",
+            "mdb1",
+            "mdb2",
+            "pn315",
+            "lc1",
+            "mr5",
+            "w13"
+        ]
+    },
+    {
+        "title": "Global Persistence",
+        "markupFileName": "global_persistence",
+        "slideAmount": 1,
+        "sources": [
+            "s101",
+            "s102",
+            "s118",
+            "cad1",
+            "jp1"
+        ]
+    },
+    {
+        "title": "Local, External & Personal Inventory",
+        "markupFileName": "local_&_external_&_personal_inventory",
+        "slideAmount": 1,
+        "sources": [
+            "cad2"
+        ]
+    },
+    {
+        "title": "Physicalized Items and Inventory",
+        "markupFileName": "physicalized_items_and_inventory",
+        "slideAmount": 1,
+        "sources": [
+            "cad2"
+        ]
+    },
+    {
+        "title": "Stow & Unstow",
+        "markupFileName": "stow_&_unstow",
+        "slideAmount": 1,
+        "sources": [
+            "cc2",
+            "scl2",
+            "jp2"
+        ]
+    },
+    {
+        "title": "Shards",
+        "markupFileName": "shards",
+        "slideAmount": 1,
+        "sources": [
+            "cc2",
+            "qa1",
+            "s201",
+            "s210",
+            "mr5",
+            "tw1"
+        ]
+    },
+    {
+        "title": "Server Nodes",
+        "markupFileName": "server_nodes",
+        "slideAmount": 1,
+        "sources": [
+            "cc2",
+            "qa1",
+            "s121"
+        ]
+    },
+    {
+        "title": "Player Item Shard Transitions",
+        "markupFileName": "player_item_shard_transitions",
+        "slideAmount": 1,
+        "sources": [
+            "scl2",
+            "qa1",
+            "scr"
+        ]
+    },
+    {
+        "title": "Game Server Crash Recovery & Client Reconnects",
+        "markupFileName": "game_server_crash_recovery_&_client_reconnects",
+        "slideAmount": 1,
+        "sources": [
+            "scl2",
+            "s109",
+            "s110",
+            "s116",
+            "pn323"
+        ]
+    },
+    {
+        "title": "Service Migration & Creation",
+        "markupFileName": "service_migration_&_creation",
+        "slideAmount": 1,
+        "sources": [
+            "scr",
+            "isc1",
+            "mr4",
+            "mr5",
+            "lc1",
+            "lc2",
+            "scl2",
+            "s210"
+        ]
+    },
+    {
+        "title": "Service Fleet Manager",
+        "markupFileName": "service_fleet_manager",
+        "slideAmount": 1,
+        "sources": [
+            "qa1",
+            "jp2"
+        ]
+    },
+    {
+        "title": "Shard Manager",
+        "markupFileName": "shard_manager",
+        "slideAmount": 1,
+        "sources": [
+            "qa1",
+            "cc2",
+            "scr"
+        ]
+    },
+    {
+        "title": "Replication Layer",
+        "markupFileName": "replication_layer",
+        "slideAmount": 1,
+        "sources": [
+            "qa1",
+            "cc2",
+            "lc1",
+            "lc2",
+            "scr",
+            "s209",
+            "pn317",
+            "pn318",
+            "pn323",
+            "isc2",
+            "s121",
+            "jp2"
+        ]
+    },
+    {
+        "title": "Time & Synchronization Improvements, Connection Process & States Rework",
+        "markupFileName": "time_&_synchronization_improvements_&_connection_process_&_states_rework",
+        "slideAmount": 1,
+        "sources": [
+            "cad1",
+            "pm1",
+            "s209",
+            "cc2"
+        ]
+    },
+    {
+        "title": "Entity Authority",
+        "markupFileName": "entity_authority",
+        "slideAmount": 1,
+        "sources": [
+            "qa1",
+            "cad1",
+            "s207",
+            "s208",
+            "s209",
+            "s121",
+            "scr"
+        ]
+    },
+    {
+        "title": "Entity Zones",
+        "markupFileName": "entity_zones",
+        "slideAmount": 1,
+        "sources": [
+            "lc2",
+            "s204",
+            "scr"
+        ]
+    },
+    {
+        "title": "Replication/Replacement Message Queue (RQM)",
+        "markupFileName": "replication_replacement_message_queue_rqm",
+        "slideAmount": 1,
+        "sources": [
+            "scl3",
+            "pnTPessm3",
+            "smtu"
+        ]
+    },
+    {
+        "title": "Atlas",
+        "markupFileName": "atlas",
+        "slideAmount": 1,
+        "sources": [
+            "qa1",
+            "scr"
+        ]
+    },
+    {
+        "title": "Replication Layer & Replicant Services",
+        "markupFileName": "replication_layer_&_replicant_services",
+        "slideAmount": 1,
+        "sources": [
+            "qa1",
+            "cc2",
+            "pn317",
+            "scr"
+        ]
+    },
+    {
+        "title": "Gateway Layer & Gateway Services",
+        "markupFileName": "gateway_layer_&_gateway_services",
+        "slideAmount": 1,
+        "sources": [
+            "qa1",
+            "pn317"
+        ]
+    },
+    {
+        "title": "Scribe",
+        "markupFileName": "scribe",
+        "slideAmount": 1,
+        "sources": [
+            "qa1",
+            "cc2",
+            "pn318"
+        ]
+    },
+    {
+        "title": "Hybrid Service (Replication Layer Split)",
+        "markupFileName": "hybrid_service_replication_layer_split",
+        "slideAmount": 1,
+        "sources": [
+            "qa1",
+            "cc2",
+            "lc1",
+            "lc2",
+            "scr",
+            "s209",
+            "pn317",
+            "pn323",
+            "pnTPrls1",
+            "pnTPrls2",
+            "pnTPrls3",
+            "pnTPrls4",
+            "isc2"
+        ]
+    },
+    {
+        "title": "Entity Authority Load Balancer",
+        "markupFileName": "entity_authority_load_balancer",
+        "slideAmount": 1,
+        "sources": []
+    },
+    {
+        "title": "Dynamic Server Meshing V1",
+        "markupFileName": "dynamic_server_meshing_v1",
+        "slideAmount": 1,
+        "sources": [
+            "s208",
+            "lc2"
+        ]
+    },
+    {
+        "title": "Dynamic Server Meshing V2",
+        "markupFileName": "dynamic_server_meshing_v2",
+        "slideAmount": 1,
+        "sources": [
+            "lc2"
+        ]
+    },
+    {
+        "title": "Replication Layer Version 2 (Hybrid service breakup)",
+        "markupFileName": "replication_layer_version_2_hybrid_service_breakup",
+        "slideAmount": 1,
+        "sources": [
+            "lc1",
+            "jp2"
+        ]
+    },
+    {
+        "title": "Specialized Netcode Research and Development",
+        "markupFileName": "specialized_netcode_research_and_development",
+        "slideAmount": 1,
+        "sources": [
+            "tw1"
+        ]
+    },
+    {
+        "title": "Server Node Multithreading Scaleup",
+        "markupFileName": "server_node_multithreading_scaleup",
+        "slideAmount": 1,
+        "sources": [
+            "jp1",
+            "pn317",
+            "s205",
+            "s303",
+            "s304",
+            "mr6"
+        ]
+    },
+    {
+        "title": "Layers/Layering",
+        "markupFileName": "layers_layering",
+        "slideAmount": 1,
+        "sources": [
+            "qa1",
+            "10c2",
+            "rtv1"
+        ]
+    },
+    {
+        "title": "Projectile Manager",
+        "markupFileName": "projectile_manager",
+        "slideAmount": 1,
+        "sources": [
+            "atv5",
+            "qa1",
+            "w3"
+        ]
+    },
+    {
+        "title": "Actor Networking Rework",
+        "markupFileName": "actor_networking_rework",
+        "slideAmount": 1,
+        "sources": [
+            "s104",
+            "s304",
+            "scr"
+        ]
+    },
+    {
+        "title": "Subsumption AI",
+        "markupFileName": "subsumption_ai",
+        "slideAmount": 1,
+        "sources": [
+            "10c1",
+            "w10"
+        ]
+    },
+    {
+        "title": "StarSim",
+        "markupFileName": "starsim",
+        "slideAmount": 1,
+        "sources": [
+            "s302",
+            "cc1",
+            "q1"
+        ]
+    },
+    {
+        "title": "Sources",
+        "markupFileName": "sources",
+        "slideAmount": 1,
+        "sources": []
+    }
+]

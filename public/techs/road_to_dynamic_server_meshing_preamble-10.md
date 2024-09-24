@@ -1,0 +1,7 @@
+### Hardware Limitations
+In general, all computer components have their own limitations. Memory (drives and RAM) are limited by how much maximum data capacity they have as well as how fast they can read and write data (and if they are volatile or not). Meanwhile, processing units (CPUs and GPUs) are mostly about how many code instructions they can execute each second, as well as how fast they are able to access the data from the memory devices.
+
+With these limitations all software is created, games included. CIG set out to create a large universe with thousands of players, NPCs and other entities which all require to be in memory and need to be computed by the CPU in the game loop (and rendered on the GPU). Not even the most powerful computer will be capable of providing that much memory and computational power on its own.
+
+Therefore, the load has to be distributed onto multiple computers/CPUs and connected over a network, to let the computers communicate and exchange only the currently relevant data with each other. Mainly the game servers need this functionality while the players only need to connect to a small amount of game servers at any given point in time and load and compute only the entities close to them. Such a system is generally called a Server Mesh, because multiple servers are being meshed together over a network (local or over the internet). That makes multiple computers act as one large one with a lot of memory and lots of computation power. This is the system Star Citizen plans to utilize to create its vast and rich universe.
+

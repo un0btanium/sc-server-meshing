@@ -77,7 +77,6 @@ export default function NeoOverview(props) {
 							<img src="logo.png" alt="Logo" width="181" height="133" />
 						</div>
 						
-						{/* TODO dynamic stats */}
 						<div>
 							<h1>Unofficial Road to Dynamic Server Meshing</h1>
 							<p className="lead">{props.stats.subtitle}</p>

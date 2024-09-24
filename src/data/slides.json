@@ -1,5 +1,11 @@
 [
     {
+        "title": "Overview",
+        "markupFileName": "overview",
+        "slideAmount": 0,
+        "sources": []
+    },
+    {
         "uuid": "8210b159857d8d245733d18cc2e2d4e6f490e440",
         "index": 4,
         "imageURLs": [],
@@ -710,8 +716,7 @@
         "title": "Client Object Container Streaming",
         "subtitle": "The Solution 1/2",
         "texts": [
-            "With Client Object Container Streaming, clients do not have to load the entire level anymore, only the nearby objects around them. This may be another player standing right in front of the player, the enemy space ship the player is shooting at, the space station in orbit, or the moon far away in the sky. Which objects are being loaded is determined by how far away and how large the object is, so that the moon in the sky will be computed and",
-            "displayed but not the small players which are on that far away moon.",
+            "With Client Object Container Streaming, clients do not have to load the entire level anymore, only the nearby objects around them. This may be another player standing right in front of the player, the enemy space ship the player is shooting at, the space station in orbit, or the moon far away in the sky. Which objects are being loaded is determined by how far away and how large the object is, so that the moon in the sky will be computed and displayed but not the small players which are on that far away moon.",
             "In the picture on the left, we now see that for each player client only the area around that player is loaded. The remaining level is not loaded which is represented with the greyed out areas. We also see the expected reduction in memory usage (orange) and the load on the CPU (blue) since we have to load less data into memory and need to update less entities on each game tick.",
             "(Note: All percentages are purely for visualization, not real world performance statistics!)"
         ],
@@ -1288,6 +1293,7 @@
             "* Alpha 3.17 Entity State Networking through the Replication Layer (networking part of OCS moved into RL)",
             "* Alpha 3.18 Gen12 + EntityGraph Database + OC Loading via Replication Layer (+cache for Global DB queries in EntityGraph services, all of OCS in RL)",
             "* Alpha 3.23 Replication Layer moved out of the game server into its own server (Hybrid Service)",
+            "* Tech Channel Previews 2024: Static Server Meshing",
             "* Alpha 3.24 Replication Message Queue Refactor",
             "* Alpha 4.0 Static Server Meshing and Pyro",
             "* Alpha 4.X Dynamic Server Meshing V1"
@@ -1354,7 +1360,8 @@
             "pnTPssm3",
             "pnTPessm1",
             "pnTPessm2",
-            "pnTPessm3"
+            "pnTPessm3",
+            "smtu"
         ],
         "originalSlideImageURL": ""
     },
@@ -3586,7 +3593,7 @@
         "subtitle": "Overview",
         "texts": [
             "Challenges:",
-            "* Once many game servers are in a mesh, the message queue of the Replication Layer is flooded with too many messages.",
+            "* Once many game servers are in a mesh, the message queues of the Replication Layer and game servers are flooded with too many messages. This was identified in the Tech Preview Playtest in mid 2024.",
             "* If the Replication Layer can't process the messages fast enough, then the queue will fill up more and more, which eventually leads to messages waiting a long time before they are being processed and send to their recipients.",
             "* One of the causes for this is the fact that both game state changes and OCS loading notifications are put into the same queue. This lead to issues when many players join or left the game and lots of areas had to be loaded/unloaded.",
             "Solution: Refactor the Message Queue",
@@ -3597,11 +3604,12 @@
             "* Refactor the existing Networking Message Queue (NMQ) into the updated Replacement/Replication Message Queue (RMQ).",
             "* Speculated: Split the queues into separate queues. One for game state changes (for real-time processing) and OCS loading notifications (not as much of an issues if a lot of notifications are in the queue).",
             "* This was tested in Alpha 3.24 (with utilizing AB Testing at the beginning of the patch before it was rolled out to all Shards)",
-            "* This was tested again in the Server Meshing TechPreview Channel in September 2024."
+            "* This was tested again in a Server Meshing TechPreview Channel Playtestin September 2024. Other causes for high delay were identified."
         ],
         "sources": [
             "scl3",
-            "pnTPessm3"
+            "pnTPessm3",
+            "smtu"
         ],
         "originalSlideImageURL": ""
     },
