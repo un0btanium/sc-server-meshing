@@ -1,0 +1,4 @@
+### Game Update Loop
+However, one important note before we continue: In most online games, the client usually simulates the game world just like the server does. This is done because exchanging data via a network introduces latency. While waiting for the server network updates to come back, the client will use information from the previous entity state updates send from the server (essentially the entities' last known actions) to simulate and therefore predict the entities behavior. Later, the network update from the server will be used to ensure its correctness and correct the client's entities state if necessary. This solution helps with creating a smoother experience for the client while benefiting from the server verification at the same time.
+
+![Image](/images/road_to_dynamic_server_meshing_preamble/image-12.png)
