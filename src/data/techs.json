@@ -131,7 +131,8 @@
         "markupFileName": "single_shard",
         "slideAmount": 6,
         "sources": [
-            "tw1"
+            "tw1",
+            "qa1"
         ]
     },
     {
