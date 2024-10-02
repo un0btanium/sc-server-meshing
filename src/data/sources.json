@@ -116,5 +116,7 @@
 	"pnTPessm1": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/190049/thread/tech-preview-playtest-meshing-efficiency-playtest","description": "Tech Preview - Efficiency Meshing Playtest Round #1", "category": "Patchnote"},
 	"pnTPessm2": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/190049/thread/tech-preview-playtest-meshing-efficiency-playtest-","description": "Tech Preview - Efficiency Meshing Playtest Round #2", "category": "Patchnote"},
 	"pnTPessm3": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/190049/thread/all-backers-tech-preview-rmq-meshing-playtest-roun","description": "Tech Preview - Efficiency Meshing Playtest Round #3 (with RQM)", "category": "Patchnote"},
+	"pnTPessm4": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/190049/thread/tech-preview-replication-layer-test-round-4","description": "Tech Preview - Efficiency Meshing Playtest Round #4 (with RQM)", "category": "Patchnote"},
+	"pnTPessm5": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/190049/thread/all-backers-tech-preview-rmq-meshing-playtest-ro-2","description": "Tech Preview - Efficiency Meshing Playtest Round #5 (with RQM)", "category": "Patchnote"},
 	"smtu": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/3/thread/server-meshing-tests","description": "Server Meshing Testing Update by Benoit Beausejour", "category": "Spectrum"}
 }

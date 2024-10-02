@@ -112,6 +112,8 @@
             "pnTPessm1",
             "pnTPessm2",
             "pnTPessm3",
+            "pnTPessm4",
+            "pnTPessm5",
             "smtu"
         ]
     },
@@ -552,6 +554,8 @@
         "sources": [
             "scl3",
             "pnTPessm3",
+            "pnTPessm4",
+            "pnTPessm5",
             "smtu"
         ]
     },
