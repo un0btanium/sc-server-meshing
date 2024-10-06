@@ -16,8 +16,10 @@ import stats from './data/stats.json';
 
 const URL = "https://sc-server-meshing.info/wiki/";
 
-// TODO create script to create "all slides" markup files from single slides (or vise versa)
+// TODO create script to create "all slides" (per topic and global) markup files from the single slides (or vise versa)
 // TODO Show All Button moves view to bottom of the page instead of staying at the last slide
+// TODO gifs for pictures? lost comparisons when using the slide switch of old presentation
+//		(or reintroduce Show Previous/Show Next buttons and only show one slides at a time)
 
 class App extends Component {
 

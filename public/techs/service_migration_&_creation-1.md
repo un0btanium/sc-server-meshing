@@ -27,6 +27,8 @@ __Approach:__
 * Configuration Service: "This service is responsible for real-time distribution of configuration to services and clients."
 * the StarSim Economy Simulator and Virtual AI Service for both Quanta, Virtual NPC and Dynamic Event computation as well as databases related for storing StarSim generated data (probability volumes and values, store commodity prices)
 * Subsumption Service/Server Mission Logic "The porting of core Subsumption mission code to a service and implementation of a select subset of tasks to be used on that service. Includes implementing communication between service and mission logic running on game server."
+* Both the mission logic and the transit system had to be reworked to support Server Meshing.
 * Services Distributed Load Testing System "Development of a distributed load testing tool that can simulate service loads and replicate user behaviours" for testing
 * Chrono Service: "offers a programmatic API for distributed timers and alarms. For example, in the expiry of rental entitlements."
 * Network Operation Center: Seems to be an internal tool for managing a shard/mesh and all its services and databases.
+* Entity-Subscription Service: Seems to allow data to be transferred across two servers. Markers were converted for ship markers.

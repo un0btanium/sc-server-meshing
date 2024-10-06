@@ -1,21 +1,13 @@
+// TODO old, can be deleted
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 
-// TODO dont forget to update the amount of slides after adding or removing slides in the presentation
 const PRESENTATIONS = [
 	{
 		url: 'https://prezi.com/p/dxnzpqo4jouz/test/',
 		slideAmount: 87
 	}
 ];
-
-// The "Fuck Prezi" Rework
-// 1) turn each topic into a markup file, save file to disk (DONE)
-// 2) add topic with its sources (individual links and description text) to an overall json file (list of topics) (DONE)
-// 3) use this data to create the mobile views
-// 4) recreate the overview landing page in html and css (DONE)
-// 5) add links from this new landing page to the mobile view topics (trigger function by name, lookup in overall json file list)
-// 6) delete Prezi (but not really) (DONE)
 
 // "z3": {"url":"https://www.gamersnexus.net/gg/2119-chris-roberts-on-star-citizen-network-and-render-pipelines", "description": "Interview: Chris Roberts on Zones #2", "category": "YouTube"},
 

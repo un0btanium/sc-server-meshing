@@ -114,7 +114,8 @@
             "pnTPessm3",
             "pnTPessm4",
             "pnTPessm5",
-            "smtu"
+            "smtu1",
+            "smtu2"
         ]
     },
     {
@@ -468,6 +469,7 @@
             "isc1",
             "mr4",
             "mr5",
+            "mr7",
             "lc1",
             "lc2",
             "scl2",
@@ -556,7 +558,8 @@
             "pnTPessm3",
             "pnTPessm4",
             "pnTPessm5",
-            "smtu"
+            "smtu1",
+            "smtu2"
         ]
     },
     {
