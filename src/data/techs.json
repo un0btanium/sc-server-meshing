@@ -190,6 +190,7 @@
         "slideAmount": 1,
         "sources": [
             "gc1",
+            "64bits",
             "s114",
             "df1",
             "df2",
