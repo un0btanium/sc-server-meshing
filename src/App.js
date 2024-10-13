@@ -16,6 +16,7 @@ import stats from './data/stats.json';
 
 const URL = "https://sc-server-meshing.info/wiki/";
 
+// TODO set updatedAt date to current date via script to todays date
 // TODO create script to create "all slides" (per topic and global) markup files from the single slides (or vise versa)
 // TODO Show All Button moves view to bottom of the page instead of staying at the last slide
 // TODO gifs for pictures? lost comparisons when using the slide switch of old presentation

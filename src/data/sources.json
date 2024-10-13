@@ -122,5 +122,6 @@
 	"pnTPessm5": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/190049/thread/all-backers-tech-preview-rmq-meshing-playtest-ro-2","description": "Tech Preview - Efficiency Meshing Playtest Round #5 (with RQM)", "category": "Patchnote"},
 	"pnTPessm6": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/190049/thread/all-backers-tech-preview-rmq-meshing-playtest-ro-3","description": "Tech Preview - Efficiency Meshing Playtest Round #6 (with RQM)", "category": "Patchnote"},
 	"smtu1": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/3/thread/server-meshing-tests","description": "Server Meshing Testing Update #1", "category": "Spectrum"},
-	"smtu2": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/3/thread/server-meshing-test-d-after-action-report","description": "Server Meshing Testing Update #2", "category": "Spectrum"}
+	"smtu2": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/3/thread/server-meshing-test-d-after-action-report","description": "Server Meshing Testing Update #2", "category": "Spectrum"},
+	"smtu3": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/3/thread/server-meshing-test-e-after-action-report","description": "Server Meshing Testing Update #3", "category": "Spectrum"}
 }
