@@ -16,6 +16,11 @@ Feel free to leave feedback here :)
 [https://sc-server-meshing.info/wiki](https://sc-server-meshing.info/wiki)
 
 
+### GitHub Source Code
+
+[https://github.com/un0btanium/sc-server-meshing](https://github.com/un0btanium/sc-server-meshing)
+
+
 ### Support me on Ko-fi
 
 [https://ko-fi.com/Q5Q6CF5CG](https://ko-fi.com/Q5Q6CF5CG)
