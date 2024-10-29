@@ -7,7 +7,7 @@ __Challenges:__
 * traditional game levels consist of a list of objects (static and dynamic) which are loaded all on level start behind a loading screen
 * to eventually be able to create a seamless universe with no loading screens and thousand of players, we can't load all objects into our memory all at once since the large amount of data would exceed our memory capacity
 
-__Solution:__ Object Containers
+__Solution:__ Object Containers, a major part of the whole Engine Rework
 
 __Goals:__
 

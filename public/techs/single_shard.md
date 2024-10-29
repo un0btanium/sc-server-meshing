@@ -4,9 +4,9 @@ Even if a first Dynamic Server Meshing has been released, there is still more wo
 
 __Challenges:__
 
-* the early versions of Server Meshing wont be powerful enough just yet to allow all players to play in. the same game world; we will continue to play in a multiverse, albeit less and less over time as shards grow in terms of how many players can support.
+* the early versions of Server Meshing wont be powerful enough just yet to allow all players to play in the same game world; we will continue to play in a multiverse, albeit less and less over time as shards grow in terms of how many players can support.
 
-__Solution:__ Single Shard
+__Solution:__ Single Shard, one game world per region/world through architectural scaleup
 
 __Goals:__
 
