@@ -7,7 +7,7 @@ __Challenges:__
 * A single game server is still overloaded with the amount of players/entities, and adding more increases CPU load even more.
 * Using better server hardware isnt a scalable enough option, so we need to make game servers horizontally scalable instead.
 
-__Solution:__ Static Server Meshing, a first version and intermediate step toward the planned Dynamic Server Meshing implementation
+__Solution:__ Static Server Meshing a first version of and intermediate step toward the planned Dynamic Server Meshing implementation, introduces distributed computation/simulation
 
 __Goals:__
 

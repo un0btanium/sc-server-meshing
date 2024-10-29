@@ -7,7 +7,7 @@ __Challenges:__
 * while the individual servers are now less likely to hit their memory and CPU load capacities, the issue of too many players being in the same section of the game world, and thus on the same game server, still exists
 * one solution would be to make the sections of all game servers very small, so that each one only has very few locations and spaces to compute. However, this increases server expenses and potentially to a lot of unoptimally used servers.
 
-__Solution:__ Dynamic Server Meshing
+__Solution:__ Dynamic Server Meshing, dynamically distributing the simulation through load balancing
 
 __Goals:__
 
