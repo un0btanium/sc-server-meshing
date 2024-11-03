@@ -391,7 +391,7 @@ body.neo .col:nth-last-child(2) .col-header::after {
     position: absolute;
     left: 100%;
     top: 50%;
-    margin-top: 13px;
+    margin-top: 14px;
     width: 0;
 	height: 0;
 	border-top: 17px solid transparent;
