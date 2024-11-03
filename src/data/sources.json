@@ -127,10 +127,11 @@
 	"mti": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/3/thread/gen12-progress-and-performance-improvements-in-3-1/","description": "Main Thread & Multithreading Improvements", "category": "Spectrum"},
 	"rlsu": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/1/thread/star-citizen-alpha-3-21-update-1/6238508","description": "Alpha 3.21 Update on Replication Layer Split", "category": "Spectrum"},
 	"RLhybrid": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/1/thread/star-citizen-alpha-3-21-update-1/6238516","description": "Hybrid Services referenced as Replication Layer", "category": "Spectrum"},
-	"pes01": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/50259/thread/entity-zone-vs-object-container","description": "", "category": "Spectrum"},
+	"pes01": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/50259/thread/entity-zone-vs-object-container","description": "Zones, Object Containers and Persistent Entity Streaming", "category": "Spectrum"},
 	"rlftu": {"url":"https://robertsspaceindustries.com/comm-link/transmission/19830-This-Week-In-Star-Citizen","description": "First Replication Layer Test Summary", "category": "This Week in Star Citizen"},
 	"pes2023": {"url":"https://robertsspaceindustries.com/comm-link/transmission/19848-Letter-From-The-Chairman","description": "on PES and Replication Layer Split Release", "category": "Letter from the Chairman"},
-	"ih": {"url":"https://robertsspaceindustries.com/comm-link/Patch-Notes/20087-Star-Citizen-Alpha-3240","description": "Alpha 3.24 - Instanced Hangar Release", "category": "Patchnote"}
+	"ih": {"url":"https://robertsspaceindustries.com/comm-link/Patch-Notes/20087-Star-Citizen-Alpha-3240","description": "Alpha 3.24 - Instanced Hangar Release", "category": "Patchnote"},
+	"bq&a": {"url":"https://www.reddit.com/r/starcitizen/comments/1g9n68i/interview_with_beno%C3%AEt_beaus%C3%A9jour_at_citcon_2954/","description": "Server Meshing and Networking Q&A with Benoit", "category": "Patchnote"}
 
 	
 }
