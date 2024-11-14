@@ -17,6 +17,7 @@ __Goals:__
 __Approach:__
 
 * Refactor the existing Networking Message Queue (NMQ) into the updated Replacement/Replication Message Queue (RMQ).
-* Speculated: Split the queues into separate queues. One for game state changes (for real-time processing) and OCS loading notifications (not as much of an issues if a lot of notifications are in the queue).
+* Allow for better parallelization, optimize handling of "dirty variables", optimize OBS binding logic.
+* Speculated: May have also split the queues into separate types of queues. One for game state changes (for real-time processing) and OCS loading notifications (not as much of an issues if a lot of notifications are in the queue).
 * This was tested in Alpha 3.24 (with utilizing AB Testing at the beginning of the patch before it was rolled out to all Shards)
-* This was tested again in a Server Meshing TechPreview Channel Playtestin September 2024. Other causes for high delay were identified.
+* This was tested again in the Server Meshing TechPreview Channel Playtests starting September 2024. Other causes for high delay were identified.
