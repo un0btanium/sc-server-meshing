@@ -131,7 +131,6 @@
 	"rlftu": {"url":"https://robertsspaceindustries.com/comm-link/transmission/19830-This-Week-In-Star-Citizen","description": "First Replication Layer Test Summary", "category": "This Week in Star Citizen"},
 	"pes2023": {"url":"https://robertsspaceindustries.com/comm-link/transmission/19848-Letter-From-The-Chairman","description": "on PES and Replication Layer Split Release", "category": "Letter from the Chairman"},
 	"ih": {"url":"https://robertsspaceindustries.com/comm-link/Patch-Notes/20087-Star-Citizen-Alpha-3240","description": "Alpha 3.24 - Instanced Hangar Release", "category": "Patchnote"},
-	"bq&a": {"url":"https://www.reddit.com/r/starcitizen/comments/1g9n68i/interview_with_beno%C3%AEt_beaus%C3%A9jour_at_citcon_2954/","description": "Server Meshing and Networking Q&A with Benoit", "category": "Patchnote"}
-
-	
+	"bq&a": {"url":"https://www.reddit.com/r/starcitizen/comments/1g9n68i/interview_with_beno%C3%AEt_beaus%C3%A9jour_at_citcon_2954/","description": "Server Meshing and Networking Q&A with Benoit", "category": "Interview Transcript"},
+	"iscrmq": {"url":"https://youtu.be/Mgbgp4pRSJ4?si=ZpIqiyjylcS_IQUg","description": "Inside Star Citizen: Alpha 4.0 - Meshing Forward - on Tech Preview Tests, RMQ, Dirty Variables and Binding Optimizations", "category": "Youtube"}
 }

@@ -122,7 +122,8 @@
             "smtu3",
             "pes01",
             "pes2023",
-            "bq&a"
+            "bq&a",
+            "iscrmq"
         ]
     },
     {
@@ -299,7 +300,8 @@
         "sources": [
             "jp1",
             "rtv1",
-            "cc2"
+            "cc2",
+            "iscrmq"
         ]
     },
     {
@@ -532,7 +534,8 @@
             "isc2",
             "s121",
             "jp2",
-            "rlsu"
+            "rlsu",
+            "iscrmq"
         ]
     },
     {
@@ -583,7 +586,8 @@
             "pnTPessm6",
             "smtu1",
             "smtu2",
-            "smtu3"
+            "smtu3",
+            "iscrmq"
         ]
     },
     {
