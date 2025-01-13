@@ -234,10 +234,10 @@ export default function NeoOverview(props) {
 						<div className="col">
 							<div className="col-header">
 								<div className="info">
-									<p className="text-blue-light text-uppercase">2019-TBD</p>
-									<p className="text-green-light text-uppercase">TBD</p>
+									<p className="text-blue-light">2019-2025</p>
+									<p className="text-green-light">Alpha 4.0 Preview (Dec 2024)</p>
 								</div>
-								{createTechBox("Static <br/>Server<br/> Meshing", "box-lg", "bg-orange")}
+								{createTechBox("Static <br/>Server<br/> Meshing", "box-lg", "bg-green")}
 							</div>
 							<div className="col-content">
 								<div className="arrow-up"></div>
@@ -245,12 +245,12 @@ export default function NeoOverview(props) {
 								{createTechBox("Scribe", "box-xsm", "bg-green")}
 								{createTechBox("Gateway", "box-xsm", "bg-green", "Gateway Layer & Gateway Services")}
 								{createTechBox("Replicant", "box-xsm", "bg-green", "Replication Layer & Replicant Services")}
-								{createTechBox("Atlas", "box-xsm", "bg-orange")}
+								{createTechBox("Atlas", "box-xsm", "bg-green")}
 								{createTechBox("Replication Message Queue", "box-sm", "bg-green", "Replication/Replacement Message Queue (RQM)")}
-								{createTechBox("Entity Zones", "box-sm", "bg-orange")}
+								{createTechBox("Entity Zones", "box-sm", "bg-green")}
 								{createTechBox("Entity Authority", "box-sm", "bg-green")}
 								{createTechBox("Network & Engine Reworks", "box-sm", "bg-green", "Time & Synchronization Improvements, Connection Process & States Rework")}
-								{/* TODO <div className="box box-sm bg-lila">First Solution (Failed State)</div> */}	
+								{/* TODO <div className="box box-sm bg-lila">First Solution (Failed State)</div> */}
 							</div>
 						</div>
 

@@ -7,7 +7,7 @@ __Challenges:__
 * A single game server is still overloaded with the amount of players/entities, and adding more increases CPU load even more.
 * Using better server hardware isnt a scalable enough option, so we need to make game servers horizontally scalable instead.
 
-__Solution:__ Static Server Meshing a first version of and intermediate step toward the planned Dynamic Server Meshing implementation, introduces distributed computation/simulation
+__Solution:__ Static Server Meshing a first version of and intermediate step toward the planned Dynamic Server Meshing implementation, introduces distributed computation/simulation (released in Alpha 4.0)
 
 __Goals:__
 
@@ -33,4 +33,4 @@ __Approach:__
 * These sections limit the area a game server can have authority over.
 * The area of these sections stays fixed/static, as well as the amount of game servers that compute the same game world stays fixed.
 * Design for Server Meshing was changed end of 2020/early 2021 to utilize the Replication Layer as a 'middle man' service (instead of using direct server-to-server communication which may have failed to provide the required performance).
-* The first version might only come online with at least one game server per solar system and Authority Transfers would happen inside the JumpPoints.
+* The first version released as part of the Alpha 4.0 Preview together with Pyro. Each solar system was split and run by 5 game servers for a total of 10 game servers for 500 players.
