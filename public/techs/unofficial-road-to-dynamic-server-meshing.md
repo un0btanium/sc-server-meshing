@@ -1,10 +1,19 @@
 # Road to Dynamic Server Meshing - Introduction
 ### What to expect from this presentation:
-This presentation is trying to offer a centralized place about almost everything related to Dynamic Server Meshing.
+This presentation is offering a centralized place about everything that is known about Star Citizen's Dynamic Server Meshing implementation. We will go over the the major and minor technologies that create the overall functionality of Dynamic Server Meshing. The official sources used are made available as well.
 
-We will go over the the major and minor technologies that create the functionality of Dynamic Server Meshing. For each tech feature, an overview slide summarizes the technical challenges and CIG's approach to enable the required functionality. For all of the major tech features, there have been additional slides provided which dive into more detail.
+There is also an in-depth, step-by-step introductory topic as part of the Preamble. We go over some of the basic concepts in hardware, software and video games to build up a basic understanding of their inner workings and limitations. Of course, you are free to skip it and jump straight into the Object Container topic. But I will always recommend checking out the introductory topics first if you do have the time and interest.
 
-There are also some introductory topics which go over some of the basic concepts in hardware, software and video games, which try to convey a basic understanding of their inner workings and limitations. Of course, you can skip them and jump right in by reading about the Object Container tech. But I will always recommend checking the introductory topics out if you do have the time and interest.
+__TLDR:__ This journey can be categorized and summarized on a high-level into the following five big milestones or functionalities:
+
+* Engine Rework: The majority of the engine was replaced with new systems. StarEngine was born. Most of these changes released with Alpha 3.0 in 2017.
+* (Area of) Interest Management System: Optimized the loading and networking aspects. Released in two parts as Object Container Streaming in 2018 and 2019.
+* Persistence: Introduced saving and loading game state to/from a database. Also layed the foundational architecture for Server Meshing. Released in 2023.
+* Distributed Simulation: Introduced by Server Meshing. Multiple game servers simulate different parts of the same game world.
+* Architecture Scaleup: All code becomes highly scalable in a microservice architecture to allow many thousand of players to play in the same game world. 
+
+![Image](/images/road_to_dynamic_server_meshing_introduction/image-00.png)
+
 
 ### Visual Examples
 Throughout this presentation, I tried to incorporate images to help visualize how these technologies work and what their purposes are.
