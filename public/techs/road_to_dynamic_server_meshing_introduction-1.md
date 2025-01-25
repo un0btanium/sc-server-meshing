@@ -9,7 +9,7 @@ __TLDR:__ This journey can be categorized and summarized on a high-level into th
 * Engine Rework: The majority of the engine was replaced with new systems. StarEngine was born. Most of these changes released with Alpha 3.0 in 2017.
 * (Area of) Interest Management System: Optimized the loading and networking aspects. Released in two parts as Object Container Streaming in 2018 and 2019.
 * Persistence: Introduced saving and loading game state to/from a database. Also layed the foundational architecture for Server Meshing. Released in 2023.
-* Distributed Simulation: Introduced by Server Meshing. Multiple game servers simulate different parts of the same game world. Work in Progress.
+* Distributed Simulation: Introduced by Server Meshing. Multiple game servers simulate different parts of the same game world.
 * Architecture Scaleup: All code becomes highly scalable in a microservice architecture to allow many thousand of players to play in the same game world. 
 
 ![Image](/images/road_to_dynamic_server_meshing_introduction/image-00.png)
