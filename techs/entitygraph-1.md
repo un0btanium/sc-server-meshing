@@ -22,6 +22,7 @@ __Approach:__
 * This should also help reduce the load on each individual database instance, as data can be replicated/sharded onto separate DB instances.
 * The database instances and the services in front of the database can be scaled freely, independent of game servers and shards.
 * EntityGraph is a graph database: the entities in the game world form a large hierarchy which can be represented as a directed acyclic graph data structure:
+* EntityGraph uses SST file formats on disk to store the data.
 * Each entity/game object in the game world is represented as nodes in the database, while relationships between entities are edges.
 * Changing state of individual entities as well as changing relationships by adding or deleting edges are both cheap/fast operations in a graph database.
 * Allows entities to be queried based on shard, star system, xyz position, object size and distance to players, entity type and custom labels.
