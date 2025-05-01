@@ -1,4 +1,7 @@
 # Single Shard
+
+![Image](/images/milestones/milestone-05.png)
+
 ### Overview
 Even if a first Dynamic Server Meshing has been released, there is still more work left to be done to have it scale up and make a single shard possible.
 

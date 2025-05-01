@@ -1,4 +1,7 @@
 # Server Object Container Streaming
+
+![Image](/images/milestones/milestone-02.png)
+
 ### Overview
 With Client Object Container Streaming (COCS) we have improved the performance and memory requirements on the client side which improved the performance for the players noticeably. On the server, we can now increase the level size by adding more objects into the level, for example more areas like planets and locations without effecting the performance on the client as much as it did.
 

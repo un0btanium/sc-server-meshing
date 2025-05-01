@@ -1,4 +1,7 @@
 # Static Server Meshing
+
+![Image](/images/milestones/milestone-04.png)
+
 ### Overview
 After the first version of Client OCS was released, work on Server Meshing could finally begin.
 
