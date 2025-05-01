@@ -1,6 +1,9 @@
 # Object Container
+
+![Image](/images/milestones/milestone-01.png)
+
 ### Introduction
-Our multi-step journey to Dynamic Server Meshing begins with the creation of Object Containers.
+Our multi-step journey to Dynamic Server Meshing begins with the creation of Object Containers. For which there were many parts of the engine changed, making this more of an overview of the whole engine rework.
 
 __Challenges:__
 

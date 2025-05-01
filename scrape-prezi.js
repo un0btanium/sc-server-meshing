@@ -1,4 +1,4 @@
-// TODO old, can be deleted
+// DEPRECATED
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 

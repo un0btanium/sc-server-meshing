@@ -1,4 +1,7 @@
 # Client Object Container Streaming
+
+![Image](/images/milestones/milestone-02.png)
+
 ### Overview
 With Object Containers it is now possible to split a level into separate game areas and load them into a level anytime. However, that functionality cant be utilized yet. Client Object Container Streaming (sometimes Client Side OCS or CSOCS or COCS) sets out to change that.
 
@@ -10,7 +13,7 @@ __Challenges:__
 * too many entities computed currently results in not enough CPU load available to help render the game
 * frame rate and performance on the client drops
 
-__Solution:__ Client Object Container Streaming, an Interest Management system, an intermediate step toward complete Object Container Streaming
+__Solution:__ Client Object Container Streaming, an intermediate step toward complete Object Container Streaming, also sometimes more generally known as (Area of) Interest Management
 
 __Goals:__
 

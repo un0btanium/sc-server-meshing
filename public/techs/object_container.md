@@ -1,6 +1,9 @@
 # Object Container
+
+![Image](/images/milestones/milestone-01.png)
+
 ### Introduction
-Our multi-step journey to Dynamic Server Meshing begins with the creation of Object Containers.
+Our multi-step journey to Dynamic Server Meshing begins with the creation of Object Containers. For which there were many parts of the engine changed, making this more of an overview of the whole engine rework.
 
 __Challenges:__
 
@@ -24,6 +27,7 @@ __Approach:__
 * rework the existing levels to use the Object Containers and create all future content with Object Containers which requires changes to the engine editor
 * on level start, load the level via the Object Containers. There does not exist any logic yet that loads Object Containers while playing and will be the functionality later introduced by Object Container Streaming which loads/unloads objects at any time
 * Object Containers themselves were first introduced in Alpha 2.6.1 (Feb 2017) but many of the other features (Megamap, 64bit coordinates, Entity Components, etc.) made its debut with Alpha 3.0 (December 2017)
+
 ### Example
 In the visual example on the left, we have loaded three players into the level. The red and green players are near each other on the same planet while the blue player is on a different planet far away. However, to avoid visual clutter, the planets, ships and other objects were left out of the image and we only show the connected players. We are going to revisit this example in the upcoming major technologies again.
 
@@ -34,18 +38,21 @@ With the level split into different building blocks (Object Containers), the gam
 However, the functionality to stream objects from the drive into memory after the initial level load wasn't actually introduced yet with the release of the Object Containers. The player client and game server still had to load all objects of the level at its initial load because there was no logic yet that would tell client and server which objects it should load or unload. The functionality for streaming objects in and out of a level at any time became only possible with the introduction of Object Container Streaming which we will talk more about later.
 
 ![Image](/images/object_container/image-01.png)
+
 ### The Implementation 1/3
 Object Containers are wrappers for object types. A container acts as a template from which one or multiple instances (entity) of the same object type can be created. An entity might a player character, coffee cup, a ship or even planets and solar systems. Each object type (and thus Object Container) might have a unique identifier (either a name or a number) with which it can be referred. Each container has a list of the resources it uses, e.g. models, geometry, textures, zones and entity components.
 
 Some Object Containers might represent atomic objects. Others Object Container may represent an entire or partial level. This is done because Object Container can reference of other Object Containers. Thus, Object Containers can be nested. A tree structure of Object Containers is created. For example the Stanton system would be a Object Container which references the Stanton star and its four planetary systems as its child Object Containers. The landing zone Area 18 would be referenced from the ArcCorp planet container, and so on.
 
 ![Image](/images/object_container/image-02.png)
+
 ### The Implementation 2/3
 With Object Containers the level is now split into individual building blocks. Artists and developers do not develop individual levels anymore, but instead individual objects or parts of a level. Those can then be reused anywhere in the level and be part of other Object Containers. Therefore, the final level is made up of nested Object Containers from which game objects (entities) are spawned.
 
 An artist making a change to an object container, changes all entities that originate from that object container in all places in the level. For example, a chair design used all across a landing zone. Instead of having to make changes to all hundred chairs individually, the artists just have to make the change once to the chair Object Container. This makes it easy to make changes, rework and update existing objects without having to update every single object individually. Just the Object Container has to be altered.
 
 ![Image](/images/object_container/image-03.png)
+
 ### The Implementation 3/3
 When an object is loaded into the level, either on initial level load or later while playing, the Object Container is loaded into memory. Then a new object is created from the Object Container. This is done by allocating the required space in memory to later hold the object's state (like position). The resources that are listed in the container, like textures and geometry, are loaded into memory into the MegaMap and/or into the memory of the GPU.
 
@@ -54,6 +61,7 @@ The MegaMap consists of various memory managers which check, if a resource was a
 Once loading and initializing is done, and the object is dynamic - meaning it has behavior and can be interacted with - then this entity is ready to be computed by the CPU in the game update loop, thus state changes and stuff happens in the game world, e.g. a player or NPC can walk around, a ship can fly, a terminal can be accessed, a ship spawned, a wall can be run into, etc.
 
 ![Image](/images/object_container/image-04.png)
+
 ### Entity Components
 Alongside the development of Object Containers, CIG also reworked the entire simulation code of the engine. They rewrote the code by splitting and reusing code pieces across multiple different object types.
 
@@ -63,6 +71,7 @@ In the code, these components can then be used on different entities, speeding u
 
 ![Image](/images/object_container/image-05.png)
 ![Image](/images/object_container/image-06.png)
+
 ### Zone System
 Additionally, the new Zone System (speculated: a custom hybrid between a space partitioning data structure and a scene graph) splits the game world into areas. All objects inside such an area are grouped together. For example, a zone can be a spaceship. All objects inside that spaceship are grouped, thus being part of that zone. When the spaceship moves, its zone is moved as well, thus moving all objects inside of the spaceship with it. This is made performant by giving each zone its own coordinate system and objects inside are placed and moved relative to the zone center coordinate instead of the game world level center coordinate. And thus, the positions of the objects inside do not need to be updated when the ship moves.
 
@@ -74,6 +83,7 @@ The Zone System is used for optimizing rendering, physics collisions as well as 
 
 ![Image](/images/object_container/image-07.png)
 ![Image](/images/object_container/image-08.png)
+
 ### Serialized Variables (API)
 Optimization was done on the networking to reduce bandwidth. On each game tick the server has to send the state of entities to the player clients. With the high amount of data of entities in Star Citizen, this will result in a lot of data and thus bandwidth. Therefore, CIG implemented an system which detects any entity state changes. It then only sends those changed values across the network instead of the entire state of the entity, which would include unchanged values as well. This network optimization made it possible to reduce the bandwidth up to 80% for certain Entity Components.
 

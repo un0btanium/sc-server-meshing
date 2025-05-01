@@ -1,4 +1,7 @@
 # Static Server Meshing
+
+![Image](/images/milestones/milestone-04.png)
+
 ### Overview
 After the first version of Client OCS was released, work on Server Meshing could finally begin.
 
@@ -7,7 +10,7 @@ __Challenges:__
 * A single game server is still overloaded with the amount of players/entities, and adding more increases CPU load even more.
 * Using better server hardware isnt a scalable enough option, so we need to make game servers horizontally scalable instead.
 
-__Solution:__ Static Server Meshing, a first version and intermediate step toward the planned Dynamic Server Meshing implementation, introduces distributed computation/simulation
+__Solution:__ Static Server Meshing a first version of and intermediate step toward the planned Dynamic Server Meshing implementation, introduces distributed computation/simulation (released in Alpha 4.0)
 
 __Goals:__
 
@@ -33,7 +36,8 @@ __Approach:__
 * These sections limit the area a game server can have authority over.
 * The area of these sections stays fixed/static, as well as the amount of game servers that compute the same game world stays fixed.
 * Design for Server Meshing was changed end of 2020/early 2021 to utilize the Replication Layer as a 'middle man' service (instead of using direct server-to-server communication which may have failed to provide the required performance).
-* The first version might only come online with at least one game server per solar system and Authority Transfers would happen inside the JumpPoints.
+* The first version released as part of the Alpha 4.0 Preview together with Pyro. Each solar system was split and run by 5 game servers for a total of 10 game servers for 500 players.
+
 ### Initial Situation
 With the first versions of Object Container Streaming (OCS) for both client and server done, we are finally able to move onto the initial goal: Server Meshing. Even with the OCS software systems in place, it is not possible to increase the player count to thousand of players nor add tens of thousands of objects into the game world to make 100+ detailed solar systems a reality. A single game server alone is simply not powerful enough.
 
@@ -42,6 +46,7 @@ Since the software technology that is Server Meshing is very complex, it is to b
 This should theoretically allow AI improvements, gameplay mechanics and more solar systems and locations as well as slightly higher player counts to be added to the game sooner, even before work on the final Dynamic Server Meshing implementation would be completed. We will talk more about the different versions shortly.
 
 ![Image](/images/static_server_meshing/image-01.png)
+
 ### A simpler visual abstraction for game servers and clients
 Since we are now entering the topic of Server Meshing, we need to represent the network connections of servers and clients in a more simplified fashion.
 
@@ -50,6 +55,7 @@ The left half of the picture shows the server at the top and the connected playe
 The right half the picture shows our new simplified version. We now represent the game servers as rectangles and player clients as circles. Since each server and client is unique, we will sometimes identify them with numbers (and colors in the case of the player clients).
 
 ![Image](/images/static_server_meshing/image-02.png)
+
 ### Game Worlds and Game Servers
 So far, each game world was simulated by a single game server (also sometimes called Dedicated Game Server or DGS).
 
@@ -60,6 +66,7 @@ All these game worlds/universes create a "multiverse". We can see this multivers
 The main downside is that each DGS currently simulates it's entire game world and thus only supports a limited amount of entities, only up to 50 players and after some time ends up being under heavy load from all the loaded entities. Which makes player interactions rather rare and limited.
 
 ![Image](/images/static_server_meshing/image-03.png)
+
 ### Endgoal of a Single Game World
 Therefore, the ideal end goal is to have all players in the same game world. Thus, can meet up, see and interact with each other freely. With only one game world, there would only be one universe and no "multiverse" anymore.
 
@@ -72,6 +79,7 @@ Under Server Meshing, a game world is referred to as a Shard, a term coined by t
 However, while this is the end goal, for this single Shard/Game World to work it might require a very mature Dynamic Server Meshing implementation and capable lag compensation netcode. Until then - before all DGS are computing one and the same game world - we will have multiple intermediary versions of Server Meshing. In those versions, we will continue to have multiple game worlds (and thus still a multiverse).
 
 ![Image](/images/static_server_meshing/image-04.png)
+
 ### Intermediate steps
 Over time and across many patches, the amount of game servers per Shard is going to to be increased. And in turn the number of entities (more locations with more items) and players per Shards can be increased as well. Fewer and fewer Shards will be required, until potentially - one day - a single Shard consists of enough DGS so that it can handle the load of all players (of a region/continent or world-wide).
 
@@ -82,6 +90,7 @@ However the difference - even in the intermediate Server Meshing versions - is t
 Once a game world is computed by more than one game server, we refer to that game world as a "Shard". This helps us differentiate the game worlds being simulated by multiple meshed DGS, from the game worlds running on a single DGS ('game world instances' vs 'game world shards'). Each Shard will still be its own SC universe, with its own Stanton, Pyro, Nyx, ect. but do share the same economy from the StarSim Simulator.
 
 ![Image](/images/static_server_meshing/image-05.png)
+
 ### Shard Transitions vs Entity Authority & State Replication
 There are going to be different types of transfers happening under Server Meshing. Lets have a quick look at each one:
 
@@ -90,6 +99,7 @@ There are going to be different types of transfers happening under Server Meshin
 * There is also Entity State Replication, which could be seen as the transfer of entity state and actions. Here, entity state is send to different machines, such as player clients, the EntityGraph database and other game servers (more on this later). Like Entity Authority Transfers, the replication of state occurs only within the same shard. Sending this state is very frequent and can happen multiple times a second, sometimes on each game tick. Serialized Variables and OCS optimize this.
 
 ![Image](/images/static_server_meshing/image-06.png)
+
 ### Major and Minor versions of Server Meshing
 In the very first version of Server Meshing, each Game World (Universe/Shard) will mostly likely only be computed by a few game servers. Mainly to be able to test the functionality in a simple and controlled environment.
 
@@ -109,6 +119,7 @@ Dynamic Server Meshing
 * The name "dynamic" also means that the amount of server nodes can increase and decrease, besides the entities a game server is simulating changed on-demand anytime. The game world can be split up differently while we are playing the game.
 * All of this is done programmatically, meaning that - for each Shard - an algorithm is monitoring the performance on all of its game servers and then tries to optimally distribute the load across those game servers. More game servers can be spun up or existing, underutilized ones shutdown.
 * There will also be multiple minor versions of Dynamic Server Meshing, each increasing the number of game servers per Shard, until eventually all players of a geographical region (EU; US, etc.) fit into one single regional Shard, maybe even all players world-wide into a single word-wide Shard.
+
 ### Entity Authority & Authority Transfers 1/8
 (Static) Server Meshing splits the level into multiple sections to simulate each one on its own server. For example, the Stanton solar system could be split in half. Then two game servers could compute two planets each.
 
@@ -120,6 +131,7 @@ We are going to explore the concepts of Server Meshing by following the journey 
 
 ![Image](/images/static_server_meshing/image-07.png)
 ![Image](/images/static_server_meshing/image-08.png)
+
 ### Entity Authority & Authority Transfers 2/8
 In our example, we will have our three players again, just like we did in our previous examples for Client and Server OCS. The difference is that we now have two game servers instead of just one.
 
@@ -128,6 +140,7 @@ We don't show the clients anymore, but remember that loading and networking via 
 We can see the split in the level by the green and red boxes. Players Red and Green are busy on the second game server (green box). Meanwhile, player Blue is loading cargo on the first game server (red box). We can see that the servers don't load the entire game world anymore - even if there are players - and instead only focus on their box/section. However, that might not be entirely accurate.
 
 ![Image](/images/static_server_meshing/image-09.png)
+
 ### Entity Authority & Authority Transfers 3/8
 __Speculated:__ To make server handoffs smooth and seamless, there might be an area at the borders in which game servers overlap slightly, meaning both servers load the same entities into memory. Therefore, we have updated the boxes to also overlap. The authority transfer might still happen at a fixed boundary tho.
 
@@ -138,6 +151,7 @@ When a game server simulates an entity, then we say that this game server has au
 For now, let us see what happens, when the Blue player (now red to signify that game server 1 has authority and simulates it) is about to transport cargo from Microtech on Server S1 to Hurston on Server S2.
 
 ![Image](/images/static_server_meshing/image-10.png)
+
 ### Entity Authority & Authority Transfers 4/8
 Once the blue player starts quantum traveling, Server OCS will continue loading and unloading the game world around the players. However, game servers are now limited, in what they can load and can have authority over, to their box. Once the Blue player closes in on the section/box of the server 2, the server will start to load the game world.
 
@@ -146,6 +160,7 @@ This implies multiple game servers may have the same game objects loaded into th
 __Speculated:__ How this is going to work exactly is still unclear. Even tho we show that game server 2 would gradually load the game world while the player approaches its section, it might be that a server only starts loading an area once the player entered its section.
 
 ![Image](/images/static_server_meshing/image-11.png)
+
 ### Entity Authority & Authority Transfers 5/8
 The Blue player continues to travel through the level and now the player entity is in the overlapping section. Server OCS continues to do its job and now the player entity is loaded into the memory of both game servers.
 
@@ -154,6 +169,7 @@ At this point, game server 1 starts sending entity state changes of the blue pla
 It is important to note that game server 1 still has authority over the Blue player. But it is in this overlapping area (or at the zone/box border) that authority can be handed off to another game server. When a handoff occurs, authority is taken away from game server 1 and given to game server 2. We will see on the next slide that the color of player Blue will turn green.
 
 ![Image](/images/static_server_meshing/image-12.png)
+
 ### Entity Authority & Authority Transfers 6/8
 The Hybrid service and its Atlas component is responsible for assigning authority to game servers and decides when authority is transferred between game servers. In the first version of Server Meshing, transfers will only happen in deep space somewhere between planets, but the dynamic versions it is supposed to have that happen anywhere anytime.
 
@@ -162,12 +178,14 @@ Only one game server can have authority over an entity at a time, never more. Ho
 As we can see, authority of the Blue player was handed off to game server 2 and we changed to colors to green accordingly. Game server 1 does not simulate the Blue player anymore and instead receives the client view from game server 2.
 
 ![Image](/images/static_server_meshing/image-13.png)
+
 ### Entity Authority & Authority Transfers 7/8
 The Blue player continues their journey, now simulated by the second game server. Server OCS continues to load and unload the game world accordingly on both game servers. However, the decision making (what needs to be loaded) is not done by the game servers individually anymore and instead the Hybrid service figures out which Object Containers have to be loaded on which game server (and clients as well for Client OCS).
 
 For this, the Hybrid services/Replication Layer makes requests to the EntityGraph database and loads the game world - around the players - into its own memory/cache. That is why we can think of the level shown on the left in our example as the Hybrid service. However, the Hybrid service does not simulate anything. That is the responsibility of the game servers. But we can think of the Hybrid service as having client views of all entities on the game servers.
 
 ![Image](/images/static_server_meshing/image-14.png)
+
 ### Entity Authority & Authority Transfers 8/8
 In our example, the Blue player has now arrived at Hurston and starts selling his cargo for a profit.
 
@@ -178,6 +196,7 @@ Empty of half full game servers are underutilized (costing as much to rent as ga
 These downsides will be overcome with Dynamic Server Meshing, where game servers can be spun up and shutdown on-demand and where the green and red boxes do not exist anymore. There, this "area limitation on Entity Authority" - by assigning sections of the game world to specific game servers - wont exists anymore. Instead, authority will be much more fluid and game servers can follow its players and keep authority over them wherever they go. We will explore this in the Dynamic Server Meshing topic tho. For now lets have a deeper look at the Hybrid service.
 
 ![Image](/images/static_server_meshing/image-15.png)
+
 ### INTERMISSION: State Replication to Game Servers (Client Views for Game Servers)
 When game servers overlap in the virtual space, they load the same entities into their memory. This is what Server OCS does. Since only one game server can have authority over an entity at a given point in time, the Hybrid service can decide to send state updates to other game servers which do not have authority over that entity. This is the same or similar entity state data which the player clients receive. Which is why CIG initially explained it as "client views for game servers".
 
@@ -186,6 +205,7 @@ This way game servers can let each other know what's going on and keep entities 
 __Speculated:__ For collision checks between two entities on different game servers there might have to be a consensus reached by the game servers or decided by the Hybrid/Replicant service.
 
 ![Image](/images/static_server_meshing/image-16.png)
+
 ### Entity Zones - Game World splitting via the ZoneSystem 1/2
 To understand how Entity Authority and Authority Transfers will work, we also need to talk about Entity Zones. In order to have different server nodes of a Shard compute different sections of the game world, there needs to be logic that splits that Game World into such sections. These in-game sections are referred to as Entity Zones (speculated: sometimes called Territories).
 
@@ -198,6 +218,7 @@ Without Server Meshing, the entire Game World can be thought of to be just one s
 ![Image](/images/static_server_meshing/image-17.png)
 ![Image](/images/static_server_meshing/image-18.png)
 ![Image](/images/static_server_meshing/image-19.png)
+
 ### Entity Zones - Game World splitting via the ZoneSystem 2/2
 As Zones can be nested (e.g. a landing zone on a planet or a vehicle inside a spaceship and the spaceship inside a hangar on a planet), a tree data structure of Zones emerges. Such a tree data structure can be split into multiple sub-trees.
 
@@ -206,6 +227,7 @@ One such sub-tree could then be computed by one server node. Sub-trees themselve
 ![Image](/images/static_server_meshing/image-20.png)
 ![Image](/images/static_server_meshing/image-21.png)
 ![Image](/images/static_server_meshing/image-22.png)
+
 ### Humble Beginnings - The Hybrid Service 1/3
 The Hybrid is a service and the initial heart of Server Meshing.
 
@@ -218,6 +240,7 @@ Using a mediator service like this - which sits between everything - makes it ea
 When the Hybrid first comes online, it will only feature a single server node to test it. Once this new infrastructure is working, more server nodes are added and Server Meshing comes online.
 
 ![Image](/images/static_server_meshing/image-23.png)
+
 ### Humble Beginnings - The Hybrid Service 2/3
 The Hybrid service itself actually consists of multiple components, each one with its own functionality that is vital to bring Server Meshing online. Some of that functionality had already come online with the Replication Layer. The components that we know of so far are:
 
@@ -242,6 +265,7 @@ Scribe
 This is just a quick overview. These services have been talked about in lots more detail in their own Minor Tech slides. But, we are still going to drill down on the Replicant and Gateway components, as these play key roles in Server Meshing. More types of services have been teased but not elaborated on yet.
 
 ![Image](/images/static_server_meshing/image-24.png)
+
 ### Humble Beginnings - The Hybrid Service 3/3
 However, the plan is to eventually move all these components out of the Hybrid to have them be their own services, running on their own servers. Once all components have been taken out, the obsolete Hybrid service will then be removed. This work is done when working on/toward Dynamic Server Meshing, after Static Server Meshing has released.
 
@@ -250,6 +274,7 @@ The individual service types are going to be horizontally scalable, meaning that
 But - because the Shards for the very first versions of Server Meshing are still going to be very small (few server nodes and player clients) - a need for many services is not there yet. To bring Server Meshing online, have its functionality tested and made robust, a smaller, more manageable environment with a single Hybrid service is much more suitable. The infrastructure complexity and its overhead is minimal and the focus can be on maturing the functionality itself. Once that is working fine, the components will be turned into services and scaled up.
 
 ![Image](/images/static_server_meshing/image-25.png)
+
 ### Replicant & Gateway - The Deeper Look
 The Replicant & Gateway are components of the Hybrid service. However, not all of their code is new. Parts of their functionality already existed as OCS and PES functionality.
 
@@ -258,6 +283,7 @@ OCS had already introduced various logic to load Object Containers on both clien
 And PES moved and grouped that logic as part of the Replication Layer.
 
 For Server Meshing, that logic is now moved into the Hybrid service as part of the Replicant and Gateway components. And for later versions later moved out again, onto their own servers, to make those horizontally scalable and shards larger.
+
 
 ### Clients partially looking into multiple server nodes
 All entities in the game world are persisted in the EntityGraph database which can be accessed by the Hybrid service (aka Replication Layer or Replicant).

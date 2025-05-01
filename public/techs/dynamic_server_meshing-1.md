@@ -1,4 +1,7 @@
 # Dynamic Server Meshing
+
+![Image](/images/milestones/milestone-04.png)
+
 ### Overview
 With splitting the game world and its simulation with Entity Authority, the next step is to make this solution dynamic for better scalability.
 

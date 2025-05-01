@@ -15,10 +15,12 @@ A transistor acts like a switch. But instead of manually switching it by hand - 
 
 When putting multiple transistors together in specific configurations, they create logic gates. And putting multiple logic gates together, one can perform binary math, comparisons, etc.
 
+
 ### Clock Cycles & Clock Speed
 Since electrons require time to flow through the logic gates, to give them enough time to do so, we introduce a CPU clock. And we only check the resulting state at certain time intervals, meaning after each clock cycle.
 
 Depending on the clock speed, modern CPUs can have billions of clock cycles each second. For example a CPU with a clock speed of 4.0 GHz can perform 4.000.000.000 clock cycles per second! That makes each clock cycle last 0.25 nanosecond (that's 0.00000000025 seconds). Light in a vacuum merely travels 7 centimeters in that time span (~2,8 inches).
+
 
 ### CPU Instructions
 In each clock cycle, we can tell the CPU what to compute. Rather than having to tell the CPU where electrons need to flow, the CPU provides us with a defined set of instructions, a CPU instruction set, which abstracts all of that low-level hardware stuff away for us. In each clock cycle, we can have the CPU execute one such instruction.
@@ -31,12 +33,14 @@ __Note:__ These days, modern CPUs are further optimized and can sometimes perfor
 
 __Note:__ All software programs written in a programming language are translated into these CPU instructions at some point. The CPU does not know about any programming languages, except its instruction set. But since instructions are very very atomic operations, programming languages abstract these away to help us create complex programs easier and faster.
 
+
 ### Game Objects, Game State, Limitations
 In video games, we can use these instructions to simulate a game world. This game world is directly made up of game objects. Updating each game object requires a certain amount of instructions to perform its simulation logic. For example, their change in position and orientation in the game world, as well as other state attributes of the object (e.g. a door might be in an open, close, opening or closing state).
 
 But remember that there can only be one instruction executed in each clock cycle? And we "only" have e.g. 4.0GHz = 4.000.000.000 clock cycles (and thus instructions) per second available? This means we are limited in the amount of instructions per second. And this consequently means we are also limited in the number of game objects we can update and simulate. Although, the number of instructions a game object requires may vary, as it depends on the complexity of the game object.
 
 So when adding more and more game objects, eventually, we won't have enough instructions available to update all of them in a timely manner. We are not allowed to skip the update of game objects as that would seemingly "freeze" parts of the game world. Instead, the next round of updates for ALL game objects is delayed. This is usually referred to as 'low tickrate' and will talk more about tickrate and the game loop later.
+
 
 ### Vertical & Horizontal Scaling, Large Game World
 Of course to support more game objects, we could simply throw faster hardware at the problem. Use a CPU with 5.0GHz instead. Done! However, this only works up to a certain point. There are hard limits to hardware and better hardware becomes exponentially more expensive as well. Using better hardware is called vertical scaling.
@@ -46,6 +50,7 @@ Another and more promising option is horizontal scaling. Here, we simply use ano
 If done right, as in having solved memory management, loading of data (memory is still limited resource on each machine, so as the game world grows not every game object needs to be loaded into memory), game simulation (a game object doesnt have to be simulated on all machines, but just one), networking (data is only send to computers that need it) and persistence (read and write data in databases for later use), then you have huge amounts of processing power at your finger tips. You could execute trillions of instructions across hundreds of computers/servers each second and simulate a large, game object-rich game world.
 
 __Note:__ As is often the case, it is more complicated than this, but this is a good first introduction of what Dynamic Server Meshing is about.
+
 
 ### Overview of Computer Hardware and its Limitations
 Some more technical background information first! A computer usually consists of 5 major parts:
@@ -57,6 +62,7 @@ Some more technical background information first! A computer usually consists of
 * Mainboard
 
 ![Image](/images/road_to_dynamic_server_meshing_preamble/image-01.png)
+
 ### Form of Data Storage
 __Drive (HDD/SSD):__
 
@@ -67,6 +73,7 @@ __Random Access Memory (RAM):__
 Another way to store data is in the Random Access Memory. This type of memory performs even faster than SSDs when it comes to read and write speeds, however makes it even more expensive which is why RAM is usually in the ranges of a few gigabytes (4-32GB), not terabytes like drives are. However, data in RAM is volatile, meaning that if power is cut, the data stored in the RAM is lost, making RAM a great (because fast) storage while the computer is running and processing data, but useless as a long term storage device once the computer is turned off.
 
 ![Image](/images/road_to_dynamic_server_meshing_preamble/image-02.png)
+
 ### Computation and Communication
 __Central Processing Unit (CPU):__
 
@@ -81,6 +88,7 @@ __Mainboard:__
 All these previous parts are connected with each other via the mainboard. All computer components communicate over connections, called the bus system (e.g. PCI and SATA). They basically are data highways from one component to another, the flow of data being controlled by the CPU.
 
 ![Image](/images/road_to_dynamic_server_meshing_preamble/image-03.png)
+
 ### Doing math and performing logic
 So what do all of these components do? It comes down to executing code: commands which instruct the computer to perform math and logic on the data in memory. These code instructions alter the data, turning that data from one state into another state. And depending on the processor architecture, cores and clock speed (e.g. 4.8GHz) there can be multiple billion instructions executed per second. Those results are then send over a network and/or used to create an image on our monitor screens.
 
@@ -94,12 +102,14 @@ In the example on the right, we have four instructions that load two values from
 
 4) store r1, 128
 
+
 ### Hardware Limitations
 In general, all computer components have their own limitations. Memory (drives and RAM) are limited by how much maximum data capacity they have as well as how fast they can read and write data (and if they are volatile or not). Meanwhile, processing units (CPUs and GPUs) are mostly about how many code instructions they can execute each second, as well as how fast they are able to access the data from the memory devices.
 
 With these limitations all software is created, games included. CIG set out to create a large universe with thousands of players, NPCs and other entities which all require to be in memory and need to be computed by the CPU in the game loop (and rendered on the GPU). Not even the most powerful computer will be capable of providing that much memory and computational power on its own.
 
 Therefore, the load has to be distributed onto multiple computers/CPUs and connected over a network, to let the computers communicate and exchange only the currently relevant data with each other. Mainly the game servers need this functionality while the players only need to connect to a small amount of game servers at any given point in time and load and compute only the entities close to them. Such a system is generally called a Server Mesh, because multiple servers are being meshed together over a network (local or over the internet). That makes multiple computers act as one large one with a lot of memory and lots of computation power. This is the system Star Citizen plans to utilize to create its vast and rich universe.
+
 
 ### Networking - The Client-Server Architecture
 Since Star Citizen is a multiplayer online game with many players playing in the same game world, the data has to be shared and communicated between the players over the internet. Star Citizen uses the common client-server architecture to accomplish this.
@@ -115,12 +125,14 @@ validates the player actions, this guarantees that all clients will stay synchro
 the game world a player sees wont deviate drastically from what other players see on their screens.
 
 ![Image](/images/road_to_dynamic_server_meshing_preamble/image-04.png)
+
 ### Game Update Loop
 Games come to life thanks to the game update loop. It simulates the game world by updating all entities multiple times a second. Doing one cycle in the loop is considered to be one game tick and many games execute around 30 game ticks per second.
 
 At the start of each game tick, the game processes the input done by the player. For multiplayer games it also checks for any network updates that were received. The game world is then simulated by executing the update logic of entity (dynamic game objects) in the game world (more on this in the next slides). Once that is done, the game may send the changes made over the network (to a server or client). On the game client, it then triggers the graphics renderer to have it prepare and render a new frame which will then be displayed on the player's monitor.
 
 Server Meshing is about the Simulation and Networking parts of the game update loop to having multiple game servers work together to simulate the same game world without being noticeable for the players.
+
 
 ### Game Update Loop - Game Simulation 1/4
 For the state of each entity, there is an area of memory reserved. Each location in memory can be addressed by a unique "identifier": its memory address. Therefore, memory can be thought of as one long tape where data/values/state can be read from, changes made and written back to.
@@ -130,6 +142,7 @@ On each game tick, the state of the entities are updated when the game is simula
 In the image on the right we have a player positioned at coordinate x=10 and y=25. Those two values exist at the memory addresses 192 and 256.
 
 ![Image](/images/road_to_dynamic_server_meshing_preamble/image-05.png)
+
 ### Game Update Loop - Game Simulation 2/4
 On each game tick when simulating, these values are read and then incremented by the current velocity of the player, then saved back in the same position in memory.
 
@@ -138,10 +151,12 @@ In our example on the right, in the first game tick, the x position was increase
 A game tick can be thought of like one "move" when playing a board game. Just that all object in the game world receives their move in one game tick. So all objects make their move at once and, ideally, 30 times per second.
 
 ![Image](/images/road_to_dynamic_server_meshing_preamble/image-06.png)
+
 ### Game Update Loop - Game Simulation 3/4
 In the second game tick, both x and y values were increased by 5 and the player moved a small distance diagonally.
 
 ![Image](/images/road_to_dynamic_server_meshing_preamble/image-07.png)
+
 ### Game Update Loop - Game Simulation 4/4
 Therefore, on each game tick, all entities only ever teleport from one position to the next. Smooth motion emerges because they are updated and teleported multiple times a second (~30 times). This is how the game world is simulated on the CPU.
 
@@ -152,24 +167,29 @@ In terms of rendering, there are a few tricks like Interpolation to have smooth 
 __TODO:__ collision checks between game objects
 
 ![Image](/images/road_to_dynamic_server_meshing_preamble/image-08.png)
+
 ### Game Update Loop - Networking Entity State 1/3
 Whenever there was a change in the game world - that is after the simulation - the game server prepares a data packet with these changes. In our case, it uses the x and y coordinates.
 
 ![Image](/images/road_to_dynamic_server_meshing_preamble/image-09.png)
+
 ### Game Update Loop - Networking Entity State 2/3
 This data packet is then send over the network to the clients.
 
 ![Image](/images/road_to_dynamic_server_meshing_preamble/image-10.png)
+
 ### Game Update Loop - Networking Entity State 3/3
 Each client receives the data packet, opens it and saves it into its memory. Now the client would be up to date with the server again and reflect the current state of the game world (e.g. by rendering a frame on the screen).
 
 Although in the image, the coordinate values were saved at the same memory address on the client, in a real application they usually are in different locations in memory. Each computer manages their own memory and determines for itself to which memory addresses the values have to be saved. This just covers the basic networking logic. There are further optimizations (such as client-side prediction and server reconciliation) which is generally know as netcode. However, we wont go into too much detail on such optimizations over the course of this presentation. This current knowledge on networking game state will suffice for now.
 
 ![Image](/images/road_to_dynamic_server_meshing_preamble/image-11.png)
+
 ### Game Update Loop
 However, one important note before we continue: In most online games, the client usually simulates the game world just like the server does. This is done because exchanging data via a network introduces latency. While waiting for the server network updates to come back, the client will use information from the previous entity state updates send from the server (essentially the entities' last known actions) to simulate and therefore predict the entities behavior. Later, the network update from the server will be used to ensure its correctness and correct the client's entities state if necessary. This solution helps with creating a smoother experience for the client while benefiting from the server verification at the same time.
 
 ![Image](/images/road_to_dynamic_server_meshing_preamble/image-12.png)
+
 ### Frame Rate and Game Ticks - Difference between Rendering (GPU) and the Game Loop (CPU)
 One important topic we should discuss as well is the difference between Frame Rate (Rendering on the GPU) and Game Ticks (Game Simulation and Networking on the CPU).
 
@@ -182,6 +202,7 @@ The game loop is executed by the CPU, not the GPU. That is because the game code
 Since the game servers only need to simulated the game world, they just run the game loop without rendering the game (which actually frees up some CPU load because the CPU does not have to tell the GPU what it is supposed to render). Thus there usually is no GPU installed in the computer configuration of game servers.
 
 __Note:__ Sometimes the game tick rate on the server is referred to as frame rate as well. Frame here refers to a frame of time or execution, and not an image.
+
 
 ### Objects and Entities (and Components)
 One last topic before we can finally start our journey toward Dynamic Server Meshing is the difference between objects, entities and components in the game.

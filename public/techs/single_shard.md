@@ -1,4 +1,7 @@
 # Single Shard
+
+![Image](/images/milestones/milestone-05.png)
+
 ### Overview
 Even if a first Dynamic Server Meshing has been released, there is still more work left to be done to have it scale up and make a single shard possible.
 
@@ -21,26 +24,31 @@ __Approach:__
 * This will require further R&D on how to reduce the impact of high cross-region latency.
 * For scenarios where areas have extremely high population, a layering technique might be introduced that puts interacting players into their own layer (speculated: similar to instancing?).
 * Speculated: There might be a time period where CIG will offer one shard per region as well as one world-wide shard. For the developers, this would provide a testbed for global shard tech, while offering the players a choice between an experimental experience in the global shard and a more stable one in the regional ones.
+
 ### From Multiple Shards to Single Shard 1/4 - Static Server Meshing
 Initially- under static server meshing - all shards will be statically meshed. That means multiple, small and equally sized shards. Each region will have its own shards.
 
 Even tho the individual shards are statically meshed, the number of shards can still change. For example, a new shard is spun up whenever more players login and want to play and all other shards are already full.
 
 ![Image](/images/single_shard/image-01.png)
+
 ### From Multiple Shards to Single Shard 2/4 - Dynamic Server Meshing
 Once we have a mature Dynamic Server Meshing version online, shards start to be come larger and can end up being of different sizes, depending on the amount of players/entities and activity inside them. Each region will still have multiple shards.
 
 ![Image](/images/single_shard/image-02.png)
+
 ### From Multiple Shards to Single Shard 3/4- Regional Single Shards
 Once Dynamic Server Meshing becomes powerful enough to support all players of a region, we may have Single Regional Shards. All players of a region will then be playing in the same game world.
 
 ![Image](/images/single_shard/image-03.png)
+
 ### From Multiple Shards to Single Shard 4/4 - World Wide Shard
 Once Single Regional Shards are possible, work can begin on improving the lag compensation techniques. Those reduce perceived effects of latency for the players when playing across regions where latencies of over 200ms are possible. But further R&D is required for this. If it is possible and enjoyable, then all players play in a Single Worldwide Shard.
 
 __Speculated:__ CIG might start offering an optional 'Worldwide Region' that will run alongside the existing regions, so players can choose between the regional and the worldwide shard. And maybe some day, the tech becomes capable enough where only the world-wide shard remains and the regional ones are removed.
 
 ![Image](/images/single_shard/image-04.png)
+
 ### Remaining Technical Limitations: Player Client = The Final Frontier
 One final technical hurdle, that might not be completely overcome without some additional tricks and workarounds in the end, will be the rare scenario where thousands of players/entities are very close to each other and thus directly visible to the player client (like on a large flat surface on a planet). Even tho the game servers might be fine, the CPU/GPU computation on the player client might exceed its limits, resulting in dropping performance.
 

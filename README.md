@@ -6,19 +6,13 @@ Traditonal Presentation Mode: https://sc-server-meshing.info
 
 New Wiki/Mobile Mode: https://sc-server-meshing.info/wiki
 
+
 ## Install
 
 After cloning the repo, use the following command to install the packages:
 
 `npm install`
 
-## Run the scraper
-
-To extract information from the presentation, execute:
-
-`node scrape-prezi.js`
-
-Note: This may be very performance intensive task and take a few minutes.
 
 ## Run the application locally
 
