@@ -22,7 +22,6 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "scrape": "node scrape-prezi.js",
     "start": "node generate-summaries.js && react-scripts start",
     "build": "node generate-summaries.js && react-scripts build",
     "test": "react-scripts test",
