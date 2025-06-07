@@ -29,10 +29,8 @@ export default function Tech(props) {
 
 	let tech = props.techsByName[currentTech.toLowerCase()];
 	let lastSlideIndex = tech.slideAmount-1;
-	// console.log("render", currentSlideIndex, tech)
 
 	let loadTechMarkup = () => {
-		console.log("useEffect", currentSlideIndex, tech)
 		let loadSingleSlide = false;
 		let markupFileName = tech.markupFileName;
 		
