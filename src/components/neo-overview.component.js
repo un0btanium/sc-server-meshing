@@ -200,7 +200,7 @@ export default function NeoOverview(props) {
 							<div className="col-header">
 								<div className="info">
 									<p className="text-blue-light">2020-2023</p>
-									<p className="text-green-light">Alpha 3.18.0 (March 2023)</p>
+									<p className="text-green-light">Alpha 3.18.0 (Mar 2023)</p>
 								</div>
 								{createTechBox("Persistent <br/>Entity<br/> Streaming", "box-lg-landscape", "bg-green")}
 							</div>
@@ -257,7 +257,7 @@ export default function NeoOverview(props) {
 						<div className="col">
 							<div className="col-header">
 								<div className="info">
-									<p className="text-blue-light text-uppercase">TBD</p>
+									<p className="text-blue-light text-uppercase">2025-TBD</p>
 									<p className="text-green-light text-uppercase">TBD</p>
 								</div>
 								{createTechBox("Dynamic <br/>Server<br/> Meshing", "box-lg", "bg-blue-light")}

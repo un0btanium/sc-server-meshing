@@ -3,6 +3,4 @@ When game servers overlap in the virtual space, they load the same entities into
 
 This way game servers can let each other know what's going on and keep entities synchronized on multiple game servers. This can then be used for those seamless authority transfers between game servers.
 
-__Speculated:__ For collision checks between two entities on different game servers there might have to be a consensus reached by the game servers or decided by the Hybrid/Replicant service.
-
 ![Image](/images/static_server_meshing/image-16.png)

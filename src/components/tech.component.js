@@ -29,8 +29,10 @@ export default function Tech(props) {
 
 	let tech = props.techsByName[currentTech.toLowerCase()];
 	let lastSlideIndex = tech.slideAmount-1;
+	// console.log("render", currentSlideIndex, tech)
 
-	useEffect(() => {
+	let loadTechMarkup = () => {
+		console.log("useEffect", currentSlideIndex, tech)
 		let loadSingleSlide = false;
 		let markupFileName = tech.markupFileName;
 		
@@ -53,12 +55,15 @@ export default function Tech(props) {
 					setMarkup(new Set([text]));
 				}
 			});
-	}, [currentSlideIndex]);
+	}
 
-
+	useEffect(loadTechMarkup, [currentSlideIndex]);
 	useEffect(() => {
 		setCurrentSlideIndex(searchParams.has('neo') ? 0 : currentSlideIndex === 1000 ? 2000 : 1000);
 		setMarkup(new Set());
+		if (tech.title == "Prologue & Summary" && currentSlideIndex === 0) {
+			setCurrentSlideIndex(1);
+		}
 	}, [paramTech]);
 
 	let nav;

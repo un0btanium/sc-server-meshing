@@ -14,7 +14,7 @@
     {
         "title": "Road to Dynamic Server Meshing - Preamble",
         "markupFileName": "road_to_dynamic_server_meshing_preamble",
-        "slideAmount": 22,
+        "slideAmount": 23,
         "sources": [
             "w12",
             "s105",
@@ -32,7 +32,8 @@
             "s120",
             "atv1",
             "atv4",
-            "pes01"
+            "pes01",
+            "pn30"
         ]
     },
     {
@@ -69,7 +70,7 @@
     {
         "title": "Persistent Entity Streaming",
         "markupFileName": "persistent_entity_streaming",
-        "slideAmount": 13,
+        "slideAmount": 12,
         "sources": [
             "scl2",
             "cc2",
@@ -137,7 +138,8 @@
             "lc2",
             "s204",
             "s208",
-            "bq&a"
+            "bq&a",
+            "dsm1"
         ]
     },
     {
