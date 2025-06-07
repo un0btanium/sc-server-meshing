@@ -26,3 +26,4 @@ __Approach:__
 * An algorithm/heuristic is introduced, which continuously monitors the computational load in the game world and decides for an optimal distribution of the computational resources (servers), by moving entities and their authority from an overloaded game servers to a underutilized game server.
 * Whenever a Shard becomes too crowded/overloaded, an additional game server is spun up to provide more computational power. Likewise, game servers can be shutdown, if there is not much load. Less servers rented, more cost-efficient Shards.
 * Break up the Hybrid service into smaller horizontally scalable services to allow for larger meshes/shards.
+* "In May 2025, the Network team continued work on Dynamic Server Meshing, separating the DGS assignment from the territory manager."
