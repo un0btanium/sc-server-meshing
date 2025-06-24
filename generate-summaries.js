@@ -3,6 +3,7 @@ const path = require('path');
 
 const markupFileDirectoryPath = './public/techs';
 const techsJsonPath = './src/data/techs.json'
+const statsJsonPath = './src/data/stats.json'
 
 
 
@@ -73,3 +74,25 @@ for (const [name] of slideGroups.entries()) {
 // --- Step 7: Save updated techs.json ---
 fs.writeFileSync(techsJsonPath, JSON.stringify(techs, null, 4), 'utf-8');
 console.log('✅ techs.json slide amounts updated.');
+
+// --- Step 8: Load, update date and save stats.json ---
+let stats = [];
+try {
+    stats = JSON.parse(fs.readFileSync(statsJsonPath, 'utf-8'));
+} catch (err) {
+    console.error('❌ Failed to read stats.json:', err);
+    process.exit(1);
+}
+
+const today = new Date();
+const parts = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric'
+}).formatToParts(today);
+const formattedDate = `${parts.find(p => p.type === 'day').value}. ${parts.find(p => p.type === 'month').value} ${parts.find(p => p.type === 'year').value}`;
+
+stats.lastUpdated = formattedDate;
+
+fs.writeFileSync(statsJsonPath, JSON.stringify(stats, null, 4), 'utf-8');
+console.log('✅ stats.json slide amounts updated.');
