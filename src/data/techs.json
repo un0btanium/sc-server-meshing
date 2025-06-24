@@ -662,7 +662,9 @@
         "title": "Entity Authority Load Balancer",
         "markupFileName": "entity_authority_load_balancer",
         "slideAmount": 1,
-        "sources": []
+        "sources": [
+            "dsm1"
+        ]
     },
     {
         "title": "Dynamic Server Meshing V1",
@@ -670,7 +672,8 @@
         "slideAmount": 1,
         "sources": [
             "s208",
-            "lc2"
+            "lc2",
+            "dsm1"
         ]
     },
     {

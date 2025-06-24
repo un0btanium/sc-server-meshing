@@ -266,8 +266,8 @@ export default function NeoOverview(props) {
 								<div className="arrow-up"></div>
 								{createTechBox("Replication Layer V2", "box-sm", "bg-red", "Replication Layer Version 2 (Hybrid service breakup)")}
 								{createTechBox("Dynamic Server Meshing V2", "box-sm", "bg-red")}
-								{createTechBox("Dynamic Server Meshing V1", "box-sm", "bg-red")}
-								{createTechBox("Entity Authority Load Balancer", "box-sm", "bg-red")}
+								{createTechBox("Dynamic Server Meshing V1", "box-sm", "bg-blue-light")}
+								{createTechBox("Entity Authority Load Balancer", "box-sm", "bg-blue-light")}
 							</div>
 						</div>
 
