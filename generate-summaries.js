@@ -6,9 +6,8 @@ const techsJsonPath = './src/data/techs.json'
 const statsJsonPath = './src/data/stats.json'
 
 
-
 // --- Step 1: Read all .md files ---
-const files = fs.readdirSync(markupFileDirectoryPath).filter(f => f.endsWith('.md'));
+const files = fs.readdirSync(markupFileDirectoryPath).filter(f => f.endsWith('.md')).filter(f => !f.startsWith("unofficial-road-to-dynamic-server-meshing.md"));
 
 // --- Step 2: Group numbered slide files ---
 const slideGroups = new Map();
@@ -50,7 +49,7 @@ try {
 
 // --- Step 5: Update slideAmount for known entries ---
 const knownNames = new Set(techs.map(t => t.markupFileName));
-
+let allMarkup = "# Unofficial Road to Dynamic Server Meshing - by unobtanium";
 for (const tech of techs) {
     const name = tech.markupFileName;
 	if (name === 'overview') { // ignore
@@ -59,6 +58,7 @@ for (const tech of techs) {
     if (slideGroups.has(name)) {
         const newAmount = slideGroups.get(name).length;
         tech.slideAmount = newAmount;
+        allMarkup += fs.readFileSync(path.join(markupFileDirectoryPath, name + (newAmount === 1 ? "-1" : "") + ".md"), 'utf-8');
     } else {
         console.error(`⚠️  No slides found for '${name}' but there is an entry in techs.json`);
     }
@@ -75,7 +75,11 @@ for (const [name] of slideGroups.entries()) {
 fs.writeFileSync(techsJsonPath, JSON.stringify(techs, null, 4), 'utf-8');
 console.log('✅ techs.json slide amounts updated.');
 
-// --- Step 8: Load, update date and save stats.json ---
+// --- Step 8: Save all markup in a single file ---
+fs.writeFileSync(path.join(markupFileDirectoryPath, '/unofficial-road-to-dynamic-server-meshing.md'), allMarkup);
+console.log('✅ unofficial-road-to-dynamic-server-meshing.md updated.');
+    
+// --- Step 9: Load, update date and save stats.json ---
 let stats = [];
 try {
     stats = JSON.parse(fs.readFileSync(statsJsonPath, 'utf-8'));
