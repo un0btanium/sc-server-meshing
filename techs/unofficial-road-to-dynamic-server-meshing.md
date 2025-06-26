@@ -1,4 +1,4 @@
-# Road to Dynamic Server Meshing - Introduction
+# Unofficial Road to Dynamic Server Meshing - by unobtanium# Road to Dynamic Server Meshing - Introduction
 ### What to expect from this presentation:
 This presentation is offering a centralized place about everything that is known about Star Citizen's Dynamic Server Meshing implementation. We will go over the the major and minor technologies that create the overall functionality of Dynamic Server Meshing. The official sources used are made available as well.
 
@@ -9,11 +9,28 @@ __TLDR:__ This journey can be categorized and summarized on a high-level into th
 * Engine Rework: The majority of the engine was replaced with new systems. StarEngine was born. Most of these changes released with Alpha 3.0 in 2017.
 * (Area of) Interest Management System: Optimized the loading and networking aspects. Released in two parts as Object Container Streaming in 2018 and 2019.
 * Persistence: Introduced saving and loading game state to/from a database. Also layed the foundational architecture for Server Meshing. Released in 2023.
-* Distributed Simulation: Introduced by Server Meshing. Multiple game servers simulate different parts of the same game world.
+* Distributed Simulation: Introduced by Server Meshing. Multiple game servers simulate different parts of the same game world. Alpha 4.0 Preview 2024.
 * Architecture Scaleup: All code becomes highly scalable in a microservice architecture to allow many thousand of players to play in the same game world. 
 
 ![Image](/images/road_to_dynamic_server_meshing_introduction/image-00.png)
 
+
+### Recap of major tech features releasing
+
+* Alpha 2.6 - Jan 2017 - Object Containers (preview/feature parity)
+* Alpha 3.0 - Dec 2017 - Object Containers, Entity Components, 64bit coordidnates, Zone System, planet tech, new render pipeline, and many more (Large Engine Rework) (24 -> 50 players per server)
+* Alpha 3.3 - Nov 2018 - Client OCS
+* Alpha 3.8 - Dec 2019 - Server OCS
+* Alpha 3.8.2 - Feb 2020 - Long Term Persistence DB (later reworked into the Global DB), less wipes between patches
+* Alpha 3.13/3.14 - Apr/Aug 2021 - Preparations for the Replication Layer in the game server code
+* Alpha 3.15 - Nov 2021 - Release of the Global Database, Global Persistence and Physicalized Items and Inventory (uses RL to make backend DB calls)
+* Alpha 3.17 - Apr 2022 - Entity State Networking through the Replication Layer (networking part of OCS moved into RL)
+* Alpha 3.18 - Mar 2023 - Gen12 + EntityGraph Database + OC Loading via Replication Layer (+cache for Global DB queries in EntityGraph services, all of OCS in RL)
+* Alpha 3.23 - May 2024 - Replication Layer moved out of the game server into its own server (Hybrid Service)
+* Tech Channel Previews - 2024 - Static Server Meshing
+* Alpha 3.24 - Aug 2024 - Replication Message Queue Refactor
+* Alpha 4.0 - Dec 2024 - Static Server Meshing with Jumppoints and the Pyro solar system (~150 -> ~600 players per shard)
+* Alpha 4.? - Work In Progress - Dynamic Server Meshing V1
 
 ### Visual Examples
 Throughout this presentation, I tried to incorporate images to help visualize how these technologies work and what their purposes are.
@@ -23,16 +40,13 @@ So lets get started! The usual game level is three dimensional and therefore has
 On the following slides you find further explanations and visual representations of technical topics that will lay the foundation for all the subsequent technologies.
 
 ![Image](/images/road_to_dynamic_server_meshing_introduction/image-01.png)
+
 ### Quick Disclaimer before we start
 Even though there was a great effort made to use official information and sources, be aware that some aspects of how these technologies work are deduced and therefore speculated. Whenever that was the case, I tried to make sure that it was noted as such, either in the slide title or in the text itself, so have a lookout for them. Therefore, the information presented here are my own understanding at this moment in time and are therefore subject to change. In the light of additional insights, the information in this presentation will be updated accordingly. Feel free to contribute with information that I may have missed.
 
-Feel free to check out the sources that were used in creating this overview for yourself. I listed all of them at the end of this presentation.
+If you feel like something is missing or you have a question or just want to say hello, feel free to notify me on Spectrum:
 
-If you feel like something is missing, incorrect, incomplete, unclear or you just have a question or just want to say hello, feel free to notify me on Spectrum:
-
-__https:__//robertsspaceindustries.com/spectrum/community/SC/forum/3/thread/road-to-dynamic-server-meshing-tech-overview-with-
-
-# Road to Dynamic Server Meshing - Preamble
+[https://robertsspaceindustries.com/spectrum/community/SC/forum/3/thread/road-to-dynamic-server-meshing-tech-overview-with-](https://robertsspaceindustries.com/spectrum/community/SC/forum/3/thread/road-to-dynamic-server-meshing-tech-overview-with-)# Road to Dynamic Server Meshing - Preamble
 ### How does the computer compute? Electrons, Transitors, Logic Gates
 Let us start from the very bottom and build our way up:
 
@@ -49,10 +63,12 @@ A transistor acts like a switch. But instead of manually switching it by hand - 
 
 When putting multiple transistors together in specific configurations, they create logic gates. And putting multiple logic gates together, one can perform binary math, comparisons, etc.
 
+
 ### Clock Cycles & Clock Speed
 Since electrons require time to flow through the logic gates, to give them enough time to do so, we introduce a CPU clock. And we only check the resulting state at certain time intervals, meaning after each clock cycle.
 
 Depending on the clock speed, modern CPUs can have billions of clock cycles each second. For example a CPU with a clock speed of 4.0 GHz can perform 4.000.000.000 clock cycles per second! That makes each clock cycle last 0.25 nanosecond (that's 0.00000000025 seconds). Light in a vacuum merely travels 7 centimeters in that time span (~2,8 inches).
+
 
 ### CPU Instructions
 In each clock cycle, we can tell the CPU what to compute. Rather than having to tell the CPU where electrons need to flow, the CPU provides us with a defined set of instructions, a CPU instruction set, which abstracts all of that low-level hardware stuff away for us. In each clock cycle, we can have the CPU execute one such instruction.
@@ -65,12 +81,14 @@ __Note:__ These days, modern CPUs are further optimized and can sometimes perfor
 
 __Note:__ All software programs written in a programming language are translated into these CPU instructions at some point. The CPU does not know about any programming languages, except its instruction set. But since instructions are very very atomic operations, programming languages abstract these away to help us create complex programs easier and faster.
 
+
 ### Game Objects, Game State, Limitations
 In video games, we can use these instructions to simulate a game world. This game world is directly made up of game objects. Updating each game object requires a certain amount of instructions to perform its simulation logic. For example, their change in position and orientation in the game world, as well as other state attributes of the object (e.g. a door might be in an open, close, opening or closing state).
 
 But remember that there can only be one instruction executed in each clock cycle? And we "only" have e.g. 4.0GHz = 4.000.000.000 clock cycles (and thus instructions) per second available? This means we are limited in the amount of instructions per second. And this consequently means we are also limited in the number of game objects we can update and simulate. Although, the number of instructions a game object requires may vary, as it depends on the complexity of the game object.
 
 So when adding more and more game objects, eventually, we won't have enough instructions available to update all of them in a timely manner. We are not allowed to skip the update of game objects as that would seemingly "freeze" parts of the game world. Instead, the next round of updates for ALL game objects is delayed. This is usually referred to as 'low tickrate' and will talk more about tickrate and the game loop later.
+
 
 ### Vertical & Horizontal Scaling, Large Game World
 Of course to support more game objects, we could simply throw faster hardware at the problem. Use a CPU with 5.0GHz instead. Done! However, this only works up to a certain point. There are hard limits to hardware and better hardware becomes exponentially more expensive as well. Using better hardware is called vertical scaling.
@@ -80,6 +98,7 @@ Another and more promising option is horizontal scaling. Here, we simply use ano
 If done right, as in having solved memory management, loading of data (memory is still limited resource on each machine, so as the game world grows not every game object needs to be loaded into memory), game simulation (a game object doesnt have to be simulated on all machines, but just one), networking (data is only send to computers that need it) and persistence (read and write data in databases for later use), then you have huge amounts of processing power at your finger tips. You could execute trillions of instructions across hundreds of computers/servers each second and simulate a large, game object-rich game world.
 
 __Note:__ As is often the case, it is more complicated than this, but this is a good first introduction of what Dynamic Server Meshing is about.
+
 
 ### Overview of Computer Hardware and its Limitations
 Some more technical background information first! A computer usually consists of 5 major parts:
@@ -91,6 +110,7 @@ Some more technical background information first! A computer usually consists of
 * Mainboard
 
 ![Image](/images/road_to_dynamic_server_meshing_preamble/image-01.png)
+
 ### Form of Data Storage
 __Drive (HDD/SSD):__
 
@@ -101,6 +121,7 @@ __Random Access Memory (RAM):__
 Another way to store data is in the Random Access Memory. This type of memory performs even faster than SSDs when it comes to read and write speeds, however makes it even more expensive which is why RAM is usually in the ranges of a few gigabytes (4-32GB), not terabytes like drives are. However, data in RAM is volatile, meaning that if power is cut, the data stored in the RAM is lost, making RAM a great (because fast) storage while the computer is running and processing data, but useless as a long term storage device once the computer is turned off.
 
 ![Image](/images/road_to_dynamic_server_meshing_preamble/image-02.png)
+
 ### Computation and Communication
 __Central Processing Unit (CPU):__
 
@@ -115,6 +136,7 @@ __Mainboard:__
 All these previous parts are connected with each other via the mainboard. All computer components communicate over connections, called the bus system (e.g. PCI and SATA). They basically are data highways from one component to another, the flow of data being controlled by the CPU.
 
 ![Image](/images/road_to_dynamic_server_meshing_preamble/image-03.png)
+
 ### Doing math and performing logic
 So what do all of these components do? It comes down to executing code: commands which instruct the computer to perform math and logic on the data in memory. These code instructions alter the data, turning that data from one state into another state. And depending on the processor architecture, cores and clock speed (e.g. 4.8GHz) there can be multiple billion instructions executed per second. Those results are then send over a network and/or used to create an image on our monitor screens.
 
@@ -128,12 +150,14 @@ In the example on the right, we have four instructions that load two values from
 
 4) store r1, 128
 
+
 ### Hardware Limitations
 In general, all computer components have their own limitations. Memory (drives and RAM) are limited by how much maximum data capacity they have as well as how fast they can read and write data (and if they are volatile or not). Meanwhile, processing units (CPUs and GPUs) are mostly about how many code instructions they can execute each second, as well as how fast they are able to access the data from the memory devices.
 
 With these limitations all software is created, games included. CIG set out to create a large universe with thousands of players, NPCs and other entities which all require to be in memory and need to be computed by the CPU in the game loop (and rendered on the GPU). Not even the most powerful computer will be capable of providing that much memory and computational power on its own.
 
 Therefore, the load has to be distributed onto multiple computers/CPUs and connected over a network, to let the computers communicate and exchange only the currently relevant data with each other. Mainly the game servers need this functionality while the players only need to connect to a small amount of game servers at any given point in time and load and compute only the entities close to them. Such a system is generally called a Server Mesh, because multiple servers are being meshed together over a network (local or over the internet). That makes multiple computers act as one large one with a lot of memory and lots of computation power. This is the system Star Citizen plans to utilize to create its vast and rich universe.
+
 
 ### Networking - The Client-Server Architecture
 Since Star Citizen is a multiplayer online game with many players playing in the same game world, the data has to be shared and communicated between the players over the internet. Star Citizen uses the common client-server architecture to accomplish this.
@@ -149,12 +173,14 @@ validates the player actions, this guarantees that all clients will stay synchro
 the game world a player sees wont deviate drastically from what other players see on their screens.
 
 ![Image](/images/road_to_dynamic_server_meshing_preamble/image-04.png)
+
 ### Game Update Loop
 Games come to life thanks to the game update loop. It simulates the game world by updating all entities multiple times a second. Doing one cycle in the loop is considered to be one game tick and many games execute around 30 game ticks per second.
 
 At the start of each game tick, the game processes the input done by the player. For multiplayer games it also checks for any network updates that were received. The game world is then simulated by executing the update logic of entity (dynamic game objects) in the game world (more on this in the next slides). Once that is done, the game may send the changes made over the network (to a server or client). On the game client, it then triggers the graphics renderer to have it prepare and render a new frame which will then be displayed on the player's monitor.
 
 Server Meshing is about the Simulation and Networking parts of the game update loop to having multiple game servers work together to simulate the same game world without being noticeable for the players.
+
 
 ### Game Update Loop - Game Simulation 1/4
 For the state of each entity, there is an area of memory reserved. Each location in memory can be addressed by a unique "identifier": its memory address. Therefore, memory can be thought of as one long tape where data/values/state can be read from, changes made and written back to.
@@ -164,6 +190,7 @@ On each game tick, the state of the entities are updated when the game is simula
 In the image on the right we have a player positioned at coordinate x=10 and y=25. Those two values exist at the memory addresses 192 and 256.
 
 ![Image](/images/road_to_dynamic_server_meshing_preamble/image-05.png)
+
 ### Game Update Loop - Game Simulation 2/4
 On each game tick when simulating, these values are read and then incremented by the current velocity of the player, then saved back in the same position in memory.
 
@@ -172,10 +199,12 @@ In our example on the right, in the first game tick, the x position was increase
 A game tick can be thought of like one "move" when playing a board game. Just that all object in the game world receives their move in one game tick. So all objects make their move at once and, ideally, 30 times per second.
 
 ![Image](/images/road_to_dynamic_server_meshing_preamble/image-06.png)
+
 ### Game Update Loop - Game Simulation 3/4
 In the second game tick, both x and y values were increased by 5 and the player moved a small distance diagonally.
 
 ![Image](/images/road_to_dynamic_server_meshing_preamble/image-07.png)
+
 ### Game Update Loop - Game Simulation 4/4
 Therefore, on each game tick, all entities only ever teleport from one position to the next. Smooth motion emerges because they are updated and teleported multiple times a second (~30 times). This is how the game world is simulated on the CPU.
 
@@ -186,24 +215,29 @@ In terms of rendering, there are a few tricks like Interpolation to have smooth 
 __TODO:__ collision checks between game objects
 
 ![Image](/images/road_to_dynamic_server_meshing_preamble/image-08.png)
+
 ### Game Update Loop - Networking Entity State 1/3
 Whenever there was a change in the game world - that is after the simulation - the game server prepares a data packet with these changes. In our case, it uses the x and y coordinates.
 
 ![Image](/images/road_to_dynamic_server_meshing_preamble/image-09.png)
+
 ### Game Update Loop - Networking Entity State 2/3
 This data packet is then send over the network to the clients.
 
 ![Image](/images/road_to_dynamic_server_meshing_preamble/image-10.png)
+
 ### Game Update Loop - Networking Entity State 3/3
 Each client receives the data packet, opens it and saves it into its memory. Now the client would be up to date with the server again and reflect the current state of the game world (e.g. by rendering a frame on the screen).
 
 Although in the image, the coordinate values were saved at the same memory address on the client, in a real application they usually are in different locations in memory. Each computer manages their own memory and determines for itself to which memory addresses the values have to be saved. This just covers the basic networking logic. There are further optimizations (such as client-side prediction and server reconciliation) which is generally know as netcode. However, we wont go into too much detail on such optimizations over the course of this presentation. This current knowledge on networking game state will suffice for now.
 
 ![Image](/images/road_to_dynamic_server_meshing_preamble/image-11.png)
+
 ### Game Update Loop
 However, one important note before we continue: In most online games, the client usually simulates the game world just like the server does. This is done because exchanging data via a network introduces latency. While waiting for the server network updates to come back, the client will use information from the previous entity state updates send from the server (essentially the entities' last known actions) to simulate and therefore predict the entities behavior. Later, the network update from the server will be used to ensure its correctness and correct the client's entities state if necessary. This solution helps with creating a smoother experience for the client while benefiting from the server verification at the same time.
 
 ![Image](/images/road_to_dynamic_server_meshing_preamble/image-12.png)
+
 ### Frame Rate and Game Ticks - Difference between Rendering (GPU) and the Game Loop (CPU)
 One important topic we should discuss as well is the difference between Frame Rate (Rendering on the GPU) and Game Ticks (Game Simulation and Networking on the CPU).
 
@@ -217,6 +251,7 @@ Since the game servers only need to simulated the game world, they just run the 
 
 __Note:__ Sometimes the game tick rate on the server is referred to as frame rate as well. Frame here refers to a frame of time or execution, and not an image.
 
+
 ### Objects and Entities (and Components)
 One last topic before we can finally start our journey toward Dynamic Server Meshing is the difference between objects, entities and components in the game.
 
@@ -229,15 +264,18 @@ Based on the number of game tick per second the game runs on, the CPU only has a
 As we will see later, Star Citizen reworked its entity system to an Entity Component architecture and splits each individual behavior in the game into its own component which then can be attributed to any entity. Therefore, it matters how many components are being updated in the game update loop, not necessarily the amount of entities.
 
 # Object Container
+
+![Image](/images/milestones/milestone-01.png)
+
 ### Introduction
-Our multi-step journey to Dynamic Server Meshing begins with the creation of Object Containers.
+Our multi-step journey to Dynamic Server Meshing begins with the creation of Object Containers. For which there were many parts of the engine changed, making this more of an overview of the whole engine rework.
 
 __Challenges:__
 
 * traditional game levels consist of a list of objects (static and dynamic) which are loaded all on level start behind a loading screen
 * to eventually be able to create a seamless universe with no loading screens and thousand of players, we can't load all objects into our memory all at once since the large amount of data would exceed our memory capacity
 
-__Solution:__ Object Containers
+__Solution:__ Object Containers, a major part of the whole Engine Rework
 
 __Goals:__
 
@@ -254,6 +292,7 @@ __Approach:__
 * rework the existing levels to use the Object Containers and create all future content with Object Containers which requires changes to the engine editor
 * on level start, load the level via the Object Containers. There does not exist any logic yet that loads Object Containers while playing and will be the functionality later introduced by Object Container Streaming which loads/unloads objects at any time
 * Object Containers themselves were first introduced in Alpha 2.6.1 (Feb 2017) but many of the other features (Megamap, 64bit coordinates, Entity Components, etc.) made its debut with Alpha 3.0 (December 2017)
+
 ### Example
 In the visual example on the left, we have loaded three players into the level. The red and green players are near each other on the same planet while the blue player is on a different planet far away. However, to avoid visual clutter, the planets, ships and other objects were left out of the image and we only show the connected players. We are going to revisit this example in the upcoming major technologies again.
 
@@ -264,18 +303,21 @@ With the level split into different building blocks (Object Containers), the gam
 However, the functionality to stream objects from the drive into memory after the initial level load wasn't actually introduced yet with the release of the Object Containers. The player client and game server still had to load all objects of the level at its initial load because there was no logic yet that would tell client and server which objects it should load or unload. The functionality for streaming objects in and out of a level at any time became only possible with the introduction of Object Container Streaming which we will talk more about later.
 
 ![Image](/images/object_container/image-01.png)
+
 ### The Implementation 1/3
 Object Containers are wrappers for object types. A container acts as a template from which one or multiple instances (entity) of the same object type can be created. An entity might a player character, coffee cup, a ship or even planets and solar systems. Each object type (and thus Object Container) might have a unique identifier (either a name or a number) with which it can be referred. Each container has a list of the resources it uses, e.g. models, geometry, textures, zones and entity components.
 
 Some Object Containers might represent atomic objects. Others Object Container may represent an entire or partial level. This is done because Object Container can reference of other Object Containers. Thus, Object Containers can be nested. A tree structure of Object Containers is created. For example the Stanton system would be a Object Container which references the Stanton star and its four planetary systems as its child Object Containers. The landing zone Area 18 would be referenced from the ArcCorp planet container, and so on.
 
 ![Image](/images/object_container/image-02.png)
+
 ### The Implementation 2/3
 With Object Containers the level is now split into individual building blocks. Artists and developers do not develop individual levels anymore, but instead individual objects or parts of a level. Those can then be reused anywhere in the level and be part of other Object Containers. Therefore, the final level is made up of nested Object Containers from which game objects (entities) are spawned.
 
 An artist making a change to an object container, changes all entities that originate from that object container in all places in the level. For example, a chair design used all across a landing zone. Instead of having to make changes to all hundred chairs individually, the artists just have to make the change once to the chair Object Container. This makes it easy to make changes, rework and update existing objects without having to update every single object individually. Just the Object Container has to be altered.
 
 ![Image](/images/object_container/image-03.png)
+
 ### The Implementation 3/3
 When an object is loaded into the level, either on initial level load or later while playing, the Object Container is loaded into memory. Then a new object is created from the Object Container. This is done by allocating the required space in memory to later hold the object's state (like position). The resources that are listed in the container, like textures and geometry, are loaded into memory into the MegaMap and/or into the memory of the GPU.
 
@@ -284,6 +326,7 @@ The MegaMap consists of various memory managers which check, if a resource was a
 Once loading and initializing is done, and the object is dynamic - meaning it has behavior and can be interacted with - then this entity is ready to be computed by the CPU in the game update loop, thus state changes and stuff happens in the game world, e.g. a player or NPC can walk around, a ship can fly, a terminal can be accessed, a ship spawned, a wall can be run into, etc.
 
 ![Image](/images/object_container/image-04.png)
+
 ### Entity Components
 Alongside the development of Object Containers, CIG also reworked the entire simulation code of the engine. They rewrote the code by splitting and reusing code pieces across multiple different object types.
 
@@ -293,6 +336,7 @@ In the code, these components can then be used on different entities, speeding u
 
 ![Image](/images/object_container/image-05.png)
 ![Image](/images/object_container/image-06.png)
+
 ### Zone System
 Additionally, the new Zone System (speculated: a custom hybrid between a space partitioning data structure and a scene graph) splits the game world into areas. All objects inside such an area are grouped together. For example, a zone can be a spaceship. All objects inside that spaceship are grouped, thus being part of that zone. When the spaceship moves, its zone is moved as well, thus moving all objects inside of the spaceship with it. This is made performant by giving each zone its own coordinate system and objects inside are placed and moved relative to the zone center coordinate instead of the game world level center coordinate. And thus, the positions of the objects inside do not need to be updated when the ship moves.
 
@@ -304,11 +348,15 @@ The Zone System is used for optimizing rendering, physics collisions as well as 
 
 ![Image](/images/object_container/image-07.png)
 ![Image](/images/object_container/image-08.png)
+
 ### Serialized Variables (API)
 Optimization was done on the networking to reduce bandwidth. On each game tick the server has to send the state of entities to the player clients. With the high amount of data of entities in Star Citizen, this will result in a lot of data and thus bandwidth. Therefore, CIG implemented an system which detects any entity state changes. It then only sends those changed values across the network instead of the entire state of the entity, which would include unchanged values as well. This network optimization made it possible to reduce the bandwidth up to 80% for certain Entity Components.
 
 ![Image](/images/object_container/image-09.png)
 # Client Object Container Streaming
+
+![Image](/images/milestones/milestone-02.png)
+
 ### Overview
 With Object Containers it is now possible to split a level into separate game areas and load them into a level anytime. However, that functionality cant be utilized yet. Client Object Container Streaming (sometimes Client Side OCS or CSOCS or COCS) sets out to change that.
 
@@ -320,7 +368,7 @@ __Challenges:__
 * too many entities computed currently results in not enough CPU load available to help render the game
 * frame rate and performance on the client drops
 
-__Solution:__ Client Object Container Streaming, an Interest Management system, an intermediate step toward complete Object Container Streaming
+__Solution:__ Client Object Container Streaming, an intermediate step toward complete Object Container Streaming, also sometimes more generally known as (Area of) Interest Management
 
 __Goals:__
 
@@ -335,6 +383,7 @@ __Approach:__
 * the server notifies the player clients whenever the player clients should load objects
 * streaming entities in and out reduces the amount of entities that have to be computed by the client CPU
 * for far away entities, the server stops/skips network updates based on the entity's distance to the player to save client CPU usage (such features are generally called Interest Management, limiting the necessary information sent/simulated by that what interests the client)
+
 ### Initial Situation
 Without Client Object Container Streaming, all clients and the server have the entire level loaded. This means that all object have to be loaded from drive into memory on level start or when connecting to the server. The server CPU computes all objects/entities and sends state updates to the clients via messages over the network/internet. This leads to CPU usage on the player client being quite high because it receives information about all objects in the level as well as the CPU having to help prepare the next frame to be rendered as well.
 
@@ -343,6 +392,7 @@ The client is overloaded with too much information and the CPU cant help render 
 In the picture on the left, at the top, we can see that the entire level is loaded (white area is loaded). CPU (blue) and memory usage (orange) are quite high since all entities are loaded from drive into memory and being computed on the CPU.
 
 ![Image](/images/client_object_container_streaming/image-01.png)
+
 ### The Solution 1/2
 With Client Object Container Streaming, clients do not have to load the entire level anymore, only the nearby objects around them. This may be another player standing right in front of the player, the enemy space ship the player is shooting at, the space station in orbit, or the moon far away in the sky. Which objects are being loaded is determined by how far away and how large the object is, so that the moon in the sky will be computed and displayed but not the small players which are on that far away moon.
 
@@ -351,12 +401,14 @@ In the picture on the left, we now see that for each player client only the area
 __(Note:__ All percentages are purely for visualization, not real world performance statistics!)
 
 ![Image](/images/client_object_container_streaming/image-02.png)
+
 ### The Solution 2/2
 When a player moves around in the level, object containers behind/far away from the player can be being unloaded while object containers that are about to come 'into view in front' of the player are being loaded into memory (e.g other players, ships and items) (Note: "view" refers to objects all around the player, not just the objects directly in front where the player is currently looking at, since the players view can change rapidly, faster than data can be loaded from drive into RAM.) This requires communication between the client and the server where the server notifies the client to load objects via Object Container into memory.
 
 In the example on the left, the blue player (Client A) moved around in the level toward the red player. As the red player came into view, he was loaded into memory on the blue players computer and started receiving updates from the server to stay in sync. The same for the red player who loaded the blue player into memory and started computing him each tick.
 
 ![Image](/images/client_object_container_streaming/image-03.png)
+
 ### Multiple systems working together
 Since the client does not need to know about all entities that are on the server anymore, Client OCS and its functionality was initially referred to under the name Network Bind Culling (or Network LOD). Essentially the data on the client is culled via the network by the server. However, it seems as if Network Bind Culling is just one part of many that brought us the final Client OCS functionality. Here is a quick summary:
 
@@ -370,6 +422,7 @@ __Network Bind Culling:__ The previous features were only about limiting network
 
 With Client OCS, a player client is able to load and stay in sync with the entities on the server which are relevant to that specific client. Therefore, information on the client has been reduced, selected based on the object size and distance to the player in the level. More features, like loading these objects into memory in the background in other CPU threads as well as the Serialized Variables feature for efficient networking, accumulated in the final Client OCS feature.
 
+
 ### The streaming bubble
 The bubble doesnt actually exist as such. We are just using it to visualize more easily that stuff is loaded around the player. But in reality, whats loaded are the individual game objects.
 
@@ -380,6 +433,7 @@ But we might think of the bubble as the spatial query which determines which gam
 Therefore far away and/or small objects might not be loaded because those wouldnt be visible to the player anytime soon. Likewise, objects that are really large - like moons or planets -might still be loaded from far away. With Object Containers being nested, not all contents of a location need to be loaded all at once either. While the planet ArcCorp might be loaded already, the Area 18 city or parts of its interior might not be loaded yet as it is still too small. In a similar fashion, these small objects are unloaded first as well when a player departs and moves away from such location.
 
 ![Image](/images/client_object_container_streaming/image-04.png)
+
 ### Client OCS in-depth 1/5
 So how does the client load objects?
 
@@ -388,6 +442,7 @@ Afterall, the client cant simply use a level save file anymore to load entities,
 In our case, the red player client does not know about the blue player yet, because the blue player is on the other side of the level and too far away still. But, the blue player is traveling toward the red player's position. So lets see how this plays out.
 
 ![Image](/images/client_object_container_streaming/image-05.png)
+
 ### Client OCS in-depth 2/5
 Once an object moves close enough to a player, the server notices this and considers it relevant for that specific player client. Again, this also takes into account the size of the object, not just the distance to the player. Once identified, the server makes use of Object Containers to communicate it to the client.
 
@@ -396,6 +451,7 @@ Both the client and the server have the same list of Object Containers and each 
 This reduces the network bandwidth required while playing the game. Sending only the identifier of an Object Container means that the server does not have to send the actual Object Container itself nor any resources associated with the Object Container. Resources like textures, geometry, sounds, etc. are all downloaded onto the player's drive while downloading and patching the game. That is also the time when the list of Object Containers is downloaded.
 
 ![Image](/images/client_object_container_streaming/image-06.png)
+
 ### Client OCS in-depth 3/5
 Once the player client receives the network packet, it will use the ID to look up the Object Container its own list of Object Containers. In this case, it will find the player character object. This Object Container acts as a blueprint to spawn new player characters from. So all player characters are spawned from the same Object Container.
 
@@ -406,6 +462,7 @@ Even tho the blue player character is now loaded, the character might not be sho
 Of course, in our example, this same process is also happening for the client of the blue player. It needs to load the red player into its memory and is notified in the same way. However, we don't show the blue client in the example.
 
 ![Image](/images/client_object_container_streaming/image-07.png)
+
 ### Client OCS in-depth 4/5
 Once the blue player moves even closer to the red player, the server notices this again. This time it sends the entire entity state of the blue player as a so called Entity Snapshot to the client.
 
@@ -414,6 +471,7 @@ When the red client receives it, it is used to properly position and initialize 
 __Note:__ The player client loads and receives state updates prior to when they would start moving into actual view on screen.
 
 ![Image](/images/client_object_container_streaming/image-08.png)
+
 ### Client OCS in-depth 5/5
 Since the Entity Snapshot syncs up the entity, the game server can send - on the next and subsequent game ticks - the entity state updates to the client, like it would have done in any traditional client-server architecture without OCS.
 
@@ -422,12 +480,16 @@ This continues until one of the player exits the game or moves far away again an
 Even if network updates were stopped once, entities can move in and out of 'networking distance' again multiple times. If the object didn't move too far away yet, then it might still reside in memory and doesn't have to be loaded again. A new Entity Snapshot is being send each time networking starts up again. But once an object is continuously networked the server only sends values which change based on the networking policies of the Serialized Variables software system.
 
 ![Image](/images/client_object_container_streaming/image-09.png)
+
 ### Summary
 Client OCS now provides each client a partial view into the entire level on the server. The server has to lift the majority of the work by letting each client know which objects to load from its drive into memory so that the client CPU can start receiving the entity updates from the server and have entities stay in sync with the equivalent entity on the server. (Speculation: It is likely that the client itself decides when to unload objects from memory based on its available RAM capacity.) The server figures out when a client needs to load and receive state updates. Whenever that is the case, the server communicates that to the client. Therefore, Client OCS put some additional load onto the server, to allow for a significant computation reduction and performance on the client.
 
 This technology allowed CIG to improve performance for players significantly, because the amount of entities that had to be computed on the client was drastically reduced, thus the computation time for each game tick reduced. That also left the CPU with more time to help render more frames. The addition of multi-threaded loading and unloading of entities also reduced a ton of freezes and stutters. Client OCS allowed more objects like planets and their locations to be added into the Stanton solar system level (and more solar systems in general) without putting more load onto the player client.
 
 # Server Object Container Streaming
+
+![Image](/images/milestones/milestone-02.png)
+
 ### Overview
 With Client Object Container Streaming (COCS) we have improved the performance and memory requirements on the client side which improved the performance for the players noticeably. On the server, we can now increase the level size by adding more objects into the level, for example more areas like planets and locations without effecting the performance on the client as much as it did.
 
@@ -451,6 +513,7 @@ __Approach:__
 * Serialize entities via Serialized Variables and stream/save/load entity data into and out of a database (pCache, later iCache) to free up memory, thus the server only has a portion of the entire database loaded
 * Thus only load the level areas where players are nearby to reduce the memory consumption
 * With certain areas of the level not loaded, the amount of entities that have to be computed on the CPU is being reduced and performance does not deteriorate on the server anymore
+
 ### Example - Initial Situation
 With the implementation of Client OCS, we have reduced the memory and CPU load for the clients. However, the server still has to have all areas loaded into memory and all entities in those areas (like NPCs and players) computed each game tick, whether there are players in that area or not. That uses valuable memory and CPU computation time. This prevented the addition of new planets and locations since the server would exceed its memory capacity and CPU load.
 
@@ -459,6 +522,7 @@ The idea to solve this is simple: Implement the same Object Container Streaming 
 The difficulty here is, that the server defines the "ground truth", the universal state, for all the clients. Therefore, the server has to make sure that it has loaded all objects around players itself first, before being able to load and communicate state changes of those objects on/to the clients.
 
 ![Image](/images/server_object_container_streaming/image-01.png)
+
 ### Example - The Solution
 With Server OCS being implemented, the server too now only loads the areas with players in them. When players move around the level, the server dynamically loads the level in front of the player and unloads the level behind the player (if there are no other players in that area already/anymore, that is). CPU and memory loads are now reduced on the server, allowing more objects to be added into the level again. The server sends periodic queries to a database to check if objects around players are about to come into view. If that is the case the server will lookup the Object Container identifier of those objects and load the object into its memory.
 
@@ -467,12 +531,14 @@ This technology allowed CIG to add more planets and moons of the Stanton system 
 Unfortunately, Server OCS did not increase the player count of servers. Most computation intensive areas (like landing zones) were always populated by players and thus are usually never unloaded. Load was still high on the servers. Therefore, CIG had to decide between more players or more content. They went with more content.
 
 ![Image](/images/server_object_container_streaming/image-02.png)
+
 ### Summary and Future Features 1/2
 While Client OCS allowed clients to have a partial view into the level of the server, Server OCS now allows the server to have a partial view into the entire level. The entire level is now stored in a database on the server drive (and later into the large database at first pCache, then the new horizontally scalable EntityGraph).
 
 The server now does not have to load the entire level anymore, only select parts of it. Thus, even if the level size increases into hundreds of GBs (or even terabytes) in the database, it only needs to load a couple GB of it into memory at all times.
 
 Additionally, Server OCS will also be used for the Squadron 42 singleplayer game to load and unload objects on demand. A local database (EntityGraph) running on our computer along side the game, will act as the game save files by serializing the game objects from memory onto the drive and then loading it again from the drive into memory via Server OCS.
+
 
 ### Summary and Future Features 2/2
 With the first version of Server OCS, whenever an area of a level is unloaded onto the drive/database, the entities in those areas wont be computed in the game loop anymore, thus no changes are occurring. Essentially, that specific section of the world is frozen in time until a player moves back into that area again. That is not ideal in a simulated, immersive and economy driven universe.
@@ -482,6 +548,9 @@ To solve this, in the future, another server/service will take those unloaded ar
 Another major future feature of Server OCS relying on Full Persistence as well will be Server Recovery. Once all states of all entities are continuously persisted into a database it becomes possible to recover a server after a crash. If a crash happens, a new server can be started in its place, the database provides the information about the entities that were present on the server at the time of the crash, load those entities back into memory via Server OCS and connect the player clients back to the server again. Therefore, in case of a server crash, players would only have to experience a couple seconds of interruption and barely any loss of progress in the game before being able to continue playing the game again where they left off.
 
 # Persistent Entity Streaming
+
+![Image](/images/milestones/milestone-03.png)
+
 ### Challenges:
 * With the vision of eventually all items physically present and stored in the game world, with physicalized damage and degradation, with thousands of NPCs going about their lifes, with thousands of dynamic missions and events generated by AI and players, with a fully simulated economy, all in a potential single-shard server mesh, all the game information needs to be persisted into databases and then accessed by and networked between the game servers and clients in real-time, requiring an architecture that is able to handle high amounts of data.
 
@@ -509,6 +578,7 @@ __Approach:__
 * The initial persistence solution was attempted with a relational database, which, after internal testing, didnt live up to performance and latency requirements. So, a switch to a graph database and the Replication Layer service commenced end of 2020/early 2021.
 * A first version comes online with the Replication Layer and EntityGraph in Alpha 3.18.
 * Moving the Replication Layer out of the game server and onto its own server is the next step toward Server Meshing.
+
 ### EntityGraph & Global Database & EntityGraph service
 For persistence to work, the game data needs to be stored outside of the game servers. Databases are generally used for such a task, because data can be saved to them and later retrived/queried.
 
@@ -536,6 +606,7 @@ __Global Database:__
 * There only exists one Global Database for all game worlds (notice its name containing 'global').
 * This allows ships and inventory contents to be accessible from every game world.
 * Even if players change to another game world, their stuff will still be available in that game world as well.
+
 ### EntityGraph 1/4 - Graph database
 EntityGraph is a graph database and is the successor and replacement for the pCache, introduced with Server OCS.
 
@@ -547,12 +618,14 @@ When a new entity is spawned, a new node containing the state of the entity is e
 
 ![Image](/images/persistent_entity_streaming/image-01.png)
 ![Image](/images/persistent_entity_streaming/image-02.png)
+
 ### INTERMISSION: Database Sharding & Replication 1/3
 In terms of storage space, a single database might be able to store the entire universe data. But, in terms of processing power, when one day having to serve dozens or hundreds of game servers, it most definitely cant keep up. Too many read and write requests would hit a single database server. Just like game servers, databases have limited computing power. The solution? Splitting up the persisted data and then distributing the load by horizontally scaling the database across multiple database servers.
 
 ![Image](/images/persistent_entity_streaming/image-03.png)
 ![Image](/images/persistent_entity_streaming/image-04.png)
 ![Image](/images/persistent_entity_streaming/image-05.png)
+
 ### INTERMISSION: Database Sharding & Replication 2/3
 For example, the data of each planetary system could be its own Database Shard sitting on its own server. These sub-sets can be created through a sharding key and chunks. With these techniques, a router service is able to determine, in which sub-set and thus database shard a specific piece of data is being read from and written to. Therefore, the (also horizontally scalable) router service makes sure that the read and write requests reach the correct database shard. These router lookups are fast operations compared to the actual queries on the DB shards, so dont add a lot of latency.
 
@@ -562,6 +635,7 @@ EntityGraph uses the common 'Database Sharding' technique. Instead of one databa
 
 ![Image](/images/persistent_entity_streaming/image-06.png)
 ![Image](/images/persistent_entity_streaming/image-07.png)
+
 ### INTERMISSION: Database Sharding & Replication 3/3
 But what would happen if one such database shard crashes or is not reachable? To minimize the loss of data and increase fault tolerance and service availability, EntityGraph also makes use of Database Replication. A data sub-set does not exist on just one database shard, but across additional database shards, which are called Replicas. With this, the same data exist as copies on multiple database servers at once (also known as Data Redundancy). These Replicas can be used to make queries against and loaded from, allowing more requests to hit the EntityGraph.
 
@@ -570,6 +644,7 @@ This also enables database crash recovery functionality: If one database shard g
 Going forward we will show and talk about EntityGraph as if it is just one database server. But remember, especially once game worlds are simulated by multiple game servers, that each game world will have its own EntityGraph (collection), consisting of many database shards and router services. (Or - speculated - each game world has its own separate collection in one large EntityGraph database.)
 
 ![Image](/images/persistent_entity_streaming/image-08.png)
+
 ### EntityGraph 2/4 - Another database: The Global Database
 Alongside the graph databases, there exist another database: The Global Database. But why another database? Why the need for two databases?
 
@@ -578,6 +653,7 @@ The reason for this is that each game world has its own state. And this state is
 In comparison, the Global Database allows specific data to be made available to all game worlds. Therefore there exists only one Global Database for all game worlds, in contrast to one EntityGraph database for each game world. This is required for player ships, all items on the player character or inventories in general, which should be available in the same state, independent on which server the player is currently playing on.
 
 The Global Database stores data related to Reputation, Currency (aUEC) and - most interesting here - Stowed Items. Items are interesting because they can be persisted in either the EntityGraph or the Global Database, depending if they are stowed or unstowed. We have a deeper look about items on the next slide.
+
 
 ### EntityGraph 3/4 - "Entity-Graph service"
 Last but not least, besides the two shiny new databases, we also have a new scalable service specifically for facilitating persistence. These new services sit in front of the two databases and allow query requests to be sent from other services/servers that need to access their data. Because some write requests expect changes to be made to both databases as part of one transaction (see Stow & Unstow feature on the next slide), the services handles and relays the appropriate database queries to the databases.
@@ -589,6 +665,7 @@ __Note:__ In a followup patch to Alpha 3.18, CIG did introduce caching for Globa
 __Note:__ It seems "EntityGraph" can refer to the whole persistence backend solution, just the persistence services, the graph database or even the Global Database/Global Persistence. Confusing, I know.
 
 ![Image](/images/persistent_entity_streaming/image-09.png)
+
 ### EntityGraph 4/4 - The Stow & Unstow Feature
 The Global Database and Stowed Items are important in the context of Persistent Entity Streaming. Even though the goal is a single game world, a "Single Shard", until Server Meshing provides the performance for it, there will still exist multiple game worlds in parallel. Therefore, initially players have to be able to move between game worlds, determined by matchmaking, whenever players log-out and back in. In this case, the player items need to move with our player characters between game worlds. The Global Database enables this capability and makes our data accessible to all game worlds.
 
@@ -600,6 +677,7 @@ For this, the architecture now differentiates between stowed and unstowed items:
 Therefore, whenever items are moved into an inventory, its EntityGraph node (e.g. Gun #9001 in the image) is removed from the EntityGraph database and a new entry is created into the Global Database (e.g. into the Inventory of Box #123). If an item is taken out of an inventory or a ship is spawned, then it is removed from the Global Database and a new node is created in the EntityGraph (an edge as well). All items stay unique.
 
 ![Image](/images/persistent_entity_streaming/image-10.png)
+
 ### The Replication Layer 1/2 - Rollout
 But PES does not just consist of databases. While, Persistent Entity Streaming feature came online in Alpha 3.18, the groundwork had been layed since at least Alpha 3.13/3.14, where code has been moved around in the game server code to prepare for the Replication Layer. We will talk more about this Replication Layer in a lot more detail in the upcoming Server Meshing topic. For now, all we need to know is, that a lot of the OCS and PES code has been moved into this Replication Layer, with the purpose of being able to move it out and onto its own server later.
 
@@ -610,6 +688,7 @@ In Alpha 3.17, the Replication Layer now copies parts of the game world into its
 And then, in Alpha 3.18, the EntityGraph database came online and with it, PES and the persistence of most ingame items/entities. The Replication Layer was setup to both read and write to the EntityGraph database and the Global Database.
 
 ![Image](/images/persistent_entity_streaming/image-11.png)
+
 ### The Replication Layer 2/2 - Migration onto its own server
 After PES released in Alpha 3.18, the next step in the plan was to move the Replication Layer out of the game server and onto its own, separate server.
 
@@ -620,6 +699,7 @@ Once the Replication Layer is moved out of the game server, it is sometimes also
 This shows that Persistent Entity Streaming and Server Meshing are two tightly coupled features and were developed alongside each other. We will go into more detail about the Replication Layer/Hybrid service and the Server Meshing architecture as a whole in the next major topics.
 
 ![Image](/images/persistent_entity_streaming/image-12.png)
+
 ### Service Migration & Economy Simulation
 Last but not least, a lot of additional work was done toward Server Meshing in order to allow multiple game servers to share and access the same data of the game world. Many more - here unnamed - services had to be created, some with entirely new functionality, others with existing logic which had to be moved out of the game server code into own services (e.g. the ATC logic responsible for having players and NPC make request and being assigned a free hangar/landing pad).
 
@@ -627,23 +707,10 @@ Similarly, data which is generated from the Economy Simulation will also be made
 
 Have a look at the "Service Migration & Creation" minor tech slide for more information.
 
-### Recap of major tech features releasing
-* Timeline of major tech in patches:
-* Alpha 2.6 Object Containers (preview/feature parity)
-* Alpha 3.0 Object Containers, Entity Components, 64bit coordidnates, Zone System, planet tech, new render pipeline, and many more (Full Engine Rework)
-* Alpha 3.3 Client OCS
-* Alpha 3.8 Server OCS
-* Alpha 3.8.2 Long Term Persistence DB (later reworked into the Global DB), less wipes between patches
-* Alpha 3.13/3.14 Preparations for the Replication Layer in the game server code
-* Alpha 3.15 Release of the Global Database, Global Persistence and Physicalized Items and Inventory (uses RL to make backend DB calls)
-* Alpha 3.17 Entity State Networking through the Replication Layer (networking part of OCS moved into RL)
-* Alpha 3.18 Gen12 + EntityGraph Database + OC Loading via Replication Layer (+cache for Global DB queries in EntityGraph services, all of OCS in RL)
-* Alpha 3.23 Replication Layer moved out of the game server into its own server (Hybrid Service)
-* Tech Channel Previews 2024: Static Server Meshing
-* Alpha 3.24 Replication Message Queue Refactor
-* Alpha 4.0 Static Server Meshing and Pyro
-* Alpha 4.X Dynamic Server Meshing V1
 # Static Server Meshing
+
+![Image](/images/milestones/milestone-04.png)
+
 ### Overview
 After the first version of Client OCS was released, work on Server Meshing could finally begin.
 
@@ -652,7 +719,7 @@ __Challenges:__
 * A single game server is still overloaded with the amount of players/entities, and adding more increases CPU load even more.
 * Using better server hardware isnt a scalable enough option, so we need to make game servers horizontally scalable instead.
 
-__Solution:__ Static Server Meshing, a first version and intermediate step toward the planned Dynamic Server Meshing implementation
+__Solution:__ Static Server Meshing a first version of and intermediate step toward the planned Dynamic Server Meshing implementation, introduces distributed computation/simulation (released in Alpha 4.0)
 
 __Goals:__
 
@@ -678,7 +745,8 @@ __Approach:__
 * These sections limit the area a game server can have authority over.
 * The area of these sections stays fixed/static, as well as the amount of game servers that compute the same game world stays fixed.
 * Design for Server Meshing was changed end of 2020/early 2021 to utilize the Replication Layer as a 'middle man' service (instead of using direct server-to-server communication which may have failed to provide the required performance).
-* The first version might only come online with at least one game server per solar system and Authority Transfers would happen inside the JumpPoints.
+* The first version released as part of the Alpha 4.0 Preview together with Pyro. Each solar system was split and run by 5 game servers for a total of 10 game servers for 500 players.
+
 ### Initial Situation
 With the first versions of Object Container Streaming (OCS) for both client and server done, we are finally able to move onto the initial goal: Server Meshing. Even with the OCS software systems in place, it is not possible to increase the player count to thousand of players nor add tens of thousands of objects into the game world to make 100+ detailed solar systems a reality. A single game server alone is simply not powerful enough.
 
@@ -687,6 +755,7 @@ Since the software technology that is Server Meshing is very complex, it is to b
 This should theoretically allow AI improvements, gameplay mechanics and more solar systems and locations as well as slightly higher player counts to be added to the game sooner, even before work on the final Dynamic Server Meshing implementation would be completed. We will talk more about the different versions shortly.
 
 ![Image](/images/static_server_meshing/image-01.png)
+
 ### A simpler visual abstraction for game servers and clients
 Since we are now entering the topic of Server Meshing, we need to represent the network connections of servers and clients in a more simplified fashion.
 
@@ -695,6 +764,7 @@ The left half of the picture shows the server at the top and the connected playe
 The right half the picture shows our new simplified version. We now represent the game servers as rectangles and player clients as circles. Since each server and client is unique, we will sometimes identify them with numbers (and colors in the case of the player clients).
 
 ![Image](/images/static_server_meshing/image-02.png)
+
 ### Game Worlds and Game Servers
 So far, each game world was simulated by a single game server (also sometimes called Dedicated Game Server or DGS).
 
@@ -705,6 +775,7 @@ All these game worlds/universes create a "multiverse". We can see this multivers
 The main downside is that each DGS currently simulates it's entire game world and thus only supports a limited amount of entities, only up to 50 players and after some time ends up being under heavy load from all the loaded entities. Which makes player interactions rather rare and limited.
 
 ![Image](/images/static_server_meshing/image-03.png)
+
 ### Endgoal of a Single Game World
 Therefore, the ideal end goal is to have all players in the same game world. Thus, can meet up, see and interact with each other freely. With only one game world, there would only be one universe and no "multiverse" anymore.
 
@@ -717,6 +788,7 @@ Under Server Meshing, a game world is referred to as a Shard, a term coined by t
 However, while this is the end goal, for this single Shard/Game World to work it might require a very mature Dynamic Server Meshing implementation and capable lag compensation netcode. Until then - before all DGS are computing one and the same game world - we will have multiple intermediary versions of Server Meshing. In those versions, we will continue to have multiple game worlds (and thus still a multiverse).
 
 ![Image](/images/static_server_meshing/image-04.png)
+
 ### Intermediate steps
 Over time and across many patches, the amount of game servers per Shard is going to to be increased. And in turn the number of entities (more locations with more items) and players per Shards can be increased as well. Fewer and fewer Shards will be required, until potentially - one day - a single Shard consists of enough DGS so that it can handle the load of all players (of a region/continent or world-wide).
 
@@ -727,6 +799,7 @@ However the difference - even in the intermediate Server Meshing versions - is t
 Once a game world is computed by more than one game server, we refer to that game world as a "Shard". This helps us differentiate the game worlds being simulated by multiple meshed DGS, from the game worlds running on a single DGS ('game world instances' vs 'game world shards'). Each Shard will still be its own SC universe, with its own Stanton, Pyro, Nyx, ect. but do share the same economy from the StarSim Simulator.
 
 ![Image](/images/static_server_meshing/image-05.png)
+
 ### Shard Transitions vs Entity Authority & State Replication
 There are going to be different types of transfers happening under Server Meshing. Lets have a quick look at each one:
 
@@ -735,6 +808,7 @@ There are going to be different types of transfers happening under Server Meshin
 * There is also Entity State Replication, which could be seen as the transfer of entity state and actions. Here, entity state is send to different machines, such as player clients, the EntityGraph database and other game servers (more on this later). Like Entity Authority Transfers, the replication of state occurs only within the same shard. Sending this state is very frequent and can happen multiple times a second, sometimes on each game tick. Serialized Variables and OCS optimize this.
 
 ![Image](/images/static_server_meshing/image-06.png)
+
 ### Major and Minor versions of Server Meshing
 In the very first version of Server Meshing, each Game World (Universe/Shard) will mostly likely only be computed by a few game servers. Mainly to be able to test the functionality in a simple and controlled environment.
 
@@ -754,6 +828,7 @@ Dynamic Server Meshing
 * The name "dynamic" also means that the amount of server nodes can increase and decrease, besides the entities a game server is simulating changed on-demand anytime. The game world can be split up differently while we are playing the game.
 * All of this is done programmatically, meaning that - for each Shard - an algorithm is monitoring the performance on all of its game servers and then tries to optimally distribute the load across those game servers. More game servers can be spun up or existing, underutilized ones shutdown.
 * There will also be multiple minor versions of Dynamic Server Meshing, each increasing the number of game servers per Shard, until eventually all players of a geographical region (EU; US, etc.) fit into one single regional Shard, maybe even all players world-wide into a single word-wide Shard.
+
 ### Entity Authority & Authority Transfers 1/8
 (Static) Server Meshing splits the level into multiple sections to simulate each one on its own server. For example, the Stanton solar system could be split in half. Then two game servers could compute two planets each.
 
@@ -765,6 +840,7 @@ We are going to explore the concepts of Server Meshing by following the journey 
 
 ![Image](/images/static_server_meshing/image-07.png)
 ![Image](/images/static_server_meshing/image-08.png)
+
 ### Entity Authority & Authority Transfers 2/8
 In our example, we will have our three players again, just like we did in our previous examples for Client and Server OCS. The difference is that we now have two game servers instead of just one.
 
@@ -773,6 +849,7 @@ We don't show the clients anymore, but remember that loading and networking via 
 We can see the split in the level by the green and red boxes. Players Red and Green are busy on the second game server (green box). Meanwhile, player Blue is loading cargo on the first game server (red box). We can see that the servers don't load the entire game world anymore - even if there are players - and instead only focus on their box/section. However, that might not be entirely accurate.
 
 ![Image](/images/static_server_meshing/image-09.png)
+
 ### Entity Authority & Authority Transfers 3/8
 __Speculated:__ To make server handoffs smooth and seamless, there might be an area at the borders in which game servers overlap slightly, meaning both servers load the same entities into memory. Therefore, we have updated the boxes to also overlap. The authority transfer might still happen at a fixed boundary tho.
 
@@ -783,6 +860,7 @@ When a game server simulates an entity, then we say that this game server has au
 For now, let us see what happens, when the Blue player (now red to signify that game server 1 has authority and simulates it) is about to transport cargo from Microtech on Server S1 to Hurston on Server S2.
 
 ![Image](/images/static_server_meshing/image-10.png)
+
 ### Entity Authority & Authority Transfers 4/8
 Once the blue player starts quantum traveling, Server OCS will continue loading and unloading the game world around the players. However, game servers are now limited, in what they can load and can have authority over, to their box. Once the Blue player closes in on the section/box of the server 2, the server will start to load the game world.
 
@@ -791,6 +869,7 @@ This implies multiple game servers may have the same game objects loaded into th
 __Speculated:__ How this is going to work exactly is still unclear. Even tho we show that game server 2 would gradually load the game world while the player approaches its section, it might be that a server only starts loading an area once the player entered its section.
 
 ![Image](/images/static_server_meshing/image-11.png)
+
 ### Entity Authority & Authority Transfers 5/8
 The Blue player continues to travel through the level and now the player entity is in the overlapping section. Server OCS continues to do its job and now the player entity is loaded into the memory of both game servers.
 
@@ -799,6 +878,7 @@ At this point, game server 1 starts sending entity state changes of the blue pla
 It is important to note that game server 1 still has authority over the Blue player. But it is in this overlapping area (or at the zone/box border) that authority can be handed off to another game server. When a handoff occurs, authority is taken away from game server 1 and given to game server 2. We will see on the next slide that the color of player Blue will turn green.
 
 ![Image](/images/static_server_meshing/image-12.png)
+
 ### Entity Authority & Authority Transfers 6/8
 The Hybrid service and its Atlas component is responsible for assigning authority to game servers and decides when authority is transferred between game servers. In the first version of Server Meshing, transfers will only happen in deep space somewhere between planets, but the dynamic versions it is supposed to have that happen anywhere anytime.
 
@@ -807,12 +887,14 @@ Only one game server can have authority over an entity at a time, never more. Ho
 As we can see, authority of the Blue player was handed off to game server 2 and we changed to colors to green accordingly. Game server 1 does not simulate the Blue player anymore and instead receives the client view from game server 2.
 
 ![Image](/images/static_server_meshing/image-13.png)
+
 ### Entity Authority & Authority Transfers 7/8
 The Blue player continues their journey, now simulated by the second game server. Server OCS continues to load and unload the game world accordingly on both game servers. However, the decision making (what needs to be loaded) is not done by the game servers individually anymore and instead the Hybrid service figures out which Object Containers have to be loaded on which game server (and clients as well for Client OCS).
 
 For this, the Hybrid services/Replication Layer makes requests to the EntityGraph database and loads the game world - around the players - into its own memory/cache. That is why we can think of the level shown on the left in our example as the Hybrid service. However, the Hybrid service does not simulate anything. That is the responsibility of the game servers. But we can think of the Hybrid service as having client views of all entities on the game servers.
 
 ![Image](/images/static_server_meshing/image-14.png)
+
 ### Entity Authority & Authority Transfers 8/8
 In our example, the Blue player has now arrived at Hurston and starts selling his cargo for a profit.
 
@@ -823,14 +905,14 @@ Empty of half full game servers are underutilized (costing as much to rent as ga
 These downsides will be overcome with Dynamic Server Meshing, where game servers can be spun up and shutdown on-demand and where the green and red boxes do not exist anymore. There, this "area limitation on Entity Authority" - by assigning sections of the game world to specific game servers - wont exists anymore. Instead, authority will be much more fluid and game servers can follow its players and keep authority over them wherever they go. We will explore this in the Dynamic Server Meshing topic tho. For now lets have a deeper look at the Hybrid service.
 
 ![Image](/images/static_server_meshing/image-15.png)
+
 ### INTERMISSION: State Replication to Game Servers (Client Views for Game Servers)
 When game servers overlap in the virtual space, they load the same entities into their memory. This is what Server OCS does. Since only one game server can have authority over an entity at a given point in time, the Hybrid service can decide to send state updates to other game servers which do not have authority over that entity. This is the same or similar entity state data which the player clients receive. Which is why CIG initially explained it as "client views for game servers".
 
 This way game servers can let each other know what's going on and keep entities synchronized on multiple game servers. This can then be used for those seamless authority transfers between game servers.
 
-__Speculated:__ For collision checks between two entities on different game servers there might have to be a consensus reached by the game servers or decided by the Hybrid/Replicant service.
-
 ![Image](/images/static_server_meshing/image-16.png)
+
 ### Entity Zones - Game World splitting via the ZoneSystem 1/2
 To understand how Entity Authority and Authority Transfers will work, we also need to talk about Entity Zones. In order to have different server nodes of a Shard compute different sections of the game world, there needs to be logic that splits that Game World into such sections. These in-game sections are referred to as Entity Zones (speculated: sometimes called Territories).
 
@@ -843,6 +925,7 @@ Without Server Meshing, the entire Game World can be thought of to be just one s
 ![Image](/images/static_server_meshing/image-17.png)
 ![Image](/images/static_server_meshing/image-18.png)
 ![Image](/images/static_server_meshing/image-19.png)
+
 ### Entity Zones - Game World splitting via the ZoneSystem 2/2
 As Zones can be nested (e.g. a landing zone on a planet or a vehicle inside a spaceship and the spaceship inside a hangar on a planet), a tree data structure of Zones emerges. Such a tree data structure can be split into multiple sub-trees.
 
@@ -851,6 +934,7 @@ One such sub-tree could then be computed by one server node. Sub-trees themselve
 ![Image](/images/static_server_meshing/image-20.png)
 ![Image](/images/static_server_meshing/image-21.png)
 ![Image](/images/static_server_meshing/image-22.png)
+
 ### Humble Beginnings - The Hybrid Service 1/3
 The Hybrid is a service and the initial heart of Server Meshing.
 
@@ -863,6 +947,7 @@ Using a mediator service like this - which sits between everything - makes it ea
 When the Hybrid first comes online, it will only feature a single server node to test it. Once this new infrastructure is working, more server nodes are added and Server Meshing comes online.
 
 ![Image](/images/static_server_meshing/image-23.png)
+
 ### Humble Beginnings - The Hybrid Service 2/3
 The Hybrid service itself actually consists of multiple components, each one with its own functionality that is vital to bring Server Meshing online. Some of that functionality had already come online with the Replication Layer. The components that we know of so far are:
 
@@ -887,6 +972,7 @@ Scribe
 This is just a quick overview. These services have been talked about in lots more detail in their own Minor Tech slides. But, we are still going to drill down on the Replicant and Gateway components, as these play key roles in Server Meshing. More types of services have been teased but not elaborated on yet.
 
 ![Image](/images/static_server_meshing/image-24.png)
+
 ### Humble Beginnings - The Hybrid Service 3/3
 However, the plan is to eventually move all these components out of the Hybrid to have them be their own services, running on their own servers. Once all components have been taken out, the obsolete Hybrid service will then be removed. This work is done when working on/toward Dynamic Server Meshing, after Static Server Meshing has released.
 
@@ -895,6 +981,7 @@ The individual service types are going to be horizontally scalable, meaning that
 But - because the Shards for the very first versions of Server Meshing are still going to be very small (few server nodes and player clients) - a need for many services is not there yet. To bring Server Meshing online, have its functionality tested and made robust, a smaller, more manageable environment with a single Hybrid service is much more suitable. The infrastructure complexity and its overhead is minimal and the focus can be on maturing the functionality itself. Once that is working fine, the components will be turned into services and scaled up.
 
 ![Image](/images/static_server_meshing/image-25.png)
+
 ### Replicant & Gateway - The Deeper Look
 The Replicant & Gateway are components of the Hybrid service. However, not all of their code is new. Parts of their functionality already existed as OCS and PES functionality.
 
@@ -904,6 +991,7 @@ And PES moved and grouped that logic as part of the Replication Layer.
 
 For Server Meshing, that logic is now moved into the Hybrid service as part of the Replicant and Gateway components. And for later versions later moved out again, onto their own servers, to make those horizontally scalable and shards larger.
 
+
 ### Clients partially looking into multiple server nodes
 All entities in the game world are persisted in the EntityGraph database which can be accessed by the Hybrid service (aka Replication Layer or Replicant).
 
@@ -911,6 +999,9 @@ The image on the right visualizes OCS under Server Meshing very well. Specifical
 
 ![Image](/images/static_server_meshing/image-26.png)
 # Dynamic Server Meshing
+
+![Image](/images/milestones/milestone-04.png)
+
 ### Overview
 With splitting the game world and its simulation with Entity Authority, the next step is to make this solution dynamic for better scalability.
 
@@ -919,7 +1010,7 @@ __Challenges:__
 * while the individual servers are now less likely to hit their memory and CPU load capacities, the issue of too many players being in the same section of the game world, and thus on the same game server, still exists
 * one solution would be to make the sections of all game servers very small, so that each one only has very few locations and spaces to compute. However, this increases server expenses and potentially to a lot of unoptimally used servers.
 
-__Solution:__ Dynamic Server Meshing
+__Solution:__ Dynamic Server Meshing, dynamically distributing the simulation through load balancing
 
 __Goals:__
 
@@ -935,6 +1026,8 @@ __Approach:__
 * An algorithm/heuristic is introduced, which continuously monitors the computational load in the game world and decides for an optimal distribution of the computational resources (servers), by moving entities and their authority from an overloaded game servers to a underutilized game server.
 * Whenever a Shard becomes too crowded/overloaded, an additional game server is spun up to provide more computational power. Likewise, game servers can be shutdown, if there is not much load. Less servers rented, more cost-efficient Shards.
 * Break up the Hybrid service into smaller horizontally scalable services to allow for larger meshes/shards.
+* "In May 2025, the Network team continued work on Dynamic Server Meshing, separating the DGS assignment from the territory manager."
+
 ### Features of Dynamic Server Meshing
 The Dynamic Server Meshing (DSM) feature itself can be thought of as multiple sub-features and iterations.
 
@@ -946,6 +1039,7 @@ The Dynamic Server Meshing (DSM) feature itself can be thought of as multiple su
 
 Some of these features have to come online before others do, so it is likely that not all of these features come online all at once, and instead get rolled out over multiple patches.
 
+
 ### Entity Zones - Dynamic Game World Splitting 1/2
 As we have seen in Static Server Meshing, we are already able to split the game world using Entity Zones (see the images). However, these Zones would be assigned to game servers only at initial startup and setup of a shard and would stay fixed after that. This is one of the aspects that is going to be made dynamic now.
 
@@ -956,6 +1050,7 @@ As an example, lets assume there had been a lot of players at the spacestation i
 ![Image](/images/dynamic_server_meshing/image-01.png)
 ![Image](/images/dynamic_server_meshing/image-02.png)
 ![Image](/images/dynamic_server_meshing/image-03.png)
+
 ### Entity Zones - Dynamic Game World Splitting 2/2
 Under Dynamic Server Meshing, we can avoid overloaded and underutilized game servers by re-assigning Entity Zones to another game servers. In our case, it could decide that the red game servers is also going to simulate two Zones of the planet which were previously simulated by the blue game server. This way, the blue game server isnt overloaded and the red game server isnt underutilized.
 
@@ -966,6 +1061,7 @@ __Note:__ If more players were to join the shard and all game servers are alread
 ![Image](/images/dynamic_server_meshing/image-04.png)
 ![Image](/images/dynamic_server_meshing/image-05.png)
 ![Image](/images/dynamic_server_meshing/image-06.png)
+
 ### Dynamic Server Meshing Version 2 1/2
 What we saw in the previous slides is just the first version of Dynamic Server Meshing. Once this works well, it will be expanded upon, because there are some ingame scenarios that may not work well with this solution. Mainly if many player meet up in a single zone. Especially in mid- to large-sized zones.
 
@@ -976,6 +1072,7 @@ To solve that we will have to make room for another game server.
 ![Image](/images/dynamic_server_meshing/image-07.png)
 ![Image](/images/dynamic_server_meshing/image-08.png)
 ![Image](/images/dynamic_server_meshing/image-09.png)
+
 ### Dynamic Server Meshing Version 2 2/2
 We do that by splitting a single zone into even smaller sections, which have been called "simulation islands". This way a big zone can then be assigned to multiple game servers again, sharing the load.
 
@@ -986,42 +1083,50 @@ __Note:__ It is still unclear if individual entities can be group up into such a
 ![Image](/images/dynamic_server_meshing/image-10.png)
 ![Image](/images/dynamic_server_meshing/image-11.png)
 ![Image](/images/dynamic_server_meshing/image-12.png)
+
 ### Free roaming of entities
 Under Dynamic Server Meshing, most of the core logic of Static Server Meshing will stay intact. It is merely iterated and improved upon to be able to achieve larger Shards with more players and entities in them, while also managing the real world economical side of renting just the necessary/optimal amount of game servers. This is done by scaling the number of game servers and other services (Replicants and Gateway services) to the optimal amount based on ingame load.
 
 For simplicity reasons (and because I felt lazy :D), we have removed the red and green boxes in the image below. The functionalities of Entity Authority, Authority Transfers, Entity Zones and 'client views' between game servers still exist and continue to be utilized, even tho we dont show it here.
 
 ![Image](/images/dynamic_server_meshing/image-13.png)
+
 ### Free roaming of entities
 Without being tied to just one area anymore, game servers are now able to load any area of the game world and be assigned authority over the entities within those areas (and unload and unassigned of areas they leave behind). The game servers can follow their authorized players wherever they travel to. They load the area and will be assigned authority over it; if no other game server has been assigned authority already, that is.
 
 In the example, the players of the green game server spread out in the level and their game server followed them. No authority handoffs to the red game server were performed.
 
 ![Image](/images/dynamic_server_meshing/image-14.png)
+
 ### Free roaming of entities
 When players from different game servers meet up in the same location and the game servers "overlap", then they will load all entities in that area and start exchanging 'client views' of their authorized entities with each other. The same way they did at the section overlaps under Static Server Meshing. This way both game servers can make hit detection and collision checks cross game servers without each having to simulate the entities of the other game server.
 
 ![Image](/images/dynamic_server_meshing/image-15.png)
+
 ### Free roaming of entities
 At this point, authority might be handed off anytime to one of the game servers. But it could also be decided that these players stay on their game servers, so it is also very possible that players stay on their assigned game server throughout their whole play session.
 
 Maybe, most of the time, only interacting entities need to be moved onto the same game server (for example reduce server-to-server communication, the need for consensus techniques and ultimately to reduce computational load and save on game servers). For example, entities that travel past each other (like while flying, especially in Quantum Travel) do not need to be moved onto the same game server.
 
 ![Image](/images/dynamic_server_meshing/image-16.png)
+
 ### Free roaming of entities
 When more players are joining the Shard, or there is more activity and load happening (like a big spacebattle), then more game servers can be spun up and connected to the Shard. The players and entities can then be re-distributed across the game servers for optimal load on each.
 
 Likewise, in the case where a game server crashes, a new one can be spun up (or an existing server can take over for a short while), load the entities again and continue the simulation with only a minor disruption to gameplay.
 
 ![Image](/images/dynamic_server_meshing/image-17.png)
+
 ### Free roaming of entities
 As mentioned, the load will be continuously monitored to try to have a smooth player experience and an economically optimal amount of game servers used. The entities of an underutilised game servers may be moved to another underutilised game server, so that one of those game servers can be shutdown down. In our example, the players/entities of the green game server were moved to blue game server, then the green game server shutdown.
 
 ![Image](/images/dynamic_server_meshing/image-18.png)
+
 ### Replication Layer V2 - Hybrid Service's component splitup
 To achieve larger Shards, the individual components of the Hybrid services will be split out into their own servers. The Replicant, Gateway, Atlas and Scribe were components within the Hybrid service, but are then their own services. More types of services have been teased but not elaborated on yet. Once all components are moved out of the Hybrid service, the Hybrid service will likely be removed.
 
 ![Image](/images/dynamic_server_meshing/image-19.png)
+
 ### Replication Layer V2 - Architecture Changes
 Without the Hybrid Service, the backend architecture is going to change, since player clients and game servers wont be able to connect to the Hybrid Service anymore.
 
@@ -1032,6 +1137,7 @@ While there are now more services and network connections, overall, the behaviou
 __Note:__ The name "Replication" stems from data being copied/replicated. "Layer" suggests that the data is passed through a layer before reaching its actual destinations (clients, server nodes and/or databases). A data packet is received, replicated, then send out to multiple, different computers/consumers.
 
 ![Image](/images/dynamic_server_meshing/image-20.png)
+
 ### Replication Layer V2 - Scaleup
 Once this new architecture is working well, the whole thing is going to be scaled up. Meaning, we might have multiple Gateway and multiple Replicant services beween the clients and the game servers. Services may also be added and removed, ideally on-demand to what is happening ingame.
 
@@ -1044,6 +1150,7 @@ All of these connections (and/or subscriptions?) are mostly likely managed by a 
 __Note:__ How many Gateways, Replicants and Server Nodes are required is not known yet. The image shown might therfore not be accurate, as it just tries to visualize the general idea.
 
 ![Image](/images/dynamic_server_meshing/image-21.png)
+
 ### Replicant & Gateway 1/3 - Object Container loading
 The Replicant & Gateway include what could be considered the decision making logic of OCS. Mainly functionality of Network/Entity Bind Culling and Serialized Variables Culling that were introduced as part of Client OCS. If we remember, these were responsible for
 
@@ -1055,6 +1162,7 @@ __Note:__ The loading logic of OCS that actually loads & unloads the entities in
 In the image below we can see the Network/Entity Bind Culling functionality in action. Previously, under OCS, the game server determined which Object Containers it had to load. After the game server had successfully loaded these Object Containers, it then told (some of) the player clients to load those Object Containers as well. Under Server Meshing, the Replicant is going to take over this part for the clients AND game servers. This has the benefit that Object Containers can be loaded on clients and servers in parallel (came online with Alpha 3.17). They dont have to load on the game server first anymore before the client is notified (which was a bottleneck without the Replicant).
 
 ![Image](/images/dynamic_server_meshing/image-22.png)
+
 ### Replicant & Gateway 2/3 - Entity State Network Replication
 The entity state updates from server nodes are send to select clients and other server nodes of the Shard. This was previously determined by Serialized Variable Culling (part of OCS) in the game server logic, but now done by the Replicant service.
 
@@ -1067,12 +1175,14 @@ This allows players to receive entity state updates from multiple server nodes. 
 The Replicant will update the data in its own in-memory cache with the data which was send from the server nodes (with authority) and persist these changes back to the EntityGraph database.
 
 ![Image](/images/dynamic_server_meshing/image-23.png)
+
 ### Replicant & Gateway 3/3 - Player Action Network Replication
 In a similar fashion, the clients send their actions to the Gateway which in turn will relay those to the Replicant. And those Replicants will relay it to the correct server nodes that require this information.
 
 __Speculated:__ It might be that the Gateway service also relays client actions directly to other clients, and not just to the Replicant. This would mean that player actions might end up on each others screen quicker. This would minimize latency until the verification from the server nodes would arrive, which in this case would follow shortly after (if the server node disagreed then the client will have to make rollbacks and adjust the entity state). This might be especially useful in a world-wide shard where the latency to the server node in another datacenter might be higher.
 
 ![Image](/images/dynamic_server_meshing/image-24.png)
+
 ### Multiple Shards
 So far, we have only talked about how the Server Meshing functionality is built up and how the individual services, layers and the overall architecture emerge from it. But it is important to note that each Shard consists of one such architecture. Each Shard will have its own Gateway, Replicant, Scribe and Atlas services, as well as its own server nodes and clients.
 
@@ -1081,6 +1191,7 @@ Multiple such Shards can independently exists at the same time alongside each ot
 Certain data still has to be made available to all Shards tho. This data is stored in the Global Database. It also makes it possible to let players switch between shards.
 
 ![Image](/images/dynamic_server_meshing/image-25.png)
+
 ### Services and Databases
 With this system the universe can be dynamically scaled based on the current activities in the game world. Other services and databases like the StarSim Economy Simulation, Dynamic Mission System, Item Cache, Account Database, etc. will be accessible to all game servers.
 
@@ -1089,14 +1200,17 @@ Ideally, all of these services will be designed in a way that allows them to be 
 Theoretically, with later versions of Dynamic Server Meshing, game servers and Replicant and Gateway services could be geographically re-positioned on-the-fly to another data center where the latency of the currently connected players is the most similar to create a fair playing field for all players by reducing the chance of issues like peekers advantage from occurring. In general, as long as latency is stable and there is not a lot of jitter, network features (such as lag compensation and client side prediction) can guarantee a smooth and fair player experience even with higher latency to servers.
 
 # Single Shard
+
+![Image](/images/milestones/milestone-05.png)
+
 ### Overview
 Even if a first Dynamic Server Meshing has been released, there is still more work left to be done to have it scale up and make a single shard possible.
 
 __Challenges:__
 
-* the early versions of Server Meshing wont be powerful enough just yet to allow all players to play in. the same game world; we will continue to play in a multiverse, albeit less and less over time as shards grow in terms of how many players can support.
+* the early versions of Server Meshing wont be powerful enough just yet to allow all players to play in the same game world; we will continue to play in a multiverse, albeit less and less over time as shards grow in terms of how many players can support.
 
-__Solution:__ Single Shard
+__Solution:__ Single Shard, one game world per region/world through architectural scaleup
 
 __Goals:__
 
@@ -1111,26 +1225,31 @@ __Approach:__
 * This will require further R&D on how to reduce the impact of high cross-region latency.
 * For scenarios where areas have extremely high population, a layering technique might be introduced that puts interacting players into their own layer (speculated: similar to instancing?).
 * Speculated: There might be a time period where CIG will offer one shard per region as well as one world-wide shard. For the developers, this would provide a testbed for global shard tech, while offering the players a choice between an experimental experience in the global shard and a more stable one in the regional ones.
+
 ### From Multiple Shards to Single Shard 1/4 - Static Server Meshing
 Initially- under static server meshing - all shards will be statically meshed. That means multiple, small and equally sized shards. Each region will have its own shards.
 
 Even tho the individual shards are statically meshed, the number of shards can still change. For example, a new shard is spun up whenever more players login and want to play and all other shards are already full.
 
 ![Image](/images/single_shard/image-01.png)
+
 ### From Multiple Shards to Single Shard 2/4 - Dynamic Server Meshing
 Once we have a mature Dynamic Server Meshing version online, shards start to be come larger and can end up being of different sizes, depending on the amount of players/entities and activity inside them. Each region will still have multiple shards.
 
 ![Image](/images/single_shard/image-02.png)
+
 ### From Multiple Shards to Single Shard 3/4- Regional Single Shards
 Once Dynamic Server Meshing becomes powerful enough to support all players of a region, we may have Single Regional Shards. All players of a region will then be playing in the same game world.
 
 ![Image](/images/single_shard/image-03.png)
+
 ### From Multiple Shards to Single Shard 4/4 - World Wide Shard
 Once Single Regional Shards are possible, work can begin on improving the lag compensation techniques. Those reduce perceived effects of latency for the players when playing across regions where latencies of over 200ms are possible. But further R&D is required for this. If it is possible and enjoyable, then all players play in a Single Worldwide Shard.
 
 __Speculated:__ CIG might start offering an optional 'Worldwide Region' that will run alongside the existing regions, so players can choose between the regional and the worldwide shard. And maybe some day, the tech becomes capable enough where only the world-wide shard remains and the regional ones are removed.
 
 ![Image](/images/single_shard/image-04.png)
+
 ### Remaining Technical Limitations: Player Client = The Final Frontier
 One final technical hurdle, that might not be completely overcome without some additional tricks and workarounds in the end, will be the rare scenario where thousands of players/entities are very close to each other and thus directly visible to the player client (like on a large flat surface on a planet). Even tho the game servers might be fine, the CPU/GPU computation on the player client might exceed its limits, resulting in dropping performance.
 
@@ -1142,19 +1261,41 @@ Anyways, in case of such a scenario, this quickly goes into the realm of major s
 
 # Prologue & Summary
 ### Summary
-This concludes our journey to Dynamic Server Meshing. So what did we learn today?
+This concludes our journey to Dynamic Server Meshing. So what did we learn today? (hi jared =D)
 
-__Object Containers:__ Splits the entire level into individual, reusable level building blocks aka Object Containers.
+__Object Containers:__ Complete engine rework that splits the entire level into individual, reusable level building blocks aka Object Containers.
 
-__Client OCS:__ Allows clients to only load and network the nearby level area by being provided a partial view into the server's level.
+__Client OCS:__ Allows clients to only load and network the nearby level areas by being provided a partial view into the server's level.
 
-__Server OCS:__ Allows the game server to only load level areas with players inside by being able to load and unload objects into a database. Essentially the game server has a partial view into the entire level which resides in the database.
+__Server OCS:__ Allows the game server to only load level areas where there are players inside by being able to load and unload objects into a database. Essentially the game server has a partial view into the entire level which resides in the database.
 
 __Persistent Entity Streaming:__ Allows the game objects and their state to persist across time. It introduced a graph database to store and query the data and the Replication Layer service to have a central place for loading, networking and simulation distribution decisions.
 
 __Static Server Meshing:__ Splits the level into a fixed number of sections and computes each one on its own game server. Players are seamlessly transferred between servers when traveling between these sections. Players can look into multiple servers/sections at the same time.
 
-__Dynamic Server Meshing:__ The servers are not fixed to a specific sections of the game world anymore and instead are able to follow their players wherever they go. Game servers can be spun up and down whenever the load demands it, making large shards possible.
+__Dynamic Server Meshing:__ The servers are not fixed to a specific sections of the game world anymore and instead are able to follow their players wherever they go. Game servers can be spun up and down whenever the load demands it, making larger shards possible.
+
+__Single Shard:__ Scaling shards may allow all players of a region to play in the same shard. Maybe even a global shard across shards.
+
+![Image](/images/milestones/milestone-06.png)
+
+
+### Recap of major tech features releasing
+
+* Alpha 2.6 - Jan 2017 - Object Containers (preview/feature parity)
+* Alpha 3.0 - Dec 2017 - Object Containers, Entity Components, 64bit coordidnates, Zone System, planet tech, new render pipeline, and many more (Large Engine Rework) (24 -> 50 players per server)
+* Alpha 3.3 - Nov 2018 - Client OCS
+* Alpha 3.8 - Dec 2019 - Server OCS
+* Alpha 3.8.2 - Feb 2020 - Long Term Persistence DB (later reworked into the Global DB), less wipes between patches
+* Alpha 3.13/3.14 - Apr/Aug 2021 - Preparations for the Replication Layer in the game server code
+* Alpha 3.15 - Nov 2021 - Release of the Global Database, Global Persistence and Physicalized Items and Inventory (uses RL to make backend DB calls)
+* Alpha 3.17 - Apr 2022 - Entity State Networking through the Replication Layer (networking part of OCS moved into RL)
+* Alpha 3.18 - Mar 2023 - Gen12 + EntityGraph Database + OC Loading via Replication Layer (+cache for Global DB queries in EntityGraph services, all of OCS in RL)
+* Alpha 3.23 - May 2024 - Replication Layer moved out of the game server into its own server (Hybrid Service)
+* Tech Channel Previews - 2024 - Static Server Meshing
+* Alpha 3.24 - Aug 2024 - Replication Message Queue Refactor
+* Alpha 4.0 - Dec 2024 - Static Server Meshing with Jumppoints and the Pyro solar system (~150 -> ~600 players per shard)
+* Alpha 4.? - Work In Progress - Dynamic Server Meshing V1
 
 ### Conclusion
 If you made it this far, thank you for reading. I hope that this presentation was able to provide a good overview and a new appreciation for these technologies. As we can see, a lot of work has already been completed and we are getting ever closer to Dynamic Server Meshing for Star Citizen being a reality. Even after the release of Dynamic Server Meshing, all these software systems we talked about will most likely be continuously maintained, iterated over and optimized over many years to keep improving on the player experience and allow for larger Shards.
@@ -1510,9 +1651,7 @@ __Approach:__
 * the game world on the server could now be increased, adding more locations, without requiring clients to load them into memory as well
 # Ship Interior Object Container Streaming
 ### Overview
-__Solution:__ Ship Interior OCS, a sub-feature of OCS and an optimization for clients and servers
-
-__Requirement for:__ Server Meshing
+__Solution:__ Ship Interior OCS, an additional feature for OCS to further optimize clients and servers
 
 __Goals:__
 
@@ -1524,8 +1663,8 @@ __Approach (speculated):__
 * split the exterior and interior of ships into separate Object Containers
 * add additional OCS rules for loading and unloading rooms/zones and/or Object Containers of the ship interiors
 * the player client does not have to load the interior of far away ships anymore
-* speculated: in server meshing, a game servers don't have to load the interior of the ships, which are being computed by another game servers in the mesh/shard
-* speculated: rooms with windows will have a different rule compared to rooms which are deeper inside the ships and/or have no windows
+* speculated: in server meshing, a game servers doesn't have to load the interior of the ships, which are being computed by another game server in the mesh/shard
+* speculated: rooms with windows may need to have a different rule compared to rooms which are deeper inside of ships
 # Long Term Persistence
 ### Overview
 So far, every three months on each major patch the player progress is completely wiped because the database was reset.
@@ -1675,7 +1814,8 @@ __Approach:__
 * Uses best practices for fault tolerance and recovery via data replication and automatic regeneration in case a database instance crashes.
 * This should also help reduce the load on each individual database instance, as data can be replicated/sharded onto separate DB instances.
 * The database instances and the services in front of the database can be scaled freely, independent of game servers and shards.
-* EntityGraph is a graph database: the entities in the game world form a large hierarchy which can be represented as a graph data structure:
+* EntityGraph is a graph database: the entities in the game world form a large hierarchy which can be represented as a directed acyclic graph data structure:
+* EntityGraph uses SST file formats on disk to store the data.
 * Each entity/game object in the game world is represented as nodes in the database, while relationships between entities are edges.
 * Changing state of individual entities as well as changing relationships by adding or deleting edges are both cheap/fast operations in a graph database.
 * Allows entities to be queried based on shard, star system, xyz position, object size and distance to players, entity type and custom labels.
@@ -1819,14 +1959,14 @@ __Requirement for:__ Persistence
 
 __Goals:__
 
-* be able to move game objects in the game world between Shards when the player switches the Shard
+* be able to move game objects - that were freely placed in the game world - between Shards when the player switches to a different Shard
 
 __Approach:__
 
 * "With the introduction of fully persistent shards, items/ships that are left “in the open space” are bound to that shard until a player collects them and stores them into an inventory or parks a ship at a landing location. In order to provide a more frictionless experience we will implement a feature that automatically stores these ‘freely placed’ items from the shard when areas are streamed out, and places them into a different shard when the player logs into a new shard. This allows players to find their freely placed ships/items that are left in the open space regardless of which shard instance they are assigned during login." - Roadmap Deliverable
 * Data in the Global database (stowed items) does not have to be transfered like this as it is already Shard-independent (meaning, it is available to all shards). This moving data between GlobalDB and EntityGraph is a different functionality (Stow & Unstow) which has come online with Alpha 3.18, but has nothing to do with Player Item Shard Transitions.
 * CIG has talked about ideas on how to handle land claims and bases under the multiverse; They would exist across all game worlds, but in an inactive state except in the shard in which the owner plays on.
-# Game Server Crash Recovery & Client Reconnects
+* Speculated: Since around ~2023/2024 (around the introduction of the PES, still need exact date) we are able to bedlog with our ships in interplanetary space. When logging back in later, we might have joined a different shard, but our ship is respawned in the same place we left it when we logged out. This means the ship is being moved between shards, making this a form of Player Item Shard Transitions (not confirmed by CIG themselves, but on a technical deduction from my end). This works by automatically storing the ship into the Global DB from which it can be loaded and spawned again in the same place on a different Shard.# Game Server Crash Recovery & Client Reconnects
 ### Overview
 EntityGraph and the Replication Layer will allow for the recovery of crashed servers and reconnets of disconnected players.
 
@@ -1883,9 +2023,11 @@ __Approach:__
 * Configuration Service: "This service is responsible for real-time distribution of configuration to services and clients."
 * the StarSim Economy Simulator and Virtual AI Service for both Quanta, Virtual NPC and Dynamic Event computation as well as databases related for storing StarSim generated data (probability volumes and values, store commodity prices)
 * Subsumption Service/Server Mission Logic "The porting of core Subsumption mission code to a service and implementation of a select subset of tasks to be used on that service. Includes implementing communication between service and mission logic running on game server."
+* Both the mission logic and the transit system had to be reworked to support Server Meshing.
 * Services Distributed Load Testing System "Development of a distributed load testing tool that can simulate service loads and replicate user behaviours" for testing
 * Chrono Service: "offers a programmatic API for distributed timers and alarms. For example, in the expiry of rental entitlements."
 * Network Operation Center: Seems to be an internal tool for managing a shard/mesh and all its services and databases.
+* Entity-Subscription Service: Seems to allow data to be transferred across two servers. Markers were converted for ship markers.
 # Service Fleet Manager
 ### Overview
 For Server Meshing to come online, there needs to be a manager for all servers and services of a Shard. This is going to be the job of the Fleet Manager (part of Shard Manager?). It is going to start and stop services and servers, statically initially, later dynamically under Dynamic Server Meshing. It is already developed with that dynamic functionality in mind.
@@ -2029,9 +2171,10 @@ __Goals:__
 __Approach:__
 
 * Refactor the existing Networking Message Queue (NMQ) into the updated Replacement/Replication Message Queue (RMQ).
-* Speculated: Split the queues into separate queues. One for game state changes (for real-time processing) and OCS loading notifications (not as much of an issues if a lot of notifications are in the queue).
+* Allow for better parallelization, optimize handling of "dirty variables", optimize OBS binding logic.
+* Speculated: May have also split the queues into separate types of queues. One for game state changes (for real-time processing) and OCS loading notifications (not as much of an issues if a lot of notifications are in the queue).
 * This was tested in Alpha 3.24 (with utilizing AB Testing at the beginning of the patch before it was rolled out to all Shards)
-* This was tested again in a Server Meshing TechPreview Channel Playtestin September 2024. Other causes for high delay were identified.
+* This was tested again in the Server Meshing TechPreview Channel Playtests starting September 2024. Other causes for high delay were identified.
 # Atlas
 ### Overview
 Atlas is one of the components of the initial Hybrid Service, but will be its own scalable service later on.
@@ -2225,9 +2368,10 @@ There has been improvements made throughout the years. One major one might have 
 
 # Layers/Layering
 ### Overview
-__SPECULATED:__ For scenarios where in-game areas are extremely populated, the game might decide to reduce access for other players (like closing jumppoints or AI blockading) or by creating layers that area, meaning that multiple instances of that area exist in parallel within the same shard. Although, it is unclear if this is limited to an area or if the entire game world will be instanced. This solution might take into account friend and foe to put relevant interacting players into the same layer. This would mainly be done to keep the performance on the side of the player client in check. The server side should be fine.
 
-__OTHER INTERPRETATION:__ This might refer to layering of servers and services instead, by which players exchange data with a server in the region of the player (for low latency) and that server exchanges data with a services geographically located in the middle of two regions to exchange data of servers across regions
+The term "layering" has ben mentioned and proposed for high population shards/servers in the 2021 Server Meshing & PES Q&A to help prevent overloading the clients with too much data from too many players. Other possible workarounds were proposed (such as closing jumppoints or AI blockading) but nothing definitive decided yet. Since there was no defintion provided we can only speculate it's meaning:
+
+__SPECULATED:__ For scenarios where in-game areas are extremely populated by creating layers of an area (or an entire shard), meaning that multiple instances of that area/shard exist in parallel within the same shard. Although, it is unclear if this is limited to an area or if the entire game world/shard will be instanced. This solution might take into account friend and foe to put relevant interacting players into the same layer, potentially moving players more or less seamlessly between layers if needed. This would mainly be done to keep the performance on the side of the player client in check. The server side should be fine.
 
 __OR:__ Players of different shards can meet up by layering areas of the game world.
 
@@ -2315,3 +2459,29 @@ StarSim was initially called Quantum (Economy Simulator).
 
 
 
+# Links
+
+### Spectrum Post
+
+Feel free to leave feedback here :)
+
+[https://robertsspaceindustries.com/spectrum/community/SC/forum/3/thread/road-to-dynamic-server-meshing-tech-overview-with-](https://robertsspaceindustries.com/spectrum/community/SC/forum/3/thread/road-to-dynamic-server-meshing-tech-overview-with-)
+
+### Community Hub Post
+
+[https://robertsspaceindustries.com/community-hub/post/unofficial-road-to-dynamic-server-meshing-Pwb4hkkU75pnR](https://robertsspaceindustries.com/community-hub/post/unofficial-road-to-dynamic-server-meshing-Pwb4hkkU75pnR)
+
+
+### Mobile View
+
+[https://sc-server-meshing.info/wiki](https://sc-server-meshing.info/wiki)
+
+
+### GitHub Source Code
+
+[https://github.com/un0btanium/sc-server-meshing](https://github.com/un0btanium/sc-server-meshing)
+
+
+### Support me on Ko-fi
+
+[https://ko-fi.com/Q5Q6CF5CG](https://ko-fi.com/Q5Q6CF5CG)
