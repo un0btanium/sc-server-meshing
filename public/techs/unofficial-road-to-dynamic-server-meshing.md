@@ -1350,6 +1350,10 @@ Wurzel
 
 Sawyer
 
+PraetorArcher
+
+Fidbit
+
 # LUA Removal & C++ Entity Components
 In order for Object Containers to be implemented, there were a few things that needed to be done first.
 
