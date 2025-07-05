@@ -15,3 +15,6 @@ A transistor acts like a switch. But instead of manually switching it by hand - 
 
 When putting multiple transistors together in specific configurations, they create logic gates. And putting multiple logic gates together, one can perform binary math, comparisons, etc.
 
+If you are interested in how exactly this works, here is a great video with visual explanations: [youtube.com/watch?v=_Pqfjer8-O4 - Branch Education - How do Transistors Work?](https://www.youtube.com/watch?v=_Pqfjer8-O4)
+
+And here is another great series: [youtube.com/watch?v=QZwneRb-zqA - Sebastian Lague - Exploring How Computers Work Playlist](https://www.youtube.com/watch?v=QZwneRb-zqA&list=PLFt_AvWsXl0dPhqVsKt1Ni_46ARyiCGSq) 

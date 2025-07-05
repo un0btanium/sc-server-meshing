@@ -15,21 +15,23 @@ __TLDR:__ This journey can be categorized and summarized on a high-level into th
 ![Image](/images/road_to_dynamic_server_meshing_introduction/image-00.png)
 
 
-### Recap of major tech features releasing
+### Recap of major tech features releasing and player count increasing
 
+* Alpha 2.2 - Mar 2016 - ***Increased player count from 16 to 24***
 * Alpha 2.6 - Jan 2017 - Object Containers (preview/feature parity)
-* Alpha 3.0 - Dec 2017 - Object Containers, Entity Components, 64bit coordidnates, Zone System, planet tech, new render pipeline, and many more (Large Engine Rework) (24 -> 50 players per server)
+* Alpha 3.0 - Dec 2017 - ***Increased player count from 24 to 50*** - Object Containers, Entity Components, 64bit coordidnates, Zone System, planet tech, new render pipeline, and many more (Large Engine Rework that started ~2014/2015)
 * Alpha 3.3 - Nov 2018 - Client OCS
 * Alpha 3.8 - Dec 2019 - Server OCS
 * Alpha 3.8.2 - Feb 2020 - Long Term Persistence DB (later reworked into the Global DB), less wipes between patches
 * Alpha 3.13/3.14 - Apr/Aug 2021 - Preparations for the Replication Layer in the game server code
 * Alpha 3.15 - Nov 2021 - Release of the Global Database, Global Persistence and Physicalized Items and Inventory (uses RL to make backend DB calls)
 * Alpha 3.17 - Apr 2022 - Entity State Networking through the Replication Layer (networking part of OCS moved into RL)
+* Alpha 3.17.2 - Jul 2022 - ***Increased player count from 50 to 100-150+, softcap*** - Networking/Netcode Improvements
 * Alpha 3.18 - Mar 2023 - Gen12 + EntityGraph Database + OC Loading via Replication Layer (+cache for Global DB queries in EntityGraph services, all of OCS in RL)
 * Alpha 3.23 - May 2024 - Replication Layer moved out of the game server into its own server (Hybrid Service)
-* Tech Channel Previews - 2024 - Static Server Meshing
+* Multiple Tech Channel Previews - throughout 2024 - tested with up to 1000+ players - Static Server Meshing Testing
 * Alpha 3.24 - Aug 2024 - Replication Message Queue Refactor
-* Alpha 4.0 - Dec 2024 - Static Server Meshing with Jumppoints and the Pyro solar system (~150 -> ~600 players per shard)
+* Alpha 4.0 Preview - Dec 2024 - ***Increased player count from 150+ to 500-600+, softcap*** - Static Server Meshing release, with Jumppoints and the Pyro solar system
 * Alpha 4.? - Work In Progress - Dynamic Server Meshing V1
 
 ### Visual Examples
@@ -63,13 +65,16 @@ A transistor acts like a switch. But instead of manually switching it by hand - 
 
 When putting multiple transistors together in specific configurations, they create logic gates. And putting multiple logic gates together, one can perform binary math, comparisons, etc.
 
+If you are interested in how exactly this works, here is a great video with visual explanations: [youtube.com/watch?v=_Pqfjer8-O4 - Branch Education - How do Transistors Work?](https://www.youtube.com/watch?v=_Pqfjer8-O4)
+
+And here is another great series: [youtube.com/watch?v=QZwneRb-zqA - Sebastian Lague - Exploring How Computers Work Playlist](https://www.youtube.com/watch?v=QZwneRb-zqA&list=PLFt_AvWsXl0dPhqVsKt1Ni_46ARyiCGSq) 
 
 ### Clock Cycles & Clock Speed
 Since electrons require time to flow through the logic gates, to give them enough time to do so, we introduce a CPU clock. And we only check the resulting state at certain time intervals, meaning after each clock cycle.
 
 Depending on the clock speed, modern CPUs can have billions of clock cycles each second. For example a CPU with a clock speed of 4.0 GHz can perform 4.000.000.000 clock cycles per second! That makes each clock cycle last 0.25 nanosecond (that's 0.00000000025 seconds). Light in a vacuum merely travels 7 centimeters in that time span (~2,8 inches).
 
-
+Here is another video that dives into these clocks: [youtube.com/watch?v=oEC5fIw0bL0 - Branch Education - How do Digital and Analog Clocks Work?](https://www.youtube.com/watch?v=oEC5fIw0bL0) 
 ### CPU Instructions
 In each clock cycle, we can tell the CPU what to compute. Rather than having to tell the CPU where electrons need to flow, the CPU provides us with a defined set of instructions, a CPU instruction set, which abstracts all of that low-level hardware stuff away for us. In each clock cycle, we can have the CPU execute one such instruction.
 
@@ -108,6 +113,15 @@ Some more technical background information first! A computer usually consists of
 * Central Processing Unit (CPU)
 * Graphics Processing Unit (GPU)
 * Mainboard
+
+Check out this video for a computer parts deep-dive: [youtube.com/watch?v=d86ws7mQYIg - Branch Education - How does Computer Hardware Work?](https://www.youtube.com/watch?v=d86ws7mQYIg) 
+
+Since we focus more on the engine aspects that are performed on the CPU we are not going into GPUs and the rendering of games much, here are still some good resources on it:
+
+[youtube.com/watch?v=C8YtdC8mxTU - Branch Education - How do Video Game Graphics Work?](https://www.youtube.com/watch?v=C8YtdC8mxTU) 
+
+[youtube.com/watch?v=h9Z4oGN89MU - Branch Education - How do Graphics Cards Work? Exploring GPU Architecture](https://www.youtube.com/watch?v=h9Z4oGN89MU) 
+
 
 ![Image](/images/road_to_dynamic_server_meshing_preamble/image-01.png)
 
@@ -1259,7 +1273,7 @@ A drastic but simple workaround would be to limit the amount of objects to a sma
 
 Anyways, in case of such a scenario, this quickly goes into the realm of major speculation with lots of possible solutions, so I guess we will leave it here and will know more once that point is reached. For the overwhelming majority of situations in the game, the system of Dynamic Server Meshing is expected to perform very well, because other players and objects will be far away or hidden inside buildings and ships and therefore can be hidden from the player client and reduce memory, CPU and GPU load to feasible levels without the need of workarounds.
 
-# Prologue & Summary
+# Epilog & Summary
 ### Summary
 This concludes our journey to Dynamic Server Meshing. So what did we learn today? (hi jared =D)
 
@@ -1280,21 +1294,23 @@ __Single Shard:__ Scaling shards may allow all players of a region to play in th
 ![Image](/images/milestones/milestone-06.png)
 
 
-### Recap of major tech features releasing
+### Recap of major tech features releasing and player count increasing
 
+* Alpha 2.2 - Mar 2016 - ***Increased player count from 16 to 24***
 * Alpha 2.6 - Jan 2017 - Object Containers (preview/feature parity)
-* Alpha 3.0 - Dec 2017 - Object Containers, Entity Components, 64bit coordidnates, Zone System, planet tech, new render pipeline, and many more (Large Engine Rework) (24 -> 50 players per server)
+* Alpha 3.0 - Dec 2017 - ***Increased player count from 24 to 50*** - Object Containers, Entity Components, 64bit coordidnates, Zone System, planet tech, new render pipeline, and many more (Large Engine Rework that started ~2014/2015)
 * Alpha 3.3 - Nov 2018 - Client OCS
 * Alpha 3.8 - Dec 2019 - Server OCS
 * Alpha 3.8.2 - Feb 2020 - Long Term Persistence DB (later reworked into the Global DB), less wipes between patches
 * Alpha 3.13/3.14 - Apr/Aug 2021 - Preparations for the Replication Layer in the game server code
 * Alpha 3.15 - Nov 2021 - Release of the Global Database, Global Persistence and Physicalized Items and Inventory (uses RL to make backend DB calls)
 * Alpha 3.17 - Apr 2022 - Entity State Networking through the Replication Layer (networking part of OCS moved into RL)
+* Alpha 3.17.2 - Jul 2022 - ***Increased player count from 50 to 100-150+, softcap*** - Networking/Netcode Improvements
 * Alpha 3.18 - Mar 2023 - Gen12 + EntityGraph Database + OC Loading via Replication Layer (+cache for Global DB queries in EntityGraph services, all of OCS in RL)
 * Alpha 3.23 - May 2024 - Replication Layer moved out of the game server into its own server (Hybrid Service)
-* Tech Channel Previews - 2024 - Static Server Meshing
+* Multiple Tech Channel Previews - throughout 2024 - tested with up to 1000+ players - Static Server Meshing Testing
 * Alpha 3.24 - Aug 2024 - Replication Message Queue Refactor
-* Alpha 4.0 - Dec 2024 - Static Server Meshing with Jumppoints and the Pyro solar system (~150 -> ~600 players per shard)
+* Alpha 4.0 Preview - Dec 2024 - ***Increased player count from 150+ to 500-600+, softcap*** - Static Server Meshing release, with Jumppoints and the Pyro solar system
 * Alpha 4.? - Work In Progress - Dynamic Server Meshing V1
 
 ### Conclusion
