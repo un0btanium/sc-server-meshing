@@ -59,7 +59,7 @@ export default function Tech(props) {
 	useEffect(() => {
 		setCurrentSlideIndex(searchParams.has('neo') ? 0 : currentSlideIndex === 1000 ? 2000 : 1000);
 		setMarkup(new Set());
-		if (tech.title == "Prologue & Summary" && currentSlideIndex === 0) {
+		if (tech.title == "Epilogue & Summary" && currentSlideIndex === 0) {
 			setCurrentSlideIndex(1);
 		}
 	}, [paramTech]);
@@ -70,8 +70,8 @@ export default function Tech(props) {
 	if (searchParams.has('neo')) {
 		let nextLink = "/?nextTech=" + encodeURIComponent(nextTech);
 		if (currentTech === "Single Shard") {
-			nextLink = "/wiki?tech=" + encodeURIComponent("Prologue & Summary") + "&neo";
-		} else if (currentTech === "Prologue & Summary") {
+			nextLink = "/wiki?tech=" + encodeURIComponent("Epilogue & Summary") + "&neo";
+		} else if (currentTech === "Epilogue & Summary") {
 			nextLink = "/wiki?tech=" + encodeURIComponent("Special Thanks") + "&neo";
 		} else if (currentTech === "Sources") {
 			nextLink = "/";

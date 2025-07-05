@@ -3,3 +3,4 @@ Since electrons require time to flow through the logic gates, to give them enoug
 
 Depending on the clock speed, modern CPUs can have billions of clock cycles each second. For example a CPU with a clock speed of 4.0 GHz can perform 4.000.000.000 clock cycles per second! That makes each clock cycle last 0.25 nanosecond (that's 0.00000000025 seconds). Light in a vacuum merely travels 7 centimeters in that time span (~2,8 inches).
 
+Here is another video that dives into these clocks: [youtube.com/watch?v=oEC5fIw0bL0 - Branch Education - How do Digital and Analog Clocks Work?](https://www.youtube.com/watch?v=oEC5fIw0bL0) 

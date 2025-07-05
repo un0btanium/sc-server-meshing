@@ -136,5 +136,10 @@
 	"pes2023": {"url":"https://robertsspaceindustries.com/comm-link/transmission/19848-Letter-From-The-Chairman","description": "on PES and Replication Layer Split Release", "category": "Letter from the Chairman"},
 	"ih": {"url":"https://robertsspaceindustries.com/comm-link/Patch-Notes/20087-Star-Citizen-Alpha-3240","description": "Alpha 3.24 - Instanced Hangar Release", "category": "Patchnote"},
 	"bq&a": {"url":"https://www.reddit.com/r/starcitizen/comments/1g9n68i/interview_with_beno%C3%AEt_beaus%C3%A9jour_at_citcon_2954/","description": "Server Meshing and Networking Q&A with Benoit", "category": "Interview Transcript"},
-	"iscrmq": {"url":"https://youtu.be/Mgbgp4pRSJ4?si=ZpIqiyjylcS_IQUg","description": "Inside Star Citizen: Alpha 4.0 - Meshing Forward - on Tech Preview Tests, RMQ, Dirty Variables and Binding Optimizations", "category": "Youtube"}
+	"iscrmq": {"url":"https://youtu.be/Mgbgp4pRSJ4?si=ZpIqiyjylcS_IQUg","description": "Inside Star Citizen: Alpha 4.0 - Meshing Forward - on Tech Preview Tests, RMQ, Dirty Variables and Binding Optimizations", "category": "Youtube"},
+
+	"pnpc22": {"url":"https://robertsspaceindustries.com/en/comm-link//15211-Star-Citizen-Alpha-220#:~:text=instance%20of%20Crusader-,from%2016%20to%2024.,-The%20scale%20of","description": "Alpha 2.2 - Player Amount increased from 16 to 24", "category": "Patchnote"},
+	"pnpc30": {"url":"https://robertsspaceindustries.com/en/comm-link/transmission/16349-Star-Citizen-Alpha-300#:~:text=Increased%20player%2Dcap%20to%2050.","description": "Alpha 3.0 - Player Amount increased from 24 to 50", "category": "Patchnote"},
+	"pnpc3172": {"url":"https://robertsspaceindustries.com/en/comm-link/transmission/18734-Play-Alpha-3172-Today#:~:text=HIDE%20DESCRIPTION-,INCREASED%20PLAYER%20CAP,-READ%20MORE","description": "Alpha 3.17.2 - Player Amount increased from 50 to 100+, softcap", "category": "Patchnote"},
+	"pnpc40": {"url":"https://robertsspaceindustries.com/en/comm-link/Patch-Notes/20360-Star-Citizen-Alpha-40#:~:text=5%3A5%3A500%20Player%20Shards","description": "Alpha 4.0 Preview - Player Amount increased from 100+ to 500+, softcap", "category": "Patchnote"}
 }

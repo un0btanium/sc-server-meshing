@@ -9,7 +9,12 @@
         "title": "Road to Dynamic Server Meshing - Introduction",
         "markupFileName": "road_to_dynamic_server_meshing_introduction",
         "slideAmount": 3,
-        "sources": []
+        "sources": [
+            "pnpc22",
+            "pnpc30",
+            "pnpc3172",
+            "pnpc40"
+        ]
     },
     {
         "title": "Road to Dynamic Server Meshing - Preamble",
@@ -152,10 +157,15 @@
         ]
     },
     {
-        "title": "Prologue & Summary",
-        "markupFileName": "prologue_&_summary",
+        "title": "Epilogue & Summary",
+        "markupFileName": "epilogue_&_summary",
         "slideAmount": 2,
-        "sources": []
+        "sources": [
+            "pnpc22",
+            "pnpc30",
+            "pnpc3172",
+            "pnpc40"
+        ]
     },
     {
         "title": "Special Thanks",
