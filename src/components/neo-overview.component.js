@@ -135,7 +135,7 @@ export default function NeoOverview(props) {
 								<h2 id="other_tech_header">Other Tech</h2>
 								{createTechBox("Projectile Manager", "box-sm", "bg-green")}
 								{createTechBox("Actor Networking Rework", "box-sm", "bg-green")}
-								{createTechBox("Subsumption AI", "box-sm", "bg-green")}
+								{createTechBox("StarScript", "box-sm", "bg-green")}
 								{createTechBox("StarSim", "box-sm", "bg-green")}
 							</div>
 						</div>
@@ -268,6 +268,9 @@ export default function NeoOverview(props) {
 								{createTechBox("Dynamic Server Meshing V2", "box-sm", "bg-red")}
 								{createTechBox("Dynamic Server Meshing V1", "box-sm", "bg-blue-light")}
 								{createTechBox("Entity Authority Load Balancer", "box-sm", "bg-blue-light")}
+								{createTechBox("Quasi-Dynamic Server Meshing", "box-sm", "bg-green")}
+								{createTechBox("Instancing", "box-xsm", "bg-green")}
+								{createTechBox("Transport Rework", "box-xsm", "bg-green")}
 							</div>
 						</div>
 

@@ -86,6 +86,7 @@
 	"mr6": {"url":"https://robertsspaceindustries.com/comm-link/transmission/19364-Star-Citizen-Monthly-Report-June-2023","description": "June 2023 - Cooperative Threading Model", "category": "Monthly Report"},
 	"mr7": {"url":"https://robertsspaceindustries.com/comm-link/transmission/20220-Star-Citizen-Monthly-Report-September-2024","description": "September 2024 - Markers using Entity-Subscription Service for Server Meshing", "category": "Monthly Report"},
 	"pn30": {"url":"https://robertsspaceindustries.com/en/comm-link/transmission/16348-Star-Citizen-Alpha-300","description": "Alpha 3.0 - Engine Rework with Object Containers and many more reworks", "category": "Patchnote"},
+	"mr8": {"url":"https://robertsspaceindustries.com/en/comm-link/transmission/21281-Star-Citizen-Monthly-Report-July-2026","description": "Transport System Rework, Quasi-Dynamic Server Meshing", "category": "Monthly Report"},
 	"pn33": {"url":"https://robertsspaceindustries.com/comm-link//16840-Star-Citizen-Alpha-330","description": "Alpha 3.3 - Client OCS Release", "category": "Patchnote"},
 	"pn335": {"url":"https://robertsspaceindustries.com/comm-link//16870-Star-Citizen-Alpha-335","description": "Alpha 3.3.5 - Client OCS Release", "category": "Patchnote"},
 	"pn38": {"url":"https://robertsspaceindustries.com/comm-link//17413-Star-Citizen-Alpha-380","description": "Alpha 3.8 - Server OCS Release", "category": "Patchnote"},
@@ -93,7 +94,9 @@
 	"pn317": {"url":"https://robertsspaceindustries.com/comm-link/transmission/18636-Star-Citizen-Alpha-3170","description": "Alpha 3.17 - Client Bind Culling in the Replication Layer", "category": "Patchnote"},
 	"pn318": {"url":"https://robertsspaceindustries.com/comm-link/transmission/19126-Star-Citizen-Alpha-3180","description": "Alpha 3.18 - Persistent Entity Streaming Release", "category": "Patchnote"},
 	"pn323": {"url":"https://robertsspaceindustries.com/comm-link//19915-Star-Citizen-Alpha-3230","description": "Alpha 3.23 - Replication Layer Split", "category": "Patchnote"},
+	"pn324": {"url":"https://robertsspaceindustries.com/en/comm-link/Patch-Notes/20087-Star-Citizen-Alpha-3240","description": "Alpha 3.24 - Instanced Hangars", "category": "Patchnote"},
 	"pn40": {"url":"https://robertsspaceindustries.com/comm-link/Patch-Notes/20360-Star-Citizen-Alpha-40","description": "Alpha 4.0 - Static Server Meshing", "category": "Patchnote"},
+	"pn410": {"url":"https://robertsspaceindustries.com/en/comm-link/Patch-Notes/21293-Star-Citizen-Alpha-410","description": "Alpha 4.10 - Server Instancing, Quasi-Dynamic Server Meshing", "category": "Patchnote"},
 	"tw1": {"url":"https://twitter.com/DrChadMcKinney/status/1447665963738951684","description": "on Server Meshing & Regional Shards", "category": "Twitter"},
 	"mdb1": {"url":"https://severalnines.com/database-blog/overview-mongodb-and-load-balancing", "description": "MongoDB Sharding", "category": "Documentation"},
 	"mdb2": {"url":"https://docs.mongodb.com/manual/geospatial-queries/", "description": "MongoDB Spatial Queries", "category": "Documentation"},
@@ -141,5 +144,14 @@
 	"pnpc22": {"url":"https://robertsspaceindustries.com/en/comm-link//15211-Star-Citizen-Alpha-220#:~:text=instance%20of%20Crusader-,from%2016%20to%2024.,-The%20scale%20of","description": "Alpha 2.2 - Player Amount increased from 16 to 24", "category": "Patchnote"},
 	"pnpc30": {"url":"https://robertsspaceindustries.com/en/comm-link/transmission/16349-Star-Citizen-Alpha-300#:~:text=Increased%20player%2Dcap%20to%2050.","description": "Alpha 3.0 - Player Amount increased from 24 to 50", "category": "Patchnote"},
 	"pnpc3172": {"url":"https://robertsspaceindustries.com/en/comm-link/transmission/18734-Play-Alpha-3172-Today#:~:text=HIDE%20DESCRIPTION-,INCREASED%20PLAYER%20CAP,-READ%20MORE","description": "Alpha 3.17.2 - Player Amount increased from 50 to 100+, softcap", "category": "Patchnote"},
-	"pnpc40": {"url":"https://robertsspaceindustries.com/en/comm-link/Patch-Notes/20360-Star-Citizen-Alpha-40#:~:text=5%3A5%3A500%20Player%20Shards","description": "Alpha 4.0 Preview - Player Amount increased from 100+ to 500+, softcap", "category": "Patchnote"}
+	"pnpc40": {"url":"https://robertsspaceindustries.com/en/comm-link/Patch-Notes/20360-Star-Citizen-Alpha-40#:~:text=5%3A5%3A500%20Player%20Shards","description": "Alpha 4.0 Preview - Player Amount increased from 100+ to 500+, softcap", "category": "Patchnote"},
+	
+	"qdsm0": {"url":"https://www.youtube.com/watch?v=lPaDb5rh0tE","description": "Star Citizen Live - 09/2025 Tech Talk: Instances with Quasi-Dynamic Server Meshing", "category": "Youtube"},
+	"qdsm1": {"url":"https://www.youtube.com/watch?v=k1bXLQ5U-w8","description": "Star Citizen Live - 02/2026 Tech Talk: Instances with Quasi-Dynamic Server Meshing", "category": "Youtube"},
+	"qdsm2": {"url":"https://www.youtube.com/watch?v=1wStKk8AAJY","description": "Inside CIG - Alpha 4.10 Siege of Orison & Instancing", "category": "Youtube"},
+	"qdsm3": {"url":"https://robertsspaceindustries.com/en/comm-link/transmission/21301-Letter-From-The-Chairman","description": "on Alpha 4.10, Instancing, Quasi-Dynamic Server Meshing, Developer count, development clarifications", "category": "Letter from the Chairman"},
+
+	"tsr1": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/4/thread/tech-preview-transport-system-1/8771741","description": "Transport System Rework - Tech Preview", "category": "Spectrum"},
+	"tsr2": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/190049/thread/tech-preview-transport-system","description": "Transport System Rework - Test 1", "category": "Spectrum"},
+	"tsr3": {"url":"https://robertsspaceindustries.com/spectrum/community/SC/forum/190049/thread/tech-preview-transport-system-test-2","description": "Transport System Rework - Test ", "category": "Spectrum"}
 }

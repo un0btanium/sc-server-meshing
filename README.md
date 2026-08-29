@@ -2,9 +2,9 @@
 
 ## Links
 
-Traditonal Presentation Mode: https://sc-server-meshing.info
+Presentation Mode: https://sc-server-meshing.info
 
-New Wiki/Mobile Mode: https://sc-server-meshing.info/wiki
+Wiki/Mobile Mode: https://sc-server-meshing.info/wiki
 
 
 ## Install

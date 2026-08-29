@@ -131,7 +131,8 @@
             "bq&a",
             "iscrmq",
             "lc3",
-            "pn40"
+            "pn40",
+            "qdsm0"
         ]
     },
     {
@@ -183,7 +184,8 @@
             "atv7",
             "rtv1",
             "hh1",
-            "s120"
+            "s120",
+            "qdsm1"
         ]
     },
     {
@@ -338,7 +340,8 @@
             "s122",
             "s123",
             "cad1",
-            "jp2"
+            "jp2",
+            "qdsm1"
         ]
     },
     {
@@ -665,7 +668,43 @@
             "rlsu",
             "RLhybrid",
             "rlftu",
-            "pes2023"
+            "pes2023",
+            "qdsm0"
+        ]
+    },
+    {
+        "title": "Transport Rework",
+        "markupFileName": "transport_system_rework",
+        "slideAmount": 1,
+        "sources": [
+            "qdsm1",
+            "tsr1",
+            "tsr2",
+            "tsr3"
+        ]
+    },
+    {
+        "title": "Instancing",
+        "markupFileName": "instancing",
+        "slideAmount": 1,
+        "sources": [
+            "pn324",
+            "pn410",
+            "qdsm2",
+            "qdsm3"
+        ]
+    },
+    {
+        "title": "Quasi-Dynamic Server Meshing",
+        "markupFileName": "quasi_dynamic_server_meshing",
+        "slideAmount": 1,
+        "sources": [
+            "dsm0",
+            "dsm1",
+            "dsm2",
+            "dsm3",
+            "pn410",
+            "mr8"
         ]
     },
     {
@@ -673,7 +712,9 @@
         "markupFileName": "entity_authority_load_balancer",
         "slideAmount": 1,
         "sources": [
-            "dsm1"
+            "dsm1",
+            "dqsm0",
+            "mr8"
         ]
     },
     {
@@ -755,8 +796,8 @@
         ]
     },
     {
-        "title": "Subsumption AI",
-        "markupFileName": "subsumption_ai",
+        "title": "StarScript",
+        "markupFileName": "starscript",
         "slideAmount": 1,
         "sources": [
             "10c1",
