@@ -1,10 +1,10 @@
-# Subsumption AI
+# Star Script
 ### Overview
 __Challenges:__
 
 * since Star Citizen universe plans to feature 9 times more NPCs than players as its population, with NPCs being able to perform most jobs and going about their daily lives, the game needs an extensive AI system to accomplish that
 
-__Solution:__ Subsumption AI architecture
+__Solution:__ Star Script (original known as Subsumption AI)
 
 __Goals:__
 

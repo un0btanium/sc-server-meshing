@@ -37,6 +37,7 @@ __Approach:__
 * The area of these sections stays fixed/static, as well as the amount of game servers that compute the same game world stays fixed.
 * Design for Server Meshing was changed end of 2020/early 2021 to utilize the Replication Layer as a 'middle man' service (instead of using direct server-to-server communication which may have failed to provide the required performance).
 * The first version released as part of the Alpha 4.0 Preview together with Pyro. Each solar system was split and run by 5 game servers for a total of 10 game servers for 500 players.
+* early 4.X shards configuration Stanton:Pyro:Players ended up being 7:3:600 (soft cap?)
 
 ### Initial Situation
 With the first versions of Object Container Streaming (OCS) for both client and server done, we are finally able to move onto the initial goal: Server Meshing. Even with the OCS software systems in place, it is not possible to increase the player count to thousand of players nor add tens of thousands of objects into the game world to make 100+ detailed solar systems a reality. A single game server alone is simply not powerful enough.

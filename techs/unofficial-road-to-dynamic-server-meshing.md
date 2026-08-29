@@ -760,6 +760,7 @@ __Approach:__
 * The area of these sections stays fixed/static, as well as the amount of game servers that compute the same game world stays fixed.
 * Design for Server Meshing was changed end of 2020/early 2021 to utilize the Replication Layer as a 'middle man' service (instead of using direct server-to-server communication which may have failed to provide the required performance).
 * The first version released as part of the Alpha 4.0 Preview together with Pyro. Each solar system was split and run by 5 game servers for a total of 10 game servers for 500 players.
+* early 4.X shards configuration Stanton:Pyro:Players ended up being 7:3:600 (soft cap?)
 
 ### Initial Situation
 With the first versions of Object Container Streaming (OCS) for both client and server done, we are finally able to move onto the initial goal: Server Meshing. Even with the OCS software systems in place, it is not possible to increase the player count to thousand of players nor add tens of thousands of objects into the game world to make 100+ detailed solar systems a reality. A single game server alone is simply not powerful enough.
@@ -1380,7 +1381,7 @@ __Challenges:__
 * a lot of the game logic was written in the script language LUA which made it impossible to run the game logic multi-thread safe but is a requirement to run parts of the game code in parallel on other CPU cores
 * dynamic objects (or also known under the term "entities") and their game logic was written in large, monolithic code classes which makes it difficult to maintain, expand and multi-thread the code
 
-__Solution:__ Replace the old LUA game logic code with a new Entity Component architecture in C++ (speculated: not to be confused with an Entity Component System architecture) (may also be known as Item 2.0) (also not to be confused with ship components)
+__Solution:__ Replace the old LUA game logic code with a new Entity Component architecture in C++ (also known as Item 2.0) (not to be confused with ship components) (not to be confused with an Entity Component System architecture)
 
 __Requirement for:__ Object Containers
 
@@ -1391,9 +1392,10 @@ __Goals:__
 __Approach:__
 
 * the monolithic LUA code was converted into a C++ Entity Component where individual behaviors in the game are put into each their own components which could then be easily attributed to any entity
-* in October 2019 they had between 300 to 400 individual components implemented and available
 * each entity is then composed out of multiple components
 * this new game logic written in C++ allows for safe multi-threaded code execution (game simulation, more about this in the Multithreaded Loading & Execution topic)
+* in October 2019 they had between 300 to 400 individual components implemented and available
+* in February 2026 they had 1500 to 2000 components in total
 # Multi-Threaded Loading & Execution
 ### Overview
 In any game there are many Resources (e.g. textures, geometry meshes), which have to all be loaded into memory.
@@ -1714,7 +1716,7 @@ __Approach:__
 * Alpha 3.15 also came with an interim implementation for Server Crash Recovery specifically for ships. This was done by checking the Replication Layer cache (containing a snapshot of the physicalized ship entity of the crashed server) for all player ships. Those ships are then stowed into the Global Database (LTP). From there, it then can be spawned again on any server at a ship terminal. The interior (including cargo) is spawned and available as well. This was a first workaround before the actual server crash recovery that will allow us to keep playing exactly where the game left us of (e.g. inside our ship while Quantum Travelling).
 * Alpha 3.18 introduced multiple quality of life improvement, one of which being stacking of similar items and a "tranfers all" button.
 * September 2024: Version LTP 2.0 worked toward with various improvements to persist more aspects across patches.
-# Entity Streaming Manager & StarHash
+* 2025/2026: Reworking LTP: Proper migration solution across patches to keep database state without having to rebuild from "entitlements". Differentiate different state that is critical vs. non-critical to be migrated.# Entity Streaming Manager & StarHash
 ### Overview
 Without Server OCS, the entire game world was always loaded in memory on the server in the in-process database.
 
@@ -2325,11 +2327,63 @@ __Approach/Goals:__
 * The Hybrid service consists of the Replication Layer logic (later Replicant & Gateway services).
 * First version tested in a 3.21.X Preview Channel.
 * It was released with 3.23.0 to Live PU, enabling Server Crash Recovery.
-# Entity Authority Load Balancer
+* Various Hybrid Improvements were implemented in the early 4.X patches, especially to ensure that network packets get relayed properly and as fast as possible# Transport System Rework
+### Overview
+__Challenges:__
+
+* the old systems running elevators, trams and other means of transportation were unreliable and buggy and not useable for Dynamic Server Meshing and Instancing.
+
+__Solution:__ Transport System Rework
+
+__Goals:__
+
+* create a completely new, unifed system for all types of transport with Dynamic Server Meshing and Instancing support in mind
+
+__Approach:__
+
+* The Transport System is a complete rewrite of the Transit System, which governs all communal transport across Star Citizen such as Trams, Trains, Monorails and Elevators in addition to those within vehicles. While the Transit System served its purpose at the time and for a large portion of Star Citizen’s development, it has been unable to efficiently keep up with the latest technological advancements such as Server Meshing, Streaming and Instancing. Transport has been built with all of this and future development in mind.
+* This was part of an initiative to move all sorts of services toward "meshing-native solutions" that are compatible with Server Meshing (such as quantum travel interdiction, group jumping, cross-shard quest status sharing, etc.) which were worked on throughout 2025 and 2026. This also included a Marker Service for cross server/cross solar system markers (Entity Cluster Service).# Instancing
+### Overview
+
+__Solution:__ Instancing
+
+__Goals:__
+
+* introducing instancing of areas to the MMO
+
+__Approach:__
+
+* First introduced with instanced hangars in Alpha 3.24.
+  * "Introduction of new tech that creates an instance of the player's hangar to allow for uninterrupted management of cargo, inventory, and vehicles. Personal hangars are found at the player's home location and allow for customization and organization of the hangar interior."
+  * "All hangar types are instanced, meaning they are able to physically stack on each other in the same location without interference. All hangar types have ASOP terminals, Item Banks, and Freight Elevators (SCU fright amount depends on hangar size). All hangar types have ship elevator platforms which will lower when players request a ship to be spawned. Any ships already on the platform will be lowered and then stored via asop. All hangar types should be accessible to party members of the Hangar owner."
+  * "Any items, decorations, and vehicles left inside the Hangar should persist as well as recover their state and move to new shards after a crash recovery, though objects will be cleaned up if left on the ship loading elevator."
+* In a later version (Alpha 4.10) this was extended to allow instances to be created on separate game servers.
+  * first introduced in Alpha 4.10 with Siege of Orison being reworked as a 4 player squad instanced experience.
+  * these instances can be PvE (Siege of Orison) or PvP (e.g. Contested Zones) (or likely even something inbetween PvPvE)
+  * an Instance Manager was introduced# Quasi-Dynamic Server Meshing
+### Overview
+
+__Solution:__ Quasi-Dynamic Server Meshing
+
+__Goals:__
+
+* Introduce Instancing for isolated, custom-tailored gameplay experiences
+* Provide better performance by spawning these instances onto separate game servers
+* dynamic startup and startup functionality of game servers and instances
+
+__Approach:__
+
+* Use the new Transport System and Instancing logic to implement Instancing tech that puts players onto separate game servers while still being physically in the same Shard.
+* Introduce Instance Manager to keep track of instances and their lifetime.
+* Already requires lots of dynamic functionality such as moving authority across different game servers on-demand and error-free.
+* First introduced in Alpha 4.10 with Siege of Orison being reworked as a 4 player squad instanced experience.
+* These instances can be PvE (Siege of Orison) or PvP (e.g. Contested Zones) (or likely even something inbetween PvPvE)# Entity Authority Load Balancer
 ### Overview
 For Server Meshing to become dynamic, there needs to be some kind of logic implemented that will automatically decide how authority over entities is distributed across the game servers. Because under Dynamic Server Meshing, game servers are not supposed to be assigned fixed locations to simulate, and instead are allowed to follow their players around, loading and simulating any part of the game world the players visits. The rule that only one game server is able to have authority over an entity still applies, so server-to-server communication can also happen anywhere in the game world, not just at the predefined borders, like under Static Server Meshing.
 
-However, not a lot is known about this feature and in which form it will be implemented (e.g. utilizing a clustering algorithm).
+However, not a lot is known about this feature and in which form it will be implemented (e.g. utilizing a clustering algorithm). We do know that they can group Streaming-Groups into "Territories" and those Territories are then (re)assigned to game servers.
+
+During early 4.x patches, functionality was introduced to get more stats about each individual zones and areas to later be able to better assign servers to them. "Progress was also made on a smarter way to divide the game world into regions that can each be handled by their own server, including support for grid-based spatial mapping that makes it easier to pinpoint exactly which servers should be responsible for specific areas of space."
 
 __Speculated:__ This might also be the functionality of the Atlas service which might take over the role of not only keeping track of authority but also deciding how it should the game world should be split.
 
@@ -2443,13 +2497,13 @@ __Approach:__
 * the actor delay will be reduced to something reasonable (~66ms), with improve dead reckoning and state processing
 * update: that delay has now been made dynamic, meaning that it will be lowered on low latency connections automatically
 * Alpha 3.17.2 "Enabled new remote movement and new server authoritative position systems. With this update, players should see great improvements with on foot player positions and less jittery behavior while viewing remote player movements."
-# Subsumption AI
+# Star Script
 ### Overview
 __Challenges:__
 
 * since Star Citizen universe plans to feature 9 times more NPCs than players as its population, with NPCs being able to perform most jobs and going about their daily lives, the game needs an extensive AI system to accomplish that
 
-__Solution:__ Subsumption AI architecture
+__Solution:__ Star Script (original known as Subsumption AI)
 
 __Goals:__
 

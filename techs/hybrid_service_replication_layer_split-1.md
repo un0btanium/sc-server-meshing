@@ -24,3 +24,4 @@ __Approach/Goals:__
 * The Hybrid service consists of the Replication Layer logic (later Replicant & Gateway services).
 * First version tested in a 3.21.X Preview Channel.
 * It was released with 3.23.0 to Live PU, enabling Server Crash Recovery.
+* Various Hybrid Improvements were implemented in the early 4.X patches, especially to ensure that network packets get relayed properly and as fast as possible
